@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaRegHandPointUp } from "react-icons/fa";
+import { FaHandPointUp } from "react-icons/fa";
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -31,7 +31,7 @@ const BackToTop = () => {
           onClick={scrollToTop}
           className="fixed rounded-full bottom-5 right-5 bg-black border-none opacity-30 w-20 h-20 text-center cursor-pointer shadow-lg text-white text-4xl pl-5"
         >
-          <FaRegHandPointUp className=""/>
+          <FaHandPointUp className=""/>
         </button>
       )}
     </div>
