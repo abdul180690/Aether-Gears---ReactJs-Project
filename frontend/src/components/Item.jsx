@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const Item = ({product}) => {
 const [hovered, setHovered] = useState(false)
   return (
-    <div className='overflow-hidden border border-slate-200 p-1 rounded-xl'>
+    <div className='overflow-hidden border border-slate-200 p-1 rounded-xl boxShadow'>
         <Link to={`/product/${product._id}`} 
         onMouseEnter={()=>setHovered(true)}
         onMouseLeave={()=>setHovered(false)}
