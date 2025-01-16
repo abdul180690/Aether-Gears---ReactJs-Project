@@ -3,7 +3,7 @@ import { FaXTwitter, FaFacebook, FaInstagram } from 'react-icons/fa6'
 
 const NewsLetter = () => {
   return (
-    <section className='max-padd-container border-t-[1px] border-b-[1px] border-primary py-4'>
+    <section className='max-padd-container border-t-[1px] py-4'>
       <div className='flexBetween flex-wrap gap-7'>
         <div>
           <h4 className='bold-14 uppercase tracking-wider'>Subscribe newsletter</h4>
