@@ -4,7 +4,7 @@ import Navbar from './Navbar'
 import { FaBars, FaBarsStaggered } from 'react-icons/fa6'
 import { TbUserCircle } from 'react-icons/tb'
 import { RiUserLine } from 'react-icons/ri'
-import logo from '../assets/logo_light.png'
+import logo from '../assets/icon.png'
 
 const Header = () => {
     const [menuOpened, setMenuOpened] = useState(false);
@@ -12,9 +12,9 @@ const Header = () => {
     const toggleMenu = ()=> setMenuOpened((prev)=> !prev)
     
   return (
-    <header className='max-padd-container w-full mb-2 bg-amber-200'>
+    <header className='max-padd-container w-full mb-2 bg-blue-700'>
         <div className='flexBetween py-3'>
-            <Link to={'/'} className='flex flex-1 bold-24 xl:bold-28 items-center'> <span className='me-3'><img src={logo} alt="" className='w-10 h-10'/></span>AETHER GEARS</Link>
+            <Link to={'/'} className='flex flex-1 bold-24 xl:bold-28 items-center text-white '> <span className='me-3'><img src={logo} alt="" className='w-10 h-10'/></span>Aether Gears</Link>
             <div className='flex-1 '>
                 <Navbar 
                 containerStyles={`${
