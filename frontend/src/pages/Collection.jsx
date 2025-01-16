@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Search from '../components/Search'
 import { ShopContext } from '../context/ShopContext'
 import Item from '../components/Item'
+import Footer from '../components/Footer'
 
 const Collection = () => {
 const {products, search} = useContext(ShopContext)
@@ -61,6 +62,8 @@ const getPaginatedProducts = () => {
 const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   return (
+    <>
+    
     <div className='max-padd-container !px-0'>
       <div className='flex flex-col sm:flex-row gap-8 mb-16'>
         <div className='min-w-72 bg-primary p-4 pt-18 pl-6 lg:pl-12'>
@@ -131,6 +134,8 @@ const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
         </div>
       </div>
     </div>
+    <Footer />
+    </>
   )
 }
 
