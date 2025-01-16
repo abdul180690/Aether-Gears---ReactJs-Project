@@ -1,11 +1,13 @@
 import React from "react";
 import cards from "../assets/cards.png"
 import logo from '../assets/logo_dark.png'
+import netbanking from '../assets/netbanking.png'
+import cod from '../assets/cod.png'
 
 
 const Footer = () => {
   return (
-    <footer className="border-t-[1px]">
+    <footer className="border-t-[1px] bg-blue-100">
       <div className="max-padd-container flex items-start justify-between flex-wrap gap-12 mt-12">
         {/* logo - Left side */}
         <div className="flex flex-col max-w-sm gap-y-5">
@@ -18,7 +20,11 @@ const Footer = () => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas
             earum reprehenderit possimus!
           </p>
-          <img src={cards} alt="" height={33} width={144} className="mt-5"/>
+          <div className="flex items-center">
+            <img src={cards} alt="" width={144} className=""/>
+            <img src={netbanking} alt="" width={60} className=""/>
+            <img src={cod} alt="" width={40} className=""/>
+          </div>
         </div>
         <div className="flexStart gap-7 xl:gap-x-36 flex-wrap">
           <ul>
