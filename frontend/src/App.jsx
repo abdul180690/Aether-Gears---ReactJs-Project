@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Collection from './pages/Collection'
 import Blog from './pages/Blog'
 import Product from './pages/Product'
+import BackToTop from "./components/BackToTop";
 
 const App = () => {
   return (
@@ -16,6 +17,7 @@ const App = () => {
         <Route path='/blog' element={<Blog />} /> 
         <Route path='/product/:productId' element={<Product />} /> 
       </Routes>
+      <BackToTop />
     </main>
   )
 }
