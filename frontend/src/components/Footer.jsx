@@ -5,7 +5,7 @@ import logo from '../assets/logo_dark.png'
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="border-t-[1px]">
       <div className="max-padd-container flex items-start justify-between flex-wrap gap-12 mt-12">
         {/* logo - Left side */}
         <div className="flex flex-col max-w-sm gap-y-5">
