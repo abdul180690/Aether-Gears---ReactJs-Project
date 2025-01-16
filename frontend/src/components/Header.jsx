@@ -12,7 +12,7 @@ const Header = () => {
     const toggleMenu = ()=> setMenuOpened((prev)=> !prev)
     
   return (
-    <header className='max-padd-container w-full mb-2 bg-amber-400'>
+    <header className='max-padd-container w-full mb-2 bg-amber-200'>
         <div className='flexBetween py-3'>
             <Link to={'/'} className='flex flex-1 bold-24 xl:bold-28 items-center'> <span className='me-3'><img src={logo} alt="" className='w-10 h-10'/></span>AETHER GEARS</Link>
             <div className='flex-1 '>
@@ -40,7 +40,7 @@ const Header = () => {
                 <Link to={"/cart"} className='flex relative'>
                     <div className='ring-1 ring-slate-900 rounded-full px-3 bold-18'>
                         Cart 
-                        <span className='bg-secondary text-white text-[12px] font-semibold absolute -top-3.5 -right-2 flexCenter w-4 h-4 rounded-full shadow-md'>0</span>
+                        <span className='bg-secondary text-white text-[12px] font-semibold absolute -top-5 -right-2 flexCenter w-5 h-5 rounded-full shadow-md'>0</span>
                     </div>
                 </Link>
                 <div className='group relative'>
