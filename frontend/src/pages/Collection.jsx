@@ -10,7 +10,7 @@ const [category, setCategory] = useState([])
 const [sortType, setSortType] = useState(`relevant`)
 const [filteredProducts, setFilteredProducts] = useState([])
 const [currentPage, setCurrentPage] = useState(1)
-const itemsPerPage = 10
+const itemsPerPage = 15
 
 const toggleFilter = (value, setState) => {
   setState((prev) => 
@@ -65,8 +65,8 @@ const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
     <>
     
     <div className='max-padd-container !px-0'>
-      <div className='flex flex-col sm:flex-row gap-8 mb-16'>
-        <div className='min-w-72 bg-primary p-4 pt-18 pl-6 lg:pl-12'>
+      <div className='flex flex-col sm:flex-row gap-8 '>
+        <div className='min-w-72  p-4 pt-18 pl-6 lg:pl-12 bg-slate-100'>
           <Search />
           <div className='pl-5 py-3 mt-4 bg-white rounded-xl'>
             <h5 className='h5 mb-4'>Categories</h5>
@@ -110,7 +110,7 @@ const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
             <button 
             disabled={currentPage === 1} 
             onClick={() => setCurrentPage((prev) => prev - 1)}
-            className={`${currentPage === 1 && "opacity-50 cursor-not-allowed"} btn-secondary !py-1 !px-3`}
+            className={`${currentPage === 1 && "opacity-50 cursor-not-allowed"}  bg-slate-700 text-white rounded-full !py-1 !px-3`}
             >
               Previous
             </button>
@@ -118,7 +118,7 @@ const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
               <button 
               key={index + 1} 
               onClick={() => setCurrentPage(index + 1)} 
-              className={`${currentPage === index + 1 && "!bg-tertiary text-white"} btn-light !py-1 !px-3`}
+              className={`${currentPage === index + 1 && "!bg-slate-900 text-black text-xl transitions"} bg-slate-700 text-white rounded-full !py-1 !px-3`}
               >
                 {index + 1}
               </button>
@@ -126,7 +126,7 @@ const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
             <button 
             disabled={currentPage === totalPages} 
             onClick={() => setCurrentPage((prev) => prev + 1)}
-            className={`${currentPage === totalPages && "opacity-50 cursor-not-allowed"} btn-secondary !py-1 !px-3`}
+            className={`${currentPage === totalPages && "opacity-50 cursor-not-allowed"} bg-slate-700 text-white rounded-full !py-1 !px-3`}
             >
               Next
             </button>
@@ -134,7 +134,6 @@ const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
         </div>
       </div>
     </div>
-    <Footer />
     </>
   )
 }
