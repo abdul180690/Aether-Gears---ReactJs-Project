@@ -20,7 +20,6 @@ const Home = () => {
     <About />
     <Blog />
     <NewsLetter />
-    <Footer />
     </>
   )
 }
