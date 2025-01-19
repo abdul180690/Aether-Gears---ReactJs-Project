@@ -116,17 +116,20 @@ import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { FaCheck, FaHeart, FaStar, FaStarHalfStroke, FaTruckFast } from "react-icons/fa6";
 import { TbShoppingBagPlus } from "react-icons/tb";
+import ProductDescription from "../components/ProductDescription";
+import ProductFeatures from "../components/ProductFeatures";
+import RelatedProducts from "../components/RelatedProducts";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency } = useContext(ShopContext);
+  const { products, currency, addToCart } = useContext(ShopContext);
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState("");
   const [color, setColor] = useState("");
   const [hovered, setHovered] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
 
-  const fetchProductData = () => {
+  const fetchProductData = async () => {
     const selectedProduct = products.find((item) => item._id === productId);
     if (selectedProduct) {
       setProduct(selectedProduct);
@@ -247,7 +250,7 @@ const Product = () => {
             </div>
             <h4 className="h4 my-2">
               {currency}
-              {product.price}.00
+              {product.price}/-
             </h4>
             <p className="max-w-[555px]">{product.description}</p>
 
@@ -277,7 +280,7 @@ const Product = () => {
             {/* Buttons */}
             <div className="flex gap-x-4 mt-6">
               <button
-                onClick={handleAddToCart}
+                onClick={() => addToCart(product._id, color)}
                 className="btn-secondary !rounded-lg sm:w-1/2 flexCenter gap-x-2 capitalize"
               >
                 Add to Cart <TbShoppingBagPlus />
@@ -288,18 +291,21 @@ const Product = () => {
             </div>
 
             {/* Additional Info */}
-            <div className="mt-6">
-              <FaTruckFast className="text-lg" />
+            <div className="mt-6 flex">
+              <FaTruckFast className="text-lg me-3" />
               <span className="medium-14">Free Delivery on orders over ₹500</span>
             </div>
             <hr className="my-3 w-2/3" />
-            <div>
+            <div className="mt-2 flex flex-col gap-1 text-gray-30 transitions">
               <p>Authenticity You Can Trust</p>
               <p>Enjoy Cash On Delivery for your Convenience</p>
               <p>Easy Returns and Exchange Within 7 Days</p>
             </div>
           </div>
         </div>
+        <ProductDescription />
+        <ProductFeatures />
+        <RelatedProducts category={product.category} />
       </div>
     </div>
   );
