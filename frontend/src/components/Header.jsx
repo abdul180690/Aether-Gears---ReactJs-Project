@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "./Navbar";
 import { FaBars, FaBarsStaggered } from "react-icons/fa6";
 import { IoMdCart } from "react-icons/io";
 import { RiUserLine } from "react-icons/ri";
 import logo from "../assets/icon.png";
+import { ShopContext } from "../context/ShopContext";
 // import cart from "../assets/cart.png";
 
 const Header = () => {
   const [menuOpened, setMenuOpened] = useState(false);
+  const {getCartCount} = useContext(ShopContext);
 
   const toggleMenu = () => setMenuOpened((prev) => !prev);
 
@@ -56,7 +58,7 @@ const Header = () => {
               {/* <img src={cart} alt="Cart" className="w-12 h-12" /> */}
               <IoMdCart className="text-5xl"/>
               <span className="bg-amber-200 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-0 flexCenter w-5 h-5 rounded-full shadow-lg">
-                0
+                {getCartCount()}
               </span>
             </div>
           </Link>
