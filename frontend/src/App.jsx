@@ -8,10 +8,15 @@ import Product from './pages/Product'
 import BackToTop from "./components/BackToTop";
 import Footer from './components/Footer'
 import Notification from './components/Notification'
+import { ToastContainer } from 'react-toastify'
+import Cart from './pages/Cart'
+import PlaceOrder from './pages/PlaceOrder'
+import Login from './pages/Login'
 
 const App = () => {
   return (
     <main className='overflow-hidden text-tertiary'>
+      <ToastContainer />
       <Notification />
       <Header className="sticky top-0 z-50"/>
       <Routes>
@@ -19,6 +24,9 @@ const App = () => {
         <Route path='/collection' element={<Collection />} /> 
         <Route path='/blog' element={<Blog />} /> 
         <Route path='/product/:productId' element={<Product />} /> 
+        <Route path='/cart' element={<Cart />} /> 
+        <Route path='/place-order' element={<PlaceOrder />} /> 
+        <Route path='/login' element={<Login />} /> 
       </Routes>
       <Footer />
       <BackToTop />
@@ -28,4 +36,4 @@ const App = () => {
 
 export default App
 
-// 4:07:46
+// 5:47:10
