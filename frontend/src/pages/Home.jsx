@@ -7,7 +7,6 @@ import Banner from '../components/Banner'
 import About from '../components/About'
 import Blog from '../components/Blog'
 import NewsLetter from '../components/NewsLetter'
-import Footer from '../components/Footer'
 
 const Home = () => {
   return (
