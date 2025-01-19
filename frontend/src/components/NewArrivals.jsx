@@ -22,7 +22,7 @@ const NewArrivals = () => {
       <Title
         title1="New"
         title2=" Arrivals"
-        titleStyles="pb-10 text-slate-900"
+        titleStyles="pb-14 text-slate-900"
         paraStyles="!block"
       />
 
