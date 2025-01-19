@@ -32,10 +32,10 @@ const Notification = () => {
       {/* First Purchase Discount Section */}
       <div className="my-1 mx-6 text-center">
         <p className="text-secondary capitalize font-semibold">
-           Get <span className="font-extrabold uppercase text-red-700 ">10% off</span>  on
+           <span className="font-extrabold uppercase text-red-700 ">10% off</span>  on
           first purchase! {" "}
           <span className="capitalize underline text-xs font-bold hover:text-red-700">
-            <Link to={"/collection"}> <br /> Shop Now </Link>
+            <Link to={"/collection"}> Shop Now </Link>
           </span>{" "}
           
         </p>
