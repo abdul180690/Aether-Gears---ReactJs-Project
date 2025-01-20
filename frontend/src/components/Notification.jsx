@@ -8,7 +8,7 @@ const Notification = () => {
       <div className="my-1 mx-6 text-center">
         <p className="text-secondary capitalize font-semibold">
            <span className="font-extrabold text-red-700">FREE</span> shipping on orders{" "}
-          <span className="font-bold">₹500</span> and up!{" "}
+          <span className="font-bold">₹1000</span> and up!{" "}
           <span className="underline text-xs lowercase font-bold hover:text-red-700">
             <Link>*details</Link>
           </span>{" "}
