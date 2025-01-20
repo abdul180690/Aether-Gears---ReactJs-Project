@@ -12,21 +12,21 @@ const Footer = () => {
         <div className="flex flex-col max-w-sm gap-y-5">
           <div className="bold-28">
             <div className="flex items-center">
-              <img src={logo} alt="Aether Gears Logo" className="w-7 h-7 me-3" />
-              <span className="text-white">Aether Gears</span>
+              <img src={logo} alt="Aether Gears Logo" className="w-8 h-8 me-3" />
+              <span className="text-white uppercase tracking-widest">Aether Gears</span>
             </div>
           </div>
-          <p className="text-white content-stretch text-justify line-clamp-6">
+          <p className="text-white content-stretch text-justify line-clamp-6 leading-6">
              Aether Gears is a premium brand that blends cutting-edge technology with sophisticated design. Our products are crafted with attention to detail, ensuring that each item delivers exceptional performance, style, and comfort.
             <br />
             At Aether Gears, we are committed to providing our customers with innovative solutions for their gear needs. Whether you're a sports enthusiast, a traveler, or someone who values both form and function, our wide range of products is designed to meet your highest standards.
             <br />
             Join us on our journey to redefine what quality gear can be — explore our collection, stay updated with the latest news, and enjoy the confidence that comes with owning the best in the business.
           </p>
-          <div className="flex items-center gap-3 bg-white  justify-center rounded-2xl">
+          <div className="flex items-center gap-3">
             <img src={cards} alt="Payment Cards" width={144} className="" />
             <img src={netbanking} alt="Net Banking" width={60} className="" />
-            <img src={cod} alt="Cash on Delivery" width={24} className="" />
+            <img src={cod} alt="Cash on Delivery" width={54} className="" />
           </div>
         </div>
 
