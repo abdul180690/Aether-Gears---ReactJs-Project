@@ -119,6 +119,7 @@ import { TbShoppingBagPlus } from "react-icons/tb";
 import ProductDescription from "../components/ProductDescription";
 import ProductFeatures from "../components/ProductFeatures";
 import RelatedProducts from "../components/RelatedProducts";
+import cod from '../assets/cod2.png'
 
 const Product = () => {
   const { productId } = useParams();
@@ -165,8 +166,7 @@ const Product = () => {
       color,
       quantity: 1,
     };
-    console.log("Added to Cart:", cartItem);
-    // Add the cartItem to your cart state or context here
+    alert("Added to Cart");
   };
 
   return (
@@ -293,8 +293,9 @@ const Product = () => {
             {/* Additional Info */}
             <div className="mt-6 flex">
               <FaTruckFast className="text-lg me-3" />
-              <span className="medium-14">Free Delivery on orders over ₹500</span>
+              <span className="medium-14">Free Delivery on orders over ₹1000</span>
             </div>
+            <img src={cod} alt="" className="w-12"/>
             <hr className="my-3 w-2/3" />
             <div className="mt-2 flex flex-col gap-1 text-gray-30 transitions">
               <p>Authenticity You Can Trust</p>
