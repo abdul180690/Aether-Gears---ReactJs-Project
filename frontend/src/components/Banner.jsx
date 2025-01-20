@@ -46,7 +46,7 @@ const Banner = () => {
           <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <h2 className="text-3xl font-bold mb-2">Camera</h2>
             <h2 className="text-2xl mb-2">Collection</h2>
-            <p className="text-lg text-red-500 font-bold mb-4 text-primary">
+            <p className="text-lg text-red-500 font-bold mb-4">
               Flat 50% off
             </p>
             <button className="px-6 py-2 bg-secondary text-white rounded-full font-semibold hover:bg-primary hover:text-secondary transition">
