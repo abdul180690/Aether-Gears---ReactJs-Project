@@ -69,7 +69,7 @@ export const products = [
         category: "Headphones",
         colors: ["Black", "Red", "White"],
         date: 1716634345448,
-        popular: false
+        popular: false,
     },
     {
         _id: "2",
