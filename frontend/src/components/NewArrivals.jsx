@@ -20,8 +20,8 @@ const NewArrivals = () => {
   return (
     <section className="max-padd-container pt-16 pb">
       <Title
-        title1="New"
-        title2=" Arrivals"
+        title1="New "
+        title2="Arrivals"
         titleStyles="pb-14 text-slate-900"
         paraStyles="!block"
       />
