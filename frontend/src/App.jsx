@@ -17,8 +17,8 @@ const App = () => {
   return (
     <main className='overflow-hidden text-tertiary'>
       <ToastContainer />
-      <Notification />
-      <Header className="sticky top-0 z-50"/>
+      {/* <Notification /> */}
+      <Header/>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/collection' element={<Collection />} /> 
@@ -36,4 +36,4 @@ const App = () => {
 
 export default App
 
-// 7:26:54
+// 7:46:54
