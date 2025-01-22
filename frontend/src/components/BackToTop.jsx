@@ -6,7 +6,7 @@ const BackToTop = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 800) {
+      if (window.scrollY > 500) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
@@ -29,7 +29,7 @@ const BackToTop = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="fixed rounded-full bottom-5 right-5 bg-black border-none opacity-30 w-20 h-20 text-center cursor-pointer shadow-lg text-white text-4xl pl-5"
+          className="fixed rounded-full bottom-5 right-5 bg-black border-none opacity-30 w-20 h-20 text-center cursor-pointer shadow-lg text-white text-4xl pl-5 z-50"
         >
           <FaHandPointUp className=""/>
         </button>

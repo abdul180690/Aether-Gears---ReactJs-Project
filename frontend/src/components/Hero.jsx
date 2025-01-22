@@ -6,7 +6,7 @@ import { FaArrowRightLong } from 'react-icons/fa6';
 
 const Hero = () => {
   return (
-    <section className="mt-20 relative max-padd-container h-[633px]  overflow-hidden top-">
+    <section className=" relative max-padd-container h-[633px]  overflow-hidden top-">
      {/* Hero background Image */}
       <img src={bg} alt="" className='absolute object-cover w-full h-full top-0 left-0 '/>
 

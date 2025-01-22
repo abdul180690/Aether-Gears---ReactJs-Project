@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Notification = () => {
   return (
-    <div className="flex flexbetween items-center bg-white text-sm text-gray-700 py-1 bg-opacity-50">
+    <div className="flex flexbetween items-center bg-amber-100 text-sm text-gray-700 py-1 bg-opacity-50 relative">
       {/* Free Shipping Section */}
       <div className="my-1 mx-6 text-center">
         <p className="text-secondary capitalize font-semibold">

@@ -52,7 +52,7 @@ const CartTotal = () => {
   const totalAmount = afterTaxAmount + shippingFee; // Final total (after tax + shipping)
 
   return (
-    <section className="">
+    <section className="p-5 rounded-2xl">
       {/* Title */}
       <Title 
         title1="Order "
