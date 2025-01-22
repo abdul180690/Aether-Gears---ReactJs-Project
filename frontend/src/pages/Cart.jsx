@@ -119,7 +119,8 @@ import { ShopContext } from '../context/ShopContext';
 import Title from '../components/Title';
 import { FaMinus, FaPlus, FaRegWindowClose } from 'react-icons/fa';
 import CartTotal from '../components/CartTotal';
-import emptyCart from '../assets/empty-cart.mp4'
+import emptyCart from '../assets/empty-cart.mp4';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
   const { navigate, products, currency, cartItems, getCartCount, updateQuantity } = useContext(ShopContext);
@@ -165,14 +166,14 @@ const Cart = () => {
   };
 
   return (
-    <section>
-      <div className="bg-primary ">
+    <section className='mt-20'>
+      <div className=" ">
         <div className="max-padd-container py-10">
           
 
           {/* Empty Cart Message */}
           {getCartCount() === 0 ? (
-            <div className="flex flex-col items-center justify-center py-5 bg-white  w-30 rounded-3xl shadow-2xl">
+            <div className="flex flex-col items-center justify-center py-5 bg-white  w-full rounded-3xl shadow-2xl">
                 <video
                   src={emptyCart}
                   className=" w-40 h-40 object-cover "
@@ -188,7 +189,7 @@ const Cart = () => {
                 </p>
               <button
                 onClick={() => navigate('/collection')}
-                className="btn-secondary mt-4 hover:bg-primary hover:text-secondary"
+                className="btn-secondary mt-4 hover:bg-slate-800 duration-300"
               >
                 Shop Now
               </button>
@@ -202,12 +203,12 @@ const Cart = () => {
                 title2="Cart"
                 titleStyles="h3"
                 />
-                <h5 className="medium-15 text-gray-30 relative bottom-1.5">
+                <h5 className=" relative bottom-1.5">
                 ({getCartCount()} Items)
                 </h5>
               </div>
               {/* Cart Items */}
-              <div className="mt-6">
+              <div className="mt-1">
                 {cartData.map((item, i) => {
                   const productData = products.find((product) => product._id === item._id);
                   const key = `${item._id}-${item.color}`;
@@ -264,12 +265,12 @@ const Cart = () => {
               </div>
 
               {/* Cart Summary */}
-              <div className="flex justify-end my-20">
-                <div className="w-full sm:w-[450px] ">
-                  <CartTotal />
+              <div className="flex justify-center my-10">
+                <div className="bg-white p-5 rounded-2xl w-full sm:w-[450px]">
+                  <CartTotal className=""/>
                   <button
                     onClick={() => navigate('/place-order')}
-                    className="btn-secondary mt-5"
+                    className="btn-secondary hover:bg-slate-700  mt-5"
                   >
                     Proceed to Checkout
                   </button>
