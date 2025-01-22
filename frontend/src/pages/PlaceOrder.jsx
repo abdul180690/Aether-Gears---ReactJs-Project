@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
+import { ShopContext } from '../context/ShopContext'
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState('cod')
+  const {navigate} = useContext(ShopContext)
 
   return (
     <div className='mt-20'>
@@ -148,7 +150,8 @@ const PlaceOrder = () => {
                   <div onClick={()=> setMethod('stripe')} className={`${method === "stripe" ? "btn-dark" : "btn-white"} !py-1 text-xs cursor-pointer`}>Stripe</div>
                 </div>
               </div>
-              <div className="flex justify-end mt-4">
+              <div className="flex justify-evenly mt-4">
+                <button onClick={() => navigate('/cart')} className='btn-secondary'>Back to Cart</button>
                 <button type='submit' className='btn-secondary'>Place Order</button>
               </div>
             </div>
