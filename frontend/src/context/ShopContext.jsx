@@ -15,6 +15,7 @@ const ShopContextProvider = (props) => {
   
 
   const addToCart = async (itemId, color) => {
+    toast.success("Item added to cart successfully");
     if(!color) {
       toast.error("Please select the color first");
       return;
@@ -55,6 +56,7 @@ const ShopContextProvider = (props) => {
     let cartData = structuredClone(cartItems)
     cartData[itemId][color] = quantity
     setCartItems(cartData)
+    toast.info("Item removed from cart") 
   }
 
   const getCartAmount = () => {
