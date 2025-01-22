@@ -17,7 +17,7 @@ const Navbar = ({ containerStyles, onClick }) => {
           key={link.title}
           to={link.path}
           className={({ isActive }) =>
-            `${isActive ? 'active-link ' : 'text-gray-900'} flex items-center px-3 py-2 rounded-full hover:bg-primary-light hover:bg-slate-800 hover:text-primary  transition-all`
+            `${isActive ? 'active-link ' : 'text-gray-900'} flex items-center px-3 py-2 rounded-full  hover:bg-slate-800 hover:text-primary  transition-all`
           }
           onClick={onClick}
         >

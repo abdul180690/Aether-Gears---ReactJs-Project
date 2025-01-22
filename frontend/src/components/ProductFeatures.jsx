@@ -4,7 +4,7 @@ import { TbArrowBackUp, TbTruckDelivery } from 'react-icons/tb'
 
 const ProductFeatures = () => {
   return (
-    <div className='bg-primary rounded-xl mt-6'>
+    <div className='bg-primary rounded-xl mt-6 ring-1 ring-slate-900/10'>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 rounded-xl'>
             <div className='flexCenter gap-x-4 p-2 rounded-3xl'>
                 <div className='text-3xl'><TbArrowBackUp className='mb-3 text-yellow-500'/></div>

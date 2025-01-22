@@ -2,7 +2,7 @@ import React from 'react'
 
 const ProductDescription = () => {
   return (
-    <div className='ring-1 ring-slate-900/10 rounded-lg'>
+    <div className='ring-1 ring-slate-900/10 rounded-lg bg-primary'>
         <div className='flex gap-3'>
             <button className='medirum-14 p-3 w-32 border-b-2 border-secondary'>Description</button>
             <button className='medirum-14 p-3 w-32 '>Care Guide</button>

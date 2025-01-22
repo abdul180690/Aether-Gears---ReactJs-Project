@@ -3,7 +3,7 @@ import { FaXTwitter, FaFacebook, FaInstagram } from "react-icons/fa6";
 
 const NewsLetter = () => {
   return (
-    <section className="max-padd-container border-t-[1px] py-4">
+    <section className="max-padd-container border-t-[1px] border-b-[1px] py-4 mb-16">
       <div className="flexBetween flex-wrap gap-2">
         {/* Left Section: Header & Description */}
         <div>
@@ -23,7 +23,7 @@ const NewsLetter = () => {
               placeholder="Email Address"
               className="p-4 bg-primary w-[266px] outline-none text-[13px] text-black placeholder-gray-500"
             />
-            <button className="btn bg-slate-800 text-white p-4 !rounded-none !text-[13px] !font-bold uppercase hover:text-slate-800 hover:bg-slate-400">
+            <button className="btn bg-slate-800 text-white p-4 !rounded-none !text-[13px] !font-bold uppercase  hover:bg-slate-700 duration-300">
               Submit
             </button>
           </div>

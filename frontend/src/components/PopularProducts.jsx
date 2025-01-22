@@ -15,8 +15,8 @@ useEffect(()=> {
   return (
     <section className='max-padd-container py-16'>
       <Title 
-        title1={'Popular'} 
-        title2={' Products'} 
+        title1={'Popular '} 
+        title2={'Products'} 
         titleStyles={'pb-14 text-slate-900'} 
         paraStyles={'!block'} 
       />
