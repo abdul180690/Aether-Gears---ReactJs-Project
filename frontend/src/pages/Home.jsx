@@ -36,7 +36,9 @@ import Banner from '../components/Banner';
 import About from '../components/About';
 import Blog from '../components/Blog';
 import NewsLetter from '../components/NewsLetter';
-import LoadingPage from '../components/LoadingPage';
+// import LoadingPage from '../components/LoadingPage';
+import { ClimbingBoxLoader } from 'react-spinners';
+
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true); // Initial state is loading
@@ -44,7 +46,7 @@ const Home = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false); // Update state after 2 seconds
-    }, 2000);
+    }, 1500);
 
     return () => {
       clearTimeout(timer); // Cleanup timer when component unmounts
@@ -53,7 +55,12 @@ const Home = () => {
 
   // Conditional rendering
   if (isLoading) {
-    return <LoadingPage />;
+    return (<>
+    <div className='flexCenter h-screen w-full bg-gray-800'>
+          <ClimbingBoxLoader color="#f79825" loading={isLoading} size={30} />
+        </div>
+    </>
+    )
   }
 
   return (
