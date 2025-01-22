@@ -6,7 +6,7 @@ import cod from "../assets/cod.png";
 
 const Footer = () => {
   return (
-    <footer className="border-t-[1px] bg-slate-800">
+    <footer className="border-t-[1px] bg-slate-900 bg-opacity-70 backdrop-blur-lg">
       <div className="max-padd-container flex items-start justify-between flex-wrap gap-12 mt-12">
         {/* logo - Left side */}
         <div className="flex flex-col max-w-sm gap-y-5">

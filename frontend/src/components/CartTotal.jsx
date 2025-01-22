@@ -60,7 +60,7 @@ const CartTotal = () => {
       />
 
       {/* Before Tax */}
-      <div className="flex justify-between items-center py-3">
+      <div className="flex justify-between items-center py-1">
         <h5 className="  text-gray-700">Before Tax:</h5>
         <p className=" text-gray-800">
           {currency} {cartAmount.toFixed(2)}
@@ -69,16 +69,16 @@ const CartTotal = () => {
       <hr className="border-gray-300 my-2" />
 
       {/* CGST */}
-      <div className="flex justify-between items-center py-3">
-        <h5 className="  text-gray-700">CGST (5%):</h5>
+      <div className="flex justify-between items-center ">
+        <h5 className="text-sm text-gray-700">CGST (5%):</h5>
         <p className="  text-gray-800">
           {currency} {cgstAmount.toFixed(2)}
         </p>
       </div>
 
       {/* SGST */}
-      <div className="flex justify-between items-center py-3">
-        <h5 className="  text-gray-700">SGST (5%):</h5>
+      <div className="flex justify-between items-center ">
+        <h5 className="text-sm text-gray-700">SGST (5%):</h5>
         <p className="  text-gray-800">
           {currency} {sgstAmount.toFixed(2)}
         </p>
@@ -86,7 +86,7 @@ const CartTotal = () => {
       <hr className="border-gray-300 my-2" />
 
       {/* After Tax */}
-      <div className="flex justify-between items-center py-3">
+      <div className="flex justify-between items-center py-1">
         <h5 className="  text-gray-700">After Tax:</h5>
         <p className="  text-gray-800">
           {currency} {afterTaxAmount.toFixed(2)}
@@ -94,7 +94,7 @@ const CartTotal = () => {
       </div>
 
       {/* /* Shipping Fee  */}
-      <div className="flex justify-between items-center py-3">
+      <div className="flex justify-between items-center py-1">
         <h5 className="  text-gray-700">Shipping Fee:</h5>
         <p className=" text-gray-800">
           {currency} {totalAmount > 1000 ? shippingFee.toFixed(2) : 0.00 }
@@ -103,7 +103,7 @@ const CartTotal = () => {
       <hr className="border-gray-300 my-2" />
 
       {/* Total */}
-      <div className="flex justify-between items-center py-3">
+      <div className="flex justify-between items-center py-1">
         <h5 className="text-xl font-bold text-gray-900">Total:</h5>
         <p className="text-xl font-bold text-gray-900">
           {currency} {totalAmount.toFixed(2)}

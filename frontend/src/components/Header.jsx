@@ -16,14 +16,14 @@ const Header = () => {
   const toggleMenu = () => setMenuOpened((prev) => !prev);
 
   return (
-    <header className="max-padd-container w-full mb-2 bg-slate-800">
+    <header className="max-padd-container w-full mb-2 backdrop-blur-lg fixed top-0 z-40">
       <div className="flexBetween py-3">
         {/* Logo */}
-        <Link to={"/"} className="flex flex-1  items-center text-white">
+        <Link to={"/"} className="flex flex-1  items-center text-secondary">
           <span className="me-3">
-            <img src={logo} alt="Logo" className="w-5 h-5" />
+            <img src={logo} alt="Logo" className="w-8 h-8" />
           </span>
-          <span className="text-white uppercase tracking-widest">Aether Gears</span>
+          <span className="text-slate-950 bold-22 text-2xl uppercase tracking-widest">Aether Gears</span>
           
         </Link>
 
@@ -31,8 +31,8 @@ const Header = () => {
         <Navbar
           containerStyles={`${
             menuOpened
-              ? "flex items-start flex-col gap-y-8 fixed top-20 right-6 p-5 bg-primary rounded-xl shadow-xl w-52 ring-1 ring-slate-900/5 z-50"
-              : "hidden xl:flex gap-x-5 xl:gap-x-7 medium-15 bg-primary ring-1 ring-slate-900/5 rounded-full p-1"
+              ? "flex items-start flex-col gap-y-6 fixed top-10 right-10 p-5 bg-slate-100 bg-opacity-70 backdrop-blur-lg rounded-xl shadow-xl w-52 ring-1 ring-slate-900/5 z-50"
+              : "hidden xl:flex gap-x-5 xl:gap-x-7 tracking-widest medium-15 "
           }`}
           onClick={() => setMenuOpened(false)}
         />
@@ -44,12 +44,12 @@ const Header = () => {
             {menuOpened ? (
               <FaBarsStaggered
                 onClick={toggleMenu}
-                className="xl:hidden cursor-pointer text-2xl duration-300 text-white"
+                className="xl:hidden cursor-pointer text-2xl duration-300 text-secondary"
               />
             ) : (
               <FaBars
                 onClick={toggleMenu}
-                className="xl:hidden cursor-pointer text-2xl text-white"
+                className="xl:hidden cursor-pointer text-2xl text-secondary"
               />
             )}
           </>
@@ -58,8 +58,8 @@ const Header = () => {
           <Link to={"/cart"} className="relative">
             <div className="flex px-3 bold-18 text-white">
               {/* <img src={cart} alt="Cart" className="w-12 h-12" /> */}
-              <IoMdCart className="text-3xl"/>
-              <span className="bg-amber-200 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-0 flexCenter w-5 h-5 rounded-full shadow-lg">
+              <IoMdCart className="text-3xl text-secondary"/>
+              <span className="bg-amber-200 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-0 flexCenter w-4 h-4 rounded-full shadow-lg">
                 {getCartCount()}
               </span>
             </div>
@@ -67,7 +67,7 @@ const Header = () => {
 
           {/* Login Button */}
           <div className="relative">
-            <button onClick={()=> navigate('/login')}className="btn-white flexCenter gap-x-2 hover:bg-gray-200 duration-300">
+            <button onClick={()=> navigate('/login')}className="btn-secondary flexCenter gap-x-2 hover:bg-slate-700 duration-300">
               Login
               <RiUserLine className="text-xl" />
             </button>
