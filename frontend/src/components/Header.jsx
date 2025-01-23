@@ -6,12 +6,13 @@ import { IoMdCart } from "react-icons/io";
 import { RiUserLine } from "react-icons/ri";
 import { ShopContext } from "../context/ShopContext";
 import logo from "../assets/icon.png";
+import { FaHeart } from "react-icons/fa";
 
 const Header = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [headerVisible, setHeaderVisible] = useState(true);
-  const { getCartCount, navigate } = useContext(ShopContext);
+  const { getCartCount, getWishListCount, navigate } = useContext(ShopContext);
 
   const toggleMenu = () => setMenuOpened((prev) => !prev);
 
@@ -40,8 +41,8 @@ const Header = () => {
 
   return (
     <header
-      className={`max-padd-container w-full mb-2 bg-gray-900 bg-opacity-90 backdrop-blur-sm transition-all duration-300 ${
-        headerVisible ? "fixed top-0 left-0 w-full z-40" : "-translate-y-full"
+      className={`max-padd-container w-full mb-2 bg-gray-950 bg-opacity-80 backdrop-blur-sm transition-all duration-300 ${
+        headerVisible ? "fixed top-0 left-0 w-full z-40 " : "-translate-y-full"
       }`}
     >
       <div className="flexBetween py-3">
@@ -50,14 +51,14 @@ const Header = () => {
           <span className="me-3">
             <img src={logo} alt="Logo" className="w-8 h-8" />
           </span>
-          <span className="heading-gradient bold-22 text-2xl uppercase tracking-widest">Aether Gears</span>
+          <span className="heading-gradient  text-lg uppercase tracking-widest">Aether Gears</span>
         </Link>
 
         {/* Navbar */}
         <Navbar
           containerStyles={`${
             menuOpened
-              ? "flex items-start flex-col gap-y-6 fixed top-10 right-10 p-5 bg-gray-800 bg-opacity-70 backdrop-blur-sm rounded-xl shadow-xl w-52 ring-1 ring-slate-900/5 z-50"
+              ? "flex items-start flex-col gap-y-6 fixed top-10 right-10 p-5 bg-slate-950 bg-opacity-70 backdrop-blur-lg rounded-xl shadow-xl w-52 ring-1 ring-slate-900/5 z-50"
               : "hidden xl:flex gap-x-5 xl:gap-x-7 tracking-widest medium-15"
           }`}
           onClick={() => setMenuOpened(false)}
@@ -81,7 +82,18 @@ const Header = () => {
               </span>
             </div>
           </Link>
+          
+          {/* Wishlist */}
+          <Link to={"/wishlist"} className="relative">
+            <div className="flex px-3 bold-18 text-white">
+              <FaHeart className="ml-3 text-2xl text-white"/>
+              <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-0 flexCenter w-4 h-4 rounded-full shadow-lg">
+                  {getWishListCount()}
+              </span>
 
+            </div>
+          </Link>
+              
           {/* Login Button */}
           <div className="relative">
             <button onClick={() => navigate('/login')} className="btn-white flexCenter gap-x-2 hover:bg-slate-300/95 duration-300">
