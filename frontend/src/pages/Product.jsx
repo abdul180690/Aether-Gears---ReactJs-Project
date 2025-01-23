@@ -10,7 +10,7 @@ import cod from '../assets/cod2.png'
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart } = useContext(ShopContext);
+  const { products, currency, addToCart, addToWishList } = useContext(ShopContext);
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState("");
   const [color, setColor] = useState("");
@@ -57,8 +57,8 @@ const Product = () => {
                   src={item}
                   alt={`Thumbnail of ${product.name}`}
                   onClick={() => setImage(item)}
-                  className={`object-cover aspect-square rounded-lg cursor-pointer border border-slate-400 ${
-                    image === item ? "border border-slate-400" : ""
+                  className={`object-cover aspect-square rounded-lg cursor-pointer border border-slate-400/50 ${
+                    image === item ? "border border-slate-400/50" : ""
                   }`}
                 />
               ))}
@@ -69,7 +69,7 @@ const Product = () => {
               <img
                 src={image}
                 alt={`Main view of ${product.name}`}
-                className="rounded-xl w-full object-cover border border-slate-400"
+                className="rounded-xl w-full object-cover border border-slate-400/50"
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
                 onMouseMove={handleMouseMove}
@@ -109,7 +109,7 @@ const Product = () => {
             </div>
           </div>
           {/* Product Details Section */}
-          <div className="flex-[1.5] rounded-2xl px-5 py-3 bg-primary border border-slate-400">
+          <div className="flex-[1.5] rounded-2xl px-5 py-3 bg-primary border border-slate-400/50">
             <h3 className="h3 leading-none">{product.name}</h3>
             <div className="flex items-baseline gap-x-5">
               <div className="flex items-center gap-x-2 text-secondary">
@@ -160,8 +160,10 @@ const Product = () => {
               >
                 Add to Cart <TbShoppingBagPlus />
               </button>
-              <button className="btn-secondary !rounded-lg !py-3.5  hover:bg-primary hover:text-secondary duration-300">
-                <FaHeart />
+              <button onClick={() => addToWishList(product._id, color)}
+                className="btn-secondary !rounded-lg  flexCenter gap-x-2 capitalize hover:bg-slate-700 duration-300"
+              >
+                add to wishlist<FaHeart />
               </button>
             </div>
 
