@@ -10,7 +10,7 @@ const Item = ({ product }) => {
       <div className=" bg-primary overflow-hidden border border-slate-300 p-2 rounded-xl hover:shadow-lg duration-300">
         <Link
           to={`/product/${product?._id || "#"}`}
-          aria-label={`View details of ${product.name}`}
+          aria-label={`View details of ${product?.name}`}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           className="flexCenter p-2 bg-[#f5f5f5] overflow-hidden relative rounded-xl hover:scale-105 duration-300"
