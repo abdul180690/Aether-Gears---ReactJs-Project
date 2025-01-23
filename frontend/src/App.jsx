@@ -7,20 +7,18 @@ import Blog from './pages/Blog';
 import Product from './pages/Product';
 import BackToTop from './components/BackToTop';
 import Footer from './components/Footer';
-import Notification from './components/Notification'; // If you're using it, make sure it's implemented
 import { ToastContainer } from 'react-toastify';
 import Cart from './pages/Cart';
 import PlaceOrder from './pages/PlaceOrder';
 import Login from './pages/Login';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import WishList from './pages/WishList';
 
 const App = () => {
-  const location = useLocation();  // Get the current location for page transition
-
+  const location = useLocation();  
   return (
     <main className="overflow-hidden">
       <ToastContainer />
-      {/* <Notification /> */}
       <Header />
 
       {/* Transition Group for page fade animations */}
@@ -36,8 +34,9 @@ const App = () => {
             <Route path="/blog" element={<Blog />} />
             <Route path="/product/:productId" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<WishList />} />
             <Route path="/place-order" element={<PlaceOrder />} />
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login />} />c
           </Routes>
         </CSSTransition>
       </TransitionGroup>
