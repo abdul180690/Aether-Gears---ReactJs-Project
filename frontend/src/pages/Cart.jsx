@@ -92,7 +92,7 @@ const Cart = () => {
                 </div>
               <div className='sm:flex-wrap'>
                 {/* Cart Items */}
-                <div className="mt-1 w-full px-5 ">
+                <div className="mt-1 w-full  ">
                   {cartData.map((item, i) => {
                     const productData = products.find((product) => product._id === item._id);
                     const key = `${item._id}-${item.color}`;
