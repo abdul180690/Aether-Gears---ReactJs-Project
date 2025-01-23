@@ -338,15 +338,26 @@
   font-weight: bold;
   transition: all 0.3s ease-in-out;
   background-color: rgba(22, 38, 55, 0.8);
-  
+}
+
+.text-pulse {
+  animation: pulseGlow 2s infinite;
+  font-weight: bold;
+  transition: all 0.5s ease-in-out;
 }
 
 @keyframes pulseGlow {
   0% {
-    color: blue;
+    color: #6464ff;
+  }
+  25% {
+    color: #9f9f05;
+  }
+  50% {
+    color: #02c86f;
   }
   100% {
-    color: red;  
+    color: #e00a0a;
   }
   
 }
@@ -396,7 +407,7 @@
 
 /* Fade transition styles */
 .fade-enter {
-  opacity: 0.5;
+  opacity: 0;
 }
 
 .fade-enter-active {
