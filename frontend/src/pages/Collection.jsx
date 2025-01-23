@@ -4,9 +4,7 @@ import { ShopContext } from '../context/ShopContext';
 import Item from '../components/Item';
 import {FaArrowRight } from 'react-icons/fa';
 import notfound from '../assets/not-found.png';
-
-
-
+import Notification from '../components/Notification';
 
 const Collection = () => {
   const { products = [], search } = useContext(ShopContext); 
@@ -75,6 +73,12 @@ const Collection = () => {
   return (
     <>
       <div className="mt-16 p-5 bg-primary max-padd-container !px-0">
+      {/* <Title 
+        title1="Our "
+        title2="Collection"
+        titleStyles="h3 p-5 text-center text-secondary"
+      /> */}
+      <Notification />
         <div className="flex flex-col sm:flex-row gap-8">
           {/* Sidebar with dynamic width */}
           <div
