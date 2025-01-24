@@ -6,7 +6,7 @@ import { IoMdCart } from "react-icons/io";
 import { RiUserLine } from "react-icons/ri";
 import { ShopContext } from "../context/ShopContext";
 import logo from "../assets/icon.png";
-import { FaHeart } from "react-icons/fa";
+import { BsClipboard2HeartFill } from "react-icons/bs";
 
 const Header = () => {
   const [menuOpened, setMenuOpened] = useState(false);
@@ -17,18 +17,16 @@ const Header = () => {
   const toggleMenu = () => setMenuOpened((prev) => !prev);
 
   const handleScroll = () => {
-
     if (typeof window !== "undefined") {
       const currentScrollY = window.scrollY;
 
       if (currentScrollY > lastScrollY && currentScrollY > 200) {
         setHeaderVisible(false);
-      }
-      else if (currentScrollY < lastScrollY) {
+      } else if (currentScrollY < lastScrollY) {
         setHeaderVisible(true);
       }
 
-      setLastScrollY(currentScrollY); 
+      setLastScrollY(currentScrollY);
     }
   };
 
@@ -39,19 +37,22 @@ const Header = () => {
     };
   }, [lastScrollY]);
 
+  const cartCount = getCartCount();
+  const wishlistCount = getWishListCount();
+
   return (
     <header
-      className={`max-padd-container w-full mb-2 bg-gray-950 bg-opacity-80 backdrop-blur-sm transition-all duration-300 ${
-        headerVisible ? "fixed top-0 left-0 w-full z-40 " : "-translate-y-full"
+      className={`max-padd-container w-screen  mb-2 bg-gray-950 bg-opacity-80 backdrop-blur-sm transition-all duration-300 ${
+        headerVisible ? "fixed top-0 left-0 w-full z-40" : "-translate-y-full"
       }`}
     >
       <div className="flexBetween py-3">
         {/* Logo */}
         <Link to={"/"} className="flex flex-1 items-center hover:scale-105 duration-300">
-          <span className="me-3">
-            <img src={logo} alt="Logo" className="w-8 h-8" />
+          <span className="me-1">
+            <img src={logo} alt="Logo" className="w-5 h-5" />
           </span>
-          <span className="heading-gradient  text-lg uppercase tracking-widest">Aether Gears</span>
+          <span className="heading-gradient uppercase tracking-widest">Aether Gears</span>
         </Link>
 
         {/* Navbar */}
@@ -68,37 +69,49 @@ const Header = () => {
         <div className="flex-1 flex items-center justify-end gap-x-2 xs:gap-x-8">
           {/* Menu Toggle Button */}
           {menuOpened ? (
-            <FaBarsStaggered onClick={toggleMenu} className="xl:hidden cursor-pointer text-2xl duration-300 text-white" />
+            <FaBarsStaggered
+              onClick={toggleMenu}
+              className="xl:hidden cursor-pointer text-xl duration-300 text-white hover:scale-90"
+            />
           ) : (
-            <FaBars onClick={toggleMenu} className="xl:hidden cursor-pointer text-2xl text-white duration-300" />
+            <FaBars
+              onClick={toggleMenu}
+              className="xl:hidden cursor-pointer text-xl text-white duration-300 hover:scale-90"
+            />
           )}
 
           {/* Cart */}
-          <Link to={"/cart"} className="relative">
-            <div className="flex px-3 bold-18 text-white">
-              <IoMdCart className="text-3xl text-white" />
-              <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-0 flexCenter w-4 h-4 rounded-full shadow-lg">
-                {getCartCount()}
-              </span>
-            </div>
-          </Link>
-          
-          {/* Wishlist */}
-          <Link to={"/wishlist"} className="relative">
-            <div className="flex px-3 bold-18 text-white">
-              <FaHeart className="ml-3 text-2xl text-white"/>
-              <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-0 flexCenter w-4 h-4 rounded-full shadow-lg">
-                  {getWishListCount()}
-              </span>
+          {cartCount > 0 && (
+            <Link to={"/cart"} className="relative">
+              <div className="flex px-3">
+                <IoMdCart className="text-2xl text-white hover:scale-125 duration-300" />
+                <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 right-0 flexCenter w-4 h-4 rounded-full shadow-lg">
+                  {cartCount}
+                </span>
+              </div>
+            </Link>
+          )}
 
-            </div>
-          </Link>
-              
+          {/* Wishlist */}
+          {wishlistCount > 0 && (
+            <Link to={"/wishlist"} className="relative">
+              <div className="flex">
+                <BsClipboard2HeartFill className="text-lg text-white hover:scale-125 duration-300" />
+                <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-3 flexCenter w-4 h-4 rounded-full shadow-lg">
+                  {wishlistCount}
+                </span>
+              </div>
+            </Link>
+          )}
+
           {/* Login Button */}
           <div className="relative">
-            <button onClick={() => navigate('/login')} className="btn-white flexCenter gap-x-2 hover:bg-slate-300/95 duration-300">
+            <button
+              onClick={() => navigate("/login")}
+              className="p-2 px-4 bg-white rounded-full text-sm flexCenter gap-x-1 hover:bg-slate-300/95 duration-300"
+            >
               Login
-              <RiUserLine className="text-xl" />
+              <RiUserLine className="" />
             </button>
           </div>
         </div>
