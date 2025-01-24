@@ -2,9 +2,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import Title from '../components/Title';
 import { FaMinus, FaPlus, FaRegWindowClose } from 'react-icons/fa';
+import { MdShoppingCartCheckout } from "react-icons/md";
+
 import CartTotal from '../components/CartTotal';
 import emptyCart from '../assets/empty-cart.mp4';
-
+import { motion } from 'framer-motion'; // Importing framer-motion for animations
 
 const Cart = () => {
   const { navigate, products, currency, cartItems, getCartCount, updateQuantity } = useContext(ShopContext);
@@ -49,121 +51,128 @@ const Cart = () => {
     }
   };
 
+  const handleNavigateToProduct = (id) => {
+    navigate(`/product/${id}`);
+  };
+
   return (
-    <section className='mt-16'>
-      <div className=" ">
-        <div className="max-padd-container bg-white py-10">
-          
-
-          {/* Empty Cart Message */}
-          {getCartCount() === 0 ? (
-            <div className="flex flex-col items-center justify-center py-5 bg-white">
-                <video
-                  src={emptyCart}
-                  className=" w-40 h-40 object-cover "
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                ></video>
-                <h4 className="text-2xl font-semibold text-gray-600">Your Cart is Empty</h4>
-                <p className="text-gray-500 mt-2">
-                  Looks like you haven't added anything to your cart yet.
-                </p>
-              <button
-                onClick={() => navigate('/collection')}
-                className="btn-secondary mt-4 hover:bg-slate-800 duration-300"
-              >
-                Shop Now
-              </button>
+    <section className="mt-14 bg-primary">
+      <div className="max-padd-container  py-10">
+        {/* Empty Cart Message */}
+        {getCartCount() === 0 ? (
+          <motion.div 
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-col items-center justify-center py-5 bg-white h-screen"
+          >
+            <video
+              src={emptyCart}
+              className="w-40 h-40 object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+            ></video>
+            <h4 className="text-2xl font-semibold text-gray-600">Your Cart is Empty</h4>
+            <p className="text-gray-500 mt-2">Looks like you haven't added anything to your cart yet.</p>
+            <button
+              onClick={() => navigate('/collection')}
+              className="btn-secondary mt-4 hover:bg-slate-700 duration-300"
+            >
+              Shop Now
+            </button>
+          </motion.div>
+        ) : (
+          <>
+            <div className="flex items-center">
+              <Title title1="Your " title2="Cart" titleStyles="h3" />
+              <h5 className="relative bottom-2 pl-3 text-gray-500">({getCartCount()} Items)</h5>
             </div>
-          ) : (
-            <>
-                <div className="flex items-center">
-                  <Title 
-                  title1="My "
-                  title2="Cart"
-                  titleStyles="h3"
-                  />
-                  <h5 className=" relative bottom-2 pl-3 text-gray-500">
-                  ({getCartCount()} Items)
-                  </h5>
-                </div>
-              <div className='sm:flex-wrap'>
-                {/* Cart Items */}
-                <div className="mt-1 w-full  ">
-                  {cartData.map((item, i) => {
-                    const productData = products.find((product) => product._id === item._id);
-                    const key = `${item._id}-${item.color}`;
-                    if (!productData) return null; // Handle missing product data
+            <div className="flex flex-wrap lg:flex-nowrap gap-8 mt-5">
+              {/* Cart Items on Left */}
+              <div className="flex-1">
+                {cartData.map((item, i) => {
+                  const productData = products.find((product) => product._id === item._id);
+                  const key = `${item._id}-${item.color}`;
+                  if (!productData) return null;
 
-                    return (
-                      <div key={i} className="bg-primary p-2 mb-3 rounded-lg">
-                        <div className="flex items-center gap-x-3">
-                          {/* Product Image */}
-                          <div className="flex items-start gap-6">
-                            <img
-                              src={productData.image[0]}
-                              alt="productImg"
-                              className="w-28 sm:w-18 rounded"
+                  return (
+                    <motion.div
+                      key={i}
+                      className="border-e-[30px] border-s-[30px] border-t border-b  border-slate-600 hover:shadow-lg p-4 mb-5 rounded-3xl rounded-s-full rounded-e-full"
+                      initial={{ opacity: 0, x: 500 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        delay: i * 0.1,
+                        duration: 0.750,
+                      }}
+                    >
+                      <div className="flex items-center pl-5 gap-x-5">
+                        {/* Product Image */}
+                        <img
+                          src={productData.image[0]}
+                          alt="productImg"
+                          className="w-24 sm:w-20 rounded cursor-pointer hover:scale-125 duration-300 xs:hover:scale-110"
+                          onClick={() => handleNavigateToProduct(productData._id)}
+                        />
+                        {/* Product Details */}
+                        <div className="flex flex-col w-full">
+                          <div className="flexBetween">
+                            <h5 className="h5 !my-0 line-clamp-1">{productData.name}</h5>
+                            <FaRegWindowClose
+                              onClick={() => updateQuantity(item._id, item.color, 0)}
+                              className="cursor-pointer text-secondary"
                             />
                           </div>
-                          {/* Product Details */}
-                          <div className="flex flex-col w-full">
-                            <div className="flexBetween">
-                              <h5 className="h5 !my-0 line-clamp-1">{productData.name}</h5>
-                              <FaRegWindowClose
-                                onClick={() => updateQuantity(item._id, item.color, 0)}
-                                className="cursor-pointer text-secondary"
-                              />
+                          <p className="bold-14 my-1">{item.color}</p>
+                          <div className="flexBetween">
+                            {/* Quantity Control */}
+                            <div className="flex items-center ring-1 ring-slate-900/5 rounded-full overflow-hidden bg-primary">
+                              <button
+                                onClick={() => decrement(item._id, item.color)}
+                                className="p-1.5 bg-white text-secondary rounded-full shadow-md"
+                              >
+                                <FaMinus className="text-xs" />
+                              </button>
+                              <p className="px-2">{quantities[key]}</p>
+                              <button
+                                onClick={() => increment(item._id, item.color)}
+                                className="p-1.5 bg-white text-secondary rounded-full shadow-md"
+                              >
+                                <FaPlus className="text-xs" />
+                              </button>
                             </div>
-                            <p className="bold-14 my-0.5">{item.color}</p>
-                            <div className="flexBetween">
-                              {/* Quantity Control */}
-                              <div className="flex items-center ring-1 ring-slate-900/5 rounded-full overflow-hidden bg-primary">
-                                <button
-                                  onClick={() => decrement(item._id, item.color)}
-                                  className="p-1.5 bg-white text-secondary rounded-full shadow-md"
-                                >
-                                  <FaMinus className="text-xs" />
-                                </button>
-                                <p className="px-2">{quantities[key]}</p>
-                                <button
-                                  onClick={() => increment(item._id, item.color)}
-                                  className="p-1.5 bg-white text-secondary rounded-full shadow-md"
-                                >
-                                  <FaPlus className="text-xs" />
-                                </button>
-                              </div>
-                              {/* Product Price */}
-                              <h4 className="h4">
-                                {currency} {(quantities[key] * productData.price).toFixed(2)}
-                              </h4>
-                            </div>
+                            {/* Product Price */}
+                            <h4 className="h4">
+                              {currency} {(quantities[key] * productData.price).toFixed(2)}
+                            </h4>
                           </div>
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
-                {/* Cart Summary */}
-                <div className="flex my-10">
-                  <div className="bg-primary p-5 rounded-2xl w-full sm:w-[450px]">
-                    <CartTotal className=""/>
-                    <button
-                      onClick={() => navigate('/place-order')}
-                      className="btn-secondary hover:bg-slate-700  mt-5"
-                    >
-                      Proceed to Checkout
-                    </button>
-                  </div>
-                </div>
+                    </motion.div>
+                  );
+                })}
               </div>
-
-            </>
-          )}
-        </div>
+              {/* Order Summary on Right */}
+              <motion.div
+                className="bg-amber-200 p-6 rounded-2xl w-full lg:w-[450px] shadow-lg"
+                initial={{ opacity: 0, x: 500 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 1, ease: 'easeInOut' }}
+              >
+                <CartTotal />
+                <button
+                  onClick={() => navigate('/place-order')}
+                  className="btn-secondary flexCenter hover:bg-slate-700 duration-300 mt-5 w-full"
+                >
+                  Proceed to Checkout <MdShoppingCartCheckout className='ml-3 text-[20px]'/>
+                </button>
+              </motion.div>
+            </div>
+          </>
+        )}
       </div>
     </section>
   );
