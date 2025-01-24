@@ -8,10 +8,10 @@ const Search = () => {
   return (
      <div className='py-4 pb-7'>
         <div className='text-center'>
-            <div className='inline-flex items-center justify-center  py-1.5 rounded full bg-white overflow-hidden w-full'>
+            <div className='inline-flex items-center justify-center px-1.5 py-1.5 rounded full bg-white overflow-hidden w-full'>
                 <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search here...' className='border-none outline-none w-full bg-white p-2 text-sm'/>
                 <div>
-                    <FaSearch className=' text-2xl p-1 cursor-pointer'/>
+                    <FaSearch className=' text-[27px] p-1  cursor-pointer'/>
                 </div>
             </div>
         </div>

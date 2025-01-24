@@ -146,8 +146,8 @@ const PlaceOrder = () => {
               <div className='flex items-center justify-start py-6'>
                 <h3 className='bold-20 me-5'>Payment <span>Method </span></h3>
                 <div className='flex gap-3'>
-                  <div onClick={()=> setMethod('cod')} className={`${method === "cod" ? "btn-dark" : "btn-white"} !py-1 text-xs cursor-pointer`}>Cash On Delivery</div>
-                  <div onClick={()=> setMethod('stripe')} className={`${method === "stripe" ? "btn-dark" : "btn-white"} !py-1 text-xs cursor-pointer`}>Stripe</div>
+                  <div onClick={()=> setMethod('cod')} className={`${method === "cod" ? "btn-dark" : "btn-white border border-slate-800"} !py-1 text-xs  cursor-pointer`}>Cash On Delivery</div>
+                  <div onClick={()=> setMethod('stripe')} className={`${method === "stripe" ? "btn-dark" : "btn-white border border-slate-800"} !py-1 text-xs ring-1 ring-slate-800 cursor-pointer`}>Stripe</div>
                 </div>
               </div>
               <div className="flex justify-evenly mt-4">

@@ -18,7 +18,7 @@ const NewArrivals = () => {
   }, [products]);
 
   return (
-    <section className="max-padd-container pt-16 pb">
+    <section className="max-padd-container pt-16 ">
       <Title
         title1="New "
         title2="Arrivals"
@@ -30,7 +30,7 @@ const NewArrivals = () => {
       <Swiper
         autoplay={{
           delay: 4000,
-          disableOnInteraction: false,
+          disableOnInteraction: true,
         }}
         breakpoints={{
           320: {
@@ -51,7 +51,7 @@ const NewArrivals = () => {
           },
         }}
         modules={[Autoplay]}
-        className="h-[399px]"
+        className="h-[450px] xs:h-[350px]"
       >
         {PopularProducts.map((product) => (
           <SwiperSlide key={product._id}>

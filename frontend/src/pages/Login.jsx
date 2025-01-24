@@ -16,7 +16,7 @@ const Login = () => {
     return (
       <>
       <div className='flexCenter h-screen w-full bg-gray-800'>
-            <ClimbingBoxLoader color="#f79825" loading={loading} size={30} />
+            <ClimbingBoxLoader color="#f79825" loading={loading} size={20} />
           </div>
       </>
     )

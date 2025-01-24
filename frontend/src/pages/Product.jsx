@@ -98,7 +98,7 @@ const Product = () => {
                       width: "175px",
                       height: "175px",
                       background: `url(${image})`,
-                      // backgroundSize: "100%", 
+                      backgroundSize: "350%", 
                       backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
                       transform: "translate(-50%, -50%)",
                     }}
@@ -137,7 +137,7 @@ const Product = () => {
                   <button
                     key={i}
                     onClick={() => setColor(item)}
-                    className={`h-9 w-9 rounded-full flexCenter cursor-pointer border border-gray-400 ${
+                    className={`h-9 w-9 rounded-full flexCenter cursor-pointer border border-gray-400 hover:ring-2 ring-slate-400 duration-300 ${
                       color === item ? "ring-2 ring-offset-2 ring-primary" : ""
                     }`}
                     style={{ backgroundColor: item }}
@@ -156,14 +156,14 @@ const Product = () => {
             <div className="flex gap-x-4 mt-6">
               <button
                 onClick={() => addToCart(product._id, color)}
-                className="btn-secondary !rounded-lg sm:w-1/2 flexCenter gap-x-2 capitalize hover:bg-slate-700 duration-300"
+                className="btn-secondary !rounded-2xl sm:w-1/2 flexCenter gap-x-2 capitalize hover:bg-slate-700 duration-300"
               >
-                Add to Cart <TbShoppingBagPlus />
+                Add to Cart <TbShoppingBagPlus className="text-lg" />
               </button>
-              <button onClick={() => addToWishList(product._id, color)}
-                className="btn-secondary !rounded-lg  flexCenter gap-x-2 capitalize hover:bg-slate-700 duration-300"
+              <button onClick={() => addToWishList(product._id)}
+                className="btn-secondary !rounded-2xl  flexCenter gap-x-2 capitalize hover:bg-slate-700 duration-300"
               >
-                add to wishlist<FaHeart />
+                <FaHeart className="text-amber-400 hover:scale-150 duration-300"/>
               </button>
             </div>
 
