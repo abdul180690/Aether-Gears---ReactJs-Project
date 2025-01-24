@@ -17,7 +17,7 @@ import WishList from './pages/WishList';
 const App = () => {
   const location = useLocation();  
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-hidden" style={{backgroundColor: ""}}> 
       <ToastContainer />
       <Header />
 
@@ -25,7 +25,7 @@ const App = () => {
       <TransitionGroup>
         <CSSTransition
           key={location.key} // Unique key for each location to trigger animations
-          timeout={500} // Duration of the transition
+          timeout={750} // Duration of the transition
           classNames="fade" // CSS class for animation
         >
           <Routes location={location}>
