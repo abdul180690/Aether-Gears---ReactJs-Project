@@ -1,13 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { FaHome, FaList, FaBlog, FaEnvelope } from "react-icons/fa";
+import { FaHome, FaList, FaBlog } from "react-icons/fa";
+import { FcAbout } from "react-icons/fc";
+
 
 const Navbar = ({ containerStyles, onClick }) => {
   const navLinks = [
     { path: '/', title: 'Home', icon: <FaHome /> },
     { path: '/collection', title: 'Collection', icon: <FaList /> },
     { path: '/blog', title: 'Blog', icon: <FaBlog /> },
-    { path: 'mailto:info@aethergears.com', title: 'Contact', icon: <FaEnvelope /> },
+    { path: '/about', title: 'About Us', icon: <FcAbout className='text-white'/> },
   ];
 
   return (
@@ -17,7 +19,7 @@ const Navbar = ({ containerStyles, onClick }) => {
           key={link.title}
           to={link.path}
           className={({ isActive }) =>
-            `${isActive ? 'nav-underlined text-white' : 'text-white'} flex items-center px-3 py-2 rounded-full focus:bold-18 transition-all duration-300`
+            `${isActive ? 'nav-underlined text-white' : 'text-white'} flex items-center hover:scale-105 px-2  focus:bold-18 transition-all duration-300`
           }
           onClick={onClick}
         >
