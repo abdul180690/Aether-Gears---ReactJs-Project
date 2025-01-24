@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import Search from '../components/Search';
 import { ShopContext } from '../context/ShopContext';
 import Item from '../components/Item';
-import {FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight } from 'react-icons/fa';
 import notfound from '../assets/not-found.png';
 import Notification from '../components/Notification';
 
 const Collection = () => {
-  const { products = [], search } = useContext(ShopContext); 
+  const { products = [], search } = useContext(ShopContext);
   const [category, setCategory] = useState([]);
   const [sortType, setSortType] = useState('relevant');
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -73,45 +73,30 @@ const Collection = () => {
   return (
     <>
       <div className="mt-16 p-5 bg-primary max-padd-container !px-0">
-      {/* <Title 
-        title1="Our "
-        title2="Collection"
-        titleStyles="h3 p-5 text-center text-secondary"
-      /> */}
-      <Notification />
+        <Notification />
         <div className="flex flex-col sm:flex-row gap-8">
-          {/* Sidebar with dynamic width */}
+          {/* Sidebar */}
           <div
-            className={` rounded-xl ml-10 pt-5 relative ${open ? 'w-3/12 duration-500' : 'w-24 duration-500'}`}
+            className={`my-3 rounded-xl ml-10 pt-5 relative ${
+              open ? 'w-3/12 xs:w-10/12 duration-500' : 'w-24 duration-500'
+            }`}
           >
             <FaArrowRight
               onClick={() => setOpen(!open)}
-              className={`p-2 bg-primary text-dark-purple text-5xl rounded-full absolute -right-3 top-9 border-2 border-slate-300 shadow-md cursor-pointer ${
+              className={`p-3 bg-primary text-dark-purple text-5xl rounded-full absolute lg:-top-6c lg:-right-1  md:-top-4 md:-right-1  xs:-top-2 xs:right-16 border-2 border-slate-300 shadow-md cursor-pointer hover:scale-110 ${
                 open ? 'rotate-180 duration-500 mt-0 ml-0' : 'duration-500'
               }`}
             />
             {open && (
               <>
                 <Search />
-                <div className="pe-20 pl-5 py-5  bg-white rounded">
+                <div className="pe-20 xs:pe-10 pl-5 py-5 bg-white rounded">
                   <h5 className="h5 mb-4">Categories</h5>
                   <div className="flex flex-col gap-2 text-sm font-light">
-                    {[
-                      'Headphones',
-                      'Cameras',
-                      'Mobiles',
-                      'Speakers',
-                      'Mouse',
-                      'Watches',
-                    ].map((cat) => (
-                      <label
-                        key={cat}
-                        className="flex gap-2 medium-14 text-gray-30"
-                      >
+                    {['Headphones', 'Cameras', 'Mobiles', 'Speakers', 'Mouse', 'Watches'].map((cat) => (
+                      <label key={cat} className="flex gap-2 medium-14 text-gray-30">
                         <input
-                          onChange={(e) =>
-                            toggleFilter(e.target.value, setCategory)
-                          }
+                          onChange={(e) => toggleFilter(e.target.value, setCategory)}
                           type="checkbox"
                           value={cat}
                           className="w-3"
@@ -137,16 +122,24 @@ const Collection = () => {
           </div>
 
           {/* Product List */}
-          <div className="pr-5 rounded-1-xl">
+          <div className="px-5 rounded-1-xl">
             <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6">
               {getPaginatedProducts().length > 0 ? (
-                getPaginatedProducts().map((product) => (
-                  <Item key={product.id} product={product} />
+                getPaginatedProducts().map((product, index) => (
+                  <div
+                    key={product.id}
+                    className="zoom-in-animation"
+                    style={{
+                      animationDelay: `${index * 0.1}s`, // Staggered animation
+                    }}
+                  >
+                    <Item product={product} />
+                  </div>
                 ))
               ) : (
-                <div className=''>
-                  <img src={notfound} alt="" className='w-72 h-68'/>
-                  <p className='h3'>No Products found for selected filters</p>
+                <div>
+                  <img src={notfound} alt="" className="w-72 h-68" />
+                  <p className="h3">No Products found for selected filters</p>
                 </div>
               )}
             </div>
@@ -156,9 +149,7 @@ const Collection = () => {
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => prev - 1)}
-                className={`${
-                  currentPage === 1 && 'opacity-50 cursor-not-allowed'
-                } bg-slate-700 text-white rounded-full !py-1 !px-3`}
+                className={`${currentPage === 1 && 'opacity-50 cursor-not-allowed'} bg-slate-700 text-white rounded-full !py-1 !px-3`}
               >
                 Previous
               </button>
@@ -167,8 +158,7 @@ const Collection = () => {
                   key={index + 1}
                   onClick={() => setCurrentPage(index + 1)}
                   className={`${
-                    currentPage === index + 1 &&
-                    '!bg-slate-900 text-black text-xl transitions'
+                    currentPage === index + 1 && '!bg-slate-900 text-black text-xl transitions'
                   } bg-slate-700 text-white rounded-full !py-1 !px-3`}
                 >
                   {index + 1}
@@ -177,9 +167,7 @@ const Collection = () => {
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage((prev) => prev + 1)}
-                className={`${
-                  currentPage === totalPages && 'opacity-50 cursor-not-allowed'
-                } bg-slate-700 text-white rounded-full !py-1 !px-3`}
+                className={`${currentPage === totalPages && 'opacity-50 cursor-not-allowed'} bg-slate-700 text-white rounded-full !py-1 !px-3`}
               >
                 Next
               </button>
