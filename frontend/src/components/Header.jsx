@@ -48,11 +48,11 @@ const Header = () => {
     >
       <div className="flexBetween py-3">
         {/* Logo */}
-        <Link to={"/"} className="flex flex-1 items-center hover:scale-105 duration-300">
+        <Link to={"/"} className=" flex flex-1 items-center hover:scale-105 duration-300 ">
           <span className="me-1">
-            <img src={logo} alt="Logo" className="w-5 h-5" />
+            <img src={logo} alt="Logo" className="lg:w-5 lg:h-5 xs:w-10 xs:h-10" />
           </span>
-          <span className="heading-gradient uppercase tracking-widest">Aether Gears</span>
+          <span className="heading-gradient uppercase tracking-widest lg:block xs:hidden">Aether Gears</span>
         </Link>
 
         {/* Navbar */}
@@ -67,25 +67,14 @@ const Header = () => {
 
         {/* Right Section */}
         <div className="flex-1 flex items-center justify-end gap-x-2 xs:gap-x-8">
-          {/* Menu Toggle Button */}
-          {menuOpened ? (
-            <FaBarsStaggered
-              onClick={toggleMenu}
-              className="xl:hidden cursor-pointer text-xl duration-300 text-white hover:scale-90"
-            />
-          ) : (
-            <FaBars
-              onClick={toggleMenu}
-              className="xl:hidden cursor-pointer text-xl text-white duration-300 hover:scale-90"
-            />
-          )}
+          
 
           {/* Cart */}
           {cartCount > 0 && (
             <Link to={"/cart"} className="relative">
-              <div className="flex px-3">
-                <IoMdCart className="text-2xl text-white hover:scale-125 duration-300" />
-                <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 right-0 flexCenter w-4 h-4 rounded-full shadow-lg">
+              <div className="flex ">
+                <IoMdCart className="lg:text-2xl xs:text-3xl text-white hover:scale-125 duration-300" />
+                <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-4 flexCenter w-4 h-4 rounded-full shadow-lg">
                   {cartCount}
                 </span>
               </div>
@@ -96,8 +85,8 @@ const Header = () => {
           {wishlistCount > 0 && (
             <Link to={"/wishlist"} className="relative">
               <div className="flex">
-                <BsClipboard2HeartFill className="text-lg text-white hover:scale-125 duration-300" />
-                <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-3 flexCenter w-4 h-4 rounded-full shadow-lg">
+                <BsClipboard2HeartFill className="lg:text-lg xs:text-2xl text-white hover:scale-125 duration-300" />
+                <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-4 flexCenter w-4 h-4 rounded-full shadow-lg">
                   {wishlistCount}
                 </span>
               </div>
@@ -114,6 +103,19 @@ const Header = () => {
               <RiUserLine className="" />
             </button>
           </div>
+
+          {/* Menu Toggle Button */}
+          {menuOpened ? (
+            <FaBarsStaggered
+              onClick={toggleMenu}
+              className="xl:hidden cursor-pointer text-xl duration-300 text-white hover:scale-90"
+            />
+          ) : (
+            <FaBars
+              onClick={toggleMenu}
+              className="xl:hidden cursor-pointer text-xl text-white duration-300 hover:scale-90"
+            />
+          )}
         </div>
       </div>
     </header>
