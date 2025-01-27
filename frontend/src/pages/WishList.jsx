@@ -37,7 +37,7 @@ const WishList = () => {
   };
 
   return (
-    <div className="max-padd-container my-20 w-full">
+    <div className="max-padd-container pb-20 bg-white">
       <div className="flex items-center">
         <Title
           title1="Your "
