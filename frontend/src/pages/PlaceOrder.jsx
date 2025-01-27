@@ -2,20 +2,23 @@ import React, { useContext, useState } from 'react'
 import Title from '../components/Title'
 import CartTotal from '../components/CartTotal'
 import { ShopContext } from '../context/ShopContext'
+import PromoCode from '../components/PromoCode'
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState('cod')
-  const {navigate} = useContext(ShopContext)
+  const { navigate } = useContext(ShopContext)
+  const [discount, setDiscount] = useState(0)
 
   return (
-    <div className='mt-20'>
-      <div className='bg-primary bg-opacity-10 backdrop-blur-lg mb-16'>
+    <div className='bg-white'>
+      <div className=' bg-opacity-10 backdrop-blur-lg pb-16'>
         <form className='max-padd-container py-10'>
           <div className='flex flex-col xl:flex-row gap-20 xl:gap-28'>
             <div className='flex-1 flex flex-col gap-3 text-[95%]'>
-              <Title title1={'Delivery '} title2={'Information'}/>
+              <Title title1={'Delivery '} title2={'Information'} />
+              {/* (Existing form fields for delivery information) */}
               <div className='flex gap-3 mt-3'>
-                <div className='flex-1 relative'>
+                 <div className='flex-1 relative'>
                   <input 
                     type="text" 
                     id="firstName"
@@ -141,13 +144,20 @@ const PlaceOrder = () => {
               </div>
             </div>
 
+           
+
             <div className='flex flex-1 flex-col'>
-              <CartTotal />
+              {/* Promo Code Input */}
+              <PromoCode setDiscount={setDiscount} />
+
+              {/* Cart Total with applied discount */}
+              <CartTotal discount={discount} />
+
               <div className='flex items-center justify-start py-6'>
-                <h3 className='bold-20 me-5'>Payment <span>Method </span></h3>
+                <h3 className='bold-20 me-5 text-nowrap'>Payment Method: </h3>
                 <div className='flex gap-3'>
-                  <div onClick={()=> setMethod('cod')} className={`${method === "cod" ? "btn-dark" : "btn-white border border-slate-800"} !py-1 text-xs  cursor-pointer`}>Cash On Delivery</div>
-                  <div onClick={()=> setMethod('stripe')} className={`${method === "stripe" ? "btn-dark" : "btn-white border border-slate-800"} !py-1 text-xs ring-1 ring-slate-800 cursor-pointer`}>Stripe</div>
+                  <div onClick={() => setMethod('cod')} className={`${method === "cod" ? "btn-dark text-nowrap" : "btn-white border border-slate-800"} !py-1 text-xs cursor-pointer`}>Cash On Delivery</div>
+                  <div onClick={() => setMethod('stripe')} className={`${method === "stripe" ? "btn-dark" : "btn-white border border-slate-800"} !py-1 text-xs ring-1 ring-slate-800 cursor-pointer`}>Stripe</div>
                 </div>
               </div>
               <div className="flex justify-evenly mt-4">
