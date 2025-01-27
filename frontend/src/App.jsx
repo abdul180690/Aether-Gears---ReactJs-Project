@@ -4,6 +4,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Collection from './pages/Collection';
 import Blog from './pages/Blog';
+import AboutUs from './pages/AboutUs';
 import Product from './pages/Product';
 import BackToTop from './components/BackToTop';
 import Footer from './components/Footer';
@@ -17,7 +18,7 @@ import WishList from './pages/WishList';
 const App = () => {
   const location = useLocation();  
   return (
-    <main className="overflow-hidden" style={{backgroundColor: ""}}> 
+    <main className="overflow-hidden bg-amber-100" style={{backgroundColor: ""}}> 
       <ToastContainer />
       <Header />
 
@@ -32,6 +33,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/collection" element={<Collection />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/about-us" element={<AboutUs />} />
             <Route path="/product/:productId" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/wishlist" element={<WishList />} />
