@@ -9,72 +9,60 @@ import logo from "../assets/icon.png";
 import { BsClipboard2HeartFill } from "react-icons/bs";
 
 const Header = () => {
-  const [menuOpened, setMenuOpened] = useState(false);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [headerVisible, setHeaderVisible] = useState(true);
   const { getCartCount, getWishListCount, navigate } = useContext(ShopContext);
-
+  const [menuOpened, setMenuOpened] = useState(false);
+  
   const toggleMenu = () => setMenuOpened((prev) => !prev);
 
-  const handleScroll = () => {
-    if (typeof window !== "undefined") {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY && currentScrollY > 200) {
-        setHeaderVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        setHeaderVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [lastScrollY]);
 
   const cartCount = getCartCount();
   const wishlistCount = getWishListCount();
 
   return (
     <header
-      className={`max-padd-container w-screen  mb-2 bg-gray-950 bg-opacity-80 backdrop-blur-sm transition-all duration-300 ${
-        headerVisible ? "fixed top-0 left-0 w-full z-40" : "-translate-y-full"
-      }`}
+      className={`max-padd-container w-screen  lg:bg-amber-100 xs:bg-amber-100`}
     >
-      <div className="flexBetween py-3">
-        {/* Logo */}
-        <Link to={"/"} className=" flex flex-1 items-center hover:scale-105 duration-300 ">
-          <span className="me-1">
-            <img src={logo} alt="Logo" className="lg:w-5 lg:h-5 xs:w-10 xs:h-10" />
-          </span>
-          <span className="heading-gradient uppercase tracking-widest lg:block xs:hidden">Aether Gears</span>
-        </Link>
+      <div className="flex justify-between items-center">
+        <div className="flex-1">
+          {/* Logo */}
+          <Link
+            to={"/"}
+            className="flex flex-1 bg-slate-900 bg-opacity-70 justify-start p-3 xs:bg-transparent xs:ring-0 xs:backdrop-blur-0 xs:shadow-none rounded-full items-center hover:scale-105 duration-300"
+          >
+            <span className="me-1">
+              <img
+                src={logo}
+                alt="Logo"
+                className="lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-10 sm:h-10 xs:w-12 xs:h-12 rounded-full shadow-lg"
+              />
+            </span>
+            <span className="text-slate-900 text-nowrap uppercase bold-20 tracking-[5px] lg:block md:block xs:hidden">
+              Aether Gears
+            </span>
+          </Link>
+        </div>
 
-        {/* Navbar */}
-        <Navbar
-          containerStyles={`${
-            menuOpened
-              ? "flex items-start flex-col gap-y-6 fixed top-10 right-10 p-5 bg-slate-950 bg-opacity-70 backdrop-blur-lg rounded-xl shadow-xl w-52 ring-1 ring-slate-900/5 z-50"
-              : "hidden xl:flex gap-x-5 xl:gap-x-7 tracking-widest medium-15"
-          }`}
-          onClick={() => setMenuOpened(false)}
-        />
+        <div className=" flex-1 justify-center items-center mt-3">
+          {/* Navbar */}
+          <Navbar
+            containerStyles={`${
+              menuOpened
+                ? "flex items-start flex-col gap-y-7 fixed top-20 right-5 p-5 bg-slate-900 bg-opacity-80 backdrop-blur-sm rounded-xl shadow-2xl w-60 ring-1 ring-slate-900/5 z-50 transition-all duration-300"
+                : "hidden xl:flex gap-x-5 xl:gap-x-7 tracking-widest bg-slate-900 bg-opacity-70 justify-center backdrop-blur-sm shadow-lg text-sm  p-2 px-4 ring-1 ring-slate-100/20 rounded-full"
+            }`}
+            onClick={() => setMenuOpened(false)}
+            className=""
+          />
+        </div>
 
         {/* Right Section */}
-        <div className="flex-1 flex items-center justify-end gap-x-2 xs:gap-x-8">
-          
-
+        <div className="flex-1 flex justify-end items-center  xs:ms-3  text-sm  p-2 px-4   gap-x-2 xs:gap-x-8">
           {/* Cart */}
           {cartCount > 0 && (
             <Link to={"/cart"} className="relative">
               <div className="flex ">
-                <IoMdCart className="lg:text-2xl xs:text-3xl text-white hover:scale-125 duration-300" />
-                <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-4 flexCenter w-4 h-4 rounded-full shadow-lg">
+                <IoMdCart className="lg:text-2xl xs:text-2xl  xs:text-slate-900 text-white hover:scale-125 duration-300" />
+                <span className="lg:bg-amber-300 xs:bg-slate-300 ring-black ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-4 flexCenter w-4 h-4 rounded-full shadow-lg">
                   {cartCount}
                 </span>
               </div>
@@ -85,19 +73,18 @@ const Header = () => {
           {wishlistCount > 0 && (
             <Link to={"/wishlist"} className="relative">
               <div className="flex">
-                <BsClipboard2HeartFill className="lg:text-lg xs:text-2xl text-white hover:scale-125 duration-300" />
-                <span className="bg-amber-300 ring-white ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-4 flexCenter w-4 h-4 rounded-full shadow-lg">
+                <BsClipboard2HeartFill className="lg:text-lg xs:text-xl xs:text-slate-900 text-white hover:scale-125 duration-300" />
+                <span className="lg:bg-amber-300 xs:bg-slate-300 ring-black ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-4 flexCenter w-4 h-4 rounded-full shadow-lg">
                   {wishlistCount}
                 </span>
               </div>
             </Link>
           )}
-
           {/* Login Button */}
           <div className="relative">
             <button
               onClick={() => navigate("/login")}
-              className="p-2 px-4 bg-white rounded-full text-sm flexCenter gap-x-1 hover:bg-slate-300/95 duration-300"
+              className="p-2 bold-14 px-5 bg-amber-400 ring-1 ring-slate-950/30 rounded-full text-sm flexCenter gap-x-1 hover:bg-amber-300/95 duration-300"
             >
               Login
               <RiUserLine className="" />
@@ -108,12 +95,12 @@ const Header = () => {
           {menuOpened ? (
             <FaBarsStaggered
               onClick={toggleMenu}
-              className="xl:hidden cursor-pointer text-xl duration-300 text-white hover:scale-90"
+              className="xl:hidden cursor-pointer text-xl lg:text-slate-900 xs:text-slate-900 duration-400 "
             />
           ) : (
             <FaBars
               onClick={toggleMenu}
-              className="xl:hidden cursor-pointer text-xl text-white duration-300 hover:scale-90"
+              className="xl:hidden cursor-pointer text-xl lg:text-slate-900 xs:text-slate-900  duration-400 "
             />
           )}
         </div>
