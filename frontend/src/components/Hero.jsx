@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import bg from '../assets/bg.png'
 import headphone from '../assets/headphone.png'
 import { FaArrowRightLong } from 'react-icons/fa6';

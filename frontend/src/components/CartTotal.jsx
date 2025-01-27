@@ -1,69 +1,57 @@
-// import React, { useCallback, useContext } from 'react'
-// import { ShopContext } from '../context/ShopContext'
-// import Title from './Title'
+import React, { useContext } from 'react'
+import { ShopContext } from '../context/ShopContext'
+import Title from './Title'
 
-// const CartTotal = () => {
-// const {currency, getCartAmount, delivery_charges} = useContext(ShopContext)
-
-//   return (
-//     <section>
-//         <Title 
-//             title1={'Cart'}
-//             title2={'Total'}
-//             title1Styles={'h3'}
-//         />
-//         <div className='flexBetween pt-3'>
-//             <h5 className='h5'>SubTotal: </h5>
-//             <p className='h5'>{currency} {getCartAmount()}</p>
-//         </div>
-//         <hr className='mx-auto h-[1px] w-full bg-gray-900/10 my-1'/>
-
-//         <div className='flexBetween pt-3'>
-//             <h5 className='h5'>Shipping Fee: </h5>
-//             <p className='h5'>{getCartAmount() === 0 ? "0.00" : `${currency} ${delivery_charges}`}</p>
-//         </div>
-
-//         <hr className='mx-auto h-[1px] w-full bg-gray-900/10 my-1'/>
-//         <div className='flexBetween pt-3'>
-//             <h5 className='h5'>Total: </h5>
-//             <p className='h5'>{currency} {getCartAmount() === 0 ? "0.00" : getCartAmount() + delivery_charges}</p>
-//         </div>
-//     </section>
-//   )
-// }
-
-// export default CartTotal
-
-import React, { useContext } from 'react';
-import { ShopContext } from '../context/ShopContext';
-import Title from './Title';
-
-const CartTotal = () => {
-  const { currency, getCartAmount, delivery_charges } = useContext(ShopContext);
+const CartTotal = ({ discount }) => {
+  const { currency, getCartAmount, delivery_charges } = useContext(ShopContext)
 
   const cartAmount = getCartAmount(); // Subtotal before tax
+
+  // Apply discount if any
+  const discountAmount = (cartAmount * discount) / 100; // Calculate discount
+  const discountedAmount = cartAmount - discountAmount; // Subtotal after discount
+
+  // CGST and SGST calculations
   const cgstRate = 0.05; // CGST (5%)
   const sgstRate = 0.05; // SGST (5%)
-  const cgstAmount = cartAmount * cgstRate;
-  const sgstAmount = cartAmount * sgstRate;
+  const cgstAmount = discountedAmount * cgstRate;
+  const sgstAmount = discountedAmount * sgstRate;
   const taxAmount = cgstAmount + sgstAmount; // Total tax (CGST + SGST)
-  const afterTaxAmount = cartAmount + taxAmount; // Subtotal after tax
-  const shippingFee = cartAmount === 0 ? 0 : delivery_charges; // Conditional shipping fee
+  const afterTaxAmount = discountedAmount + taxAmount; // Subtotal after tax
+
+  // Shipping fee: Only applies if total (after discount) exceeds a certain threshold, else it's zero
+  const shippingFee = cartAmount < 1000 ? delivery_charges : 0; 
   const totalAmount = afterTaxAmount + shippingFee; // Final total (after tax + shipping)
 
   return (
     <section className="p-5 rounded-2xl">
-      {/* Title */}
-      <Title 
-        title1="Order "
-        title2="Summary"
-      />
+      <Title title1="Order " title2="Summary" />
+      
+      {/* Subtotal */}
+      <div className="bold-15 flex justify-between items-center py-1">
+        <h5 className="text-gray-700">Subtotal:</h5>
+        <p className="text-gray-800">
+          {currency} {cartAmount.toFixed(2)}
+        </p>
+      </div>
+
+      {/* Discount */}
+      {discount > 0 && (
+        <div className="flex justify-between items-center py-1">
+          <h5 className="text-gray-700">Discount ({discount}%):</h5>
+          <p className="text-gray-800">
+            - {currency} {discountAmount.toFixed(2)}
+          </p>
+        </div>
+      )}
+      
+      <hr className="border-gray-300 my-2" />
 
       {/* Before Tax */}
       <div className="flex justify-between items-center py-1">
-        <h5 className="  text-gray-700">Before Tax:</h5>
-        <p className=" text-gray-800">
-          {currency} {cartAmount.toFixed(2)}
+        <h5 className="text-gray-700">Before Tax:</h5>
+        <p className="text-gray-800">
+          {currency} {discountedAmount.toFixed(2)}
         </p>
       </div>
       <hr className="border-gray-300 my-2" />
@@ -71,7 +59,7 @@ const CartTotal = () => {
       {/* CGST */}
       <div className="flex justify-between items-center ">
         <h5 className="text-sm text-gray-700">CGST (5%):</h5>
-        <p className="  text-gray-800">
+        <p className="text-gray-800">
           {currency} {cgstAmount.toFixed(2)}
         </p>
       </div>
@@ -79,27 +67,29 @@ const CartTotal = () => {
       {/* SGST */}
       <div className="flex justify-between items-center ">
         <h5 className="text-sm text-gray-700">SGST (5%):</h5>
-        <p className="  text-gray-800">
+        <p className="text-gray-800">
           {currency} {sgstAmount.toFixed(2)}
         </p>
       </div>
+
       <hr className="border-gray-300 my-2" />
 
       {/* After Tax */}
       <div className="flex justify-between items-center py-1">
-        <h5 className="  text-gray-700">After Tax:</h5>
-        <p className="  text-gray-800">
+        <h5 className="text-gray-700">After Tax:</h5>
+        <p className="text-gray-800">
           {currency} {afterTaxAmount.toFixed(2)}
         </p>
       </div>
 
-      {/* /* Shipping Fee  */}
+      {/* Shipping Fee */}
       <div className="flex justify-between items-center py-1">
-        <h5 className="  text-gray-700">Shipping Fee:</h5>
-        <p className=" text-gray-800">
-          {currency} {totalAmount > 1000 ? shippingFee.toFixed(2) : 0.00 }
+        <h5 className="text-gray-700">Shipping Fee:</h5>
+        <p className="text-gray-800">
+          {currency} {shippingFee.toFixed(2)}
         </p>
       </div>
+      
       <hr className="border-gray-300 my-2" />
 
       {/* Total */}
@@ -110,8 +100,7 @@ const CartTotal = () => {
         </p>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default CartTotal;
-
+export default CartTotal

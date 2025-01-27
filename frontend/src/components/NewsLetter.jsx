@@ -3,25 +3,25 @@ import { FaXTwitter, FaFacebook, FaInstagram } from "react-icons/fa6";
 
 const NewsLetter = () => {
   return (
-    <section className="max-padd-container border-t-[1px] border-b-[1px] py-4 mb-16">
-      <div className="flexBetween flex-wrap gap-2">
+    <section className="max-padd-container border-t-[1px] border-slate-400 border-b-[1px] pt-5 my-16">
+      <div className="lg:flexBetween xs:flex-wrap gap-3">
         {/* Left Section: Header & Description */}
-        <div>
-          <h4 className="bold-14 uppercase tracking-wider">
+        <div className="mb-5">
+          <h4 className="bold-14 uppercase tracking-wider text-center">
             Subscribe to our Newsletter
           </h4>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-600 text-center">
             Get the latest updates on Events, Sales, & Offers.
           </p>
         </div>
 
         {/* Middle Section: Email Subscription */}
-        <div>
+        <div className="flex-1 lg:px-20 md:px:15 xs:px-5 mb-5">
           <div className="flex bg-primary">
             <input
               type="email"
               placeholder="Email Address"
-              className="p-4 bg-primary w-[266px] outline-none text-[13px] text-black placeholder-gray-500"
+              className="p-4 w-full outline-none text-[13px] text-black placeholder-gray-500 bg-white"
             />
             <button className="btn bg-slate-800 text-white p-4 !rounded-none !text-[13px] !font-bold uppercase  hover:bg-slate-700 duration-300">
               Submit
@@ -30,7 +30,7 @@ const NewsLetter = () => {
         </div>
 
         {/* Right Section: Social Media Links */}
-        <div className="flex gap-x-3 pr-14">
+        <div className="flexCenter gap-x-3 mb-5">
           {[
             { Icon: FaFacebook, label: "Facebook" },
             { Icon: FaInstagram, label: "Instagram" },

@@ -30,7 +30,7 @@ const Item = ({ product }) => {
 
   return (
     <div
-      className="relative bg-primary overflow-hidden border border-slate-300 p-2 rounded-xl hover:shadow-lg duration-300 group"
+      className="relative bg-white overflow-hidden border border-slate-300 p-2 rounded-xl hover:shadow-lg duration-300 group"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -75,11 +75,11 @@ const Item = ({ product }) => {
         </p>
       </div>
 
-      {/* Hover Effect: Select Color & Buy Now */}
+      {/* Hover Effect: Select Color & Add to cart */}
       <div
         className={`absolute bottom-0 left-0 right-0 bg-slate-600 bg-opacity-50 backdrop-blur-sm p-4 rounded-t-xl transform ${
           hovered ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
-        } transition-all duration-300 ease-in-out`}
+        } transition-all duration-400 ease-in-out`}
       >
         <div className="flex flex-col items-center gap-3">
           {/* Select Color Buttons */}
@@ -105,7 +105,7 @@ const Item = ({ product }) => {
             </div>
           </div>
 
-          {/* Buy Now Button */}
+          {/* Add to cart Button */}
           <div className="flex gap-x-4 mt-6 xs:mt-2">
             <button
               onClick={() => {
@@ -115,7 +115,7 @@ const Item = ({ product }) => {
                   toast.error("Please select a color.", { autoClose: 1000 });
                 }
               }}
-              className="btn-secondary flexCenter w-full hover:bg-slate-700 duration-300"
+              className="btn-secondary flexCenter w-full hover:bg-slate-700 duration-300 text-nowrap"
             >
               Add To Cart <TbShoppingBagPlus className="ml-2 text-xl" />
             </button>

@@ -139,7 +139,7 @@ const ShopContextProvider = (props) => {
     isInWishlist,
     setWishListItems,
     getWishListCount,
-    removeFromWishList,  // Added removeFromWishList
+    removeFromWishList,  
   };
 
   return <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>;
