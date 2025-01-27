@@ -7,6 +7,7 @@ import ProductDescription from "../components/ProductDescription";
 import ProductFeatures from "../components/ProductFeatures";
 import RelatedProducts from "../components/RelatedProducts";
 import cod from '../assets/cod2.png'
+import { CiZoomIn } from "react-icons/ci";
 
 const Product = () => {
   const { productId } = useParams();
@@ -45,8 +46,8 @@ const Product = () => {
   }
 
   return (
-    <div className="mt-20">
-      <div className="max-padd-container">
+    <div className="max-padd-container bg-white">
+      <div className=" ">
         <div className="flex gap-10 flex-col xl:flex-row rounded-2xl p-3 mb-6">
           {/* Image Section */}
           <div className="flex flex-1 gap-x-2 max-w-[477px]">
@@ -62,6 +63,7 @@ const Product = () => {
                   }`}
                 />
               ))}
+            <p className="text-center mt-1">Hover on image to zoom </p>
             </div>
             <div
               className="flex-[4] flex items-center relative"
@@ -69,11 +71,12 @@ const Product = () => {
               <img
                 src={image}
                 alt={`Main view of ${product.name}`}
-                className="rounded-xl w-full object-cover border border-slate-400/50"
+                className="rounded-xl w-full object-cover border border-slate-400/50 cursor-zoom-in"
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
                 onMouseMove={handleMouseMove}
               />
+              
               {hovered && (
                 <>
                   {/* Large Image View */}
@@ -87,6 +90,7 @@ const Product = () => {
                         transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
                       }}
                     />
+                    
                   </div>
                   
                   {/* Magnifying Box */}
