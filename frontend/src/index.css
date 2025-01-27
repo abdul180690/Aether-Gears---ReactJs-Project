@@ -341,9 +341,9 @@
 }
 
 .text-pulse {
-  animation: pulseGlow 2s infinite;
+  animation: pulseGlow 1s infinite;
   font-weight: bold;
-  transition: all 0.5s ease-in-out;
+  /* transition: all 0.5s ease-in-out; */
 }
 
 @keyframes pulseGlow {
@@ -360,6 +360,26 @@
     color: #e00a0a;
   }
   
+}
+
+.flash {
+  animation: flashing 2s infinite;
+  transition: all 0.5s ease-in-out;
+}
+
+@keyframes flashing {
+  0% {
+    opacity: 0.5;
+    color: blue;
+  }
+  50% {
+    opacity: 1;
+    color: red;
+  }
+  100% {
+    opacity: 0.5;
+    color: blue;
+  }
 }
 
 .bg {
@@ -399,7 +419,7 @@
 }
 
 .heading-gradient {
-  background: linear-gradient(0deg, #ffbf00 0%, #f79825 100%);
+  background: linear-gradient(0deg, #fac103 0%, #ec8d18 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: "Lexend Giga", serif;
@@ -458,5 +478,79 @@
 
 .slide-animation {
   animation: slideIn 0.5s ease-in-out;
+}
+
+
+/* About */
+
+.wrapper{
+  width: 100%;
+  max-width: 1536px;
+  margin-inline: auto;
+  position: relative;
+  height: 100px;
+  margin-top: 3rem;
+  margin-bottom: 5rem;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,1) 20%, rgba(0,0,0,1) 80%, rgba(0,0,0,0));
+}
+
+.item{
+  width: 200px;
+  height: 100px;
+  position: absolute;
+  left: max(calc(200px * 6), 100%);
+  animation-name: scrollleft;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-delay: -10s;
+}
+
+.item img{
+  height: 100px;
+  width: 150px;
+}
+
+@keyframes scrollleft {
+  to {
+    left: -200px;
+  }
+}
+
+.item1 {
+  animation-delay: calc(30s / 8 * (8 - 1) * -1);
+}
+.item2 {
+  animation-delay: calc(30s / 8 * (8 - 2) * -1);
+}
+.item3 {
+  animation-delay: calc(30s / 8 * (8 - 3) * -1);
+}
+.item4 {
+  animation-delay: calc(30s / 8 * (8 - 4) * -1);
+}
+.item5 {
+  animation-delay: calc(30s / 8 * (8 - 5) * -1);
+}
+.item6 {
+  animation-delay: calc(30s / 8 * (8 - 6) * -1);
+}
+.item7 {
+  animation-delay: calc(30s / 8 * (8 - 7) * -1);
+}
+.item8 {
+  animation-delay: calc(30s / 8 * (8 - 8) * -1);
+}
+
+.scroll-section {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-section.in-view {
+  opacity: 1;
+  transform: scale(1);
 }
 
