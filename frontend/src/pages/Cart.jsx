@@ -1,16 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import Title from '../components/Title';
-import { FaMinus, FaPlus, FaRegWindowClose } from 'react-icons/fa';
+import { FaMinus, FaPlus, FaRegWindowClose, FaCheck } from 'react-icons/fa';
 import { MdShoppingCartCheckout } from "react-icons/md";
-
-import CartTotal from '../components/CartTotal';
 import emptyCart from '../assets/empty-cart.mp4';
-import { motion } from 'framer-motion'; // Importing framer-motion for animations
+import { motion } from 'framer-motion';
+import PairWithYourCart from '../components/PairWithYourCart';
 
 const Cart = () => {
-  const { navigate, products, currency, cartItems, getCartCount, updateQuantity } = useContext(ShopContext);
-
+  const { navigate, products, currency, cartItems, getCartCount, updateQuantity, getCartAmount } = useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
   const [quantities, setQuantities] = useState([]);
 
@@ -55,9 +53,11 @@ const Cart = () => {
     navigate(`/product/${id}`);
   };
 
+  const firstProduct = cartData[0] ? products.find(product => product._id === cartData[0]._id) : null;
+
   return (
-    <section className="mt-14 bg-primary">
-      <div className="max-padd-container  py-10">
+    <section className="bg-white">
+      <div className="max-padd-container py-10">
         {/* Empty Cart Message */}
         {getCartCount() === 0 ? (
           <motion.div 
@@ -87,7 +87,7 @@ const Cart = () => {
         ) : (
           <>
             <div className="flex items-center">
-              <Title title1="Your " title2="Cart" titleStyles="h3" />
+              <Title title1="Shopping " title2="Cart" titleStyles="h3" />
               <h5 className="relative bottom-2 pl-3 text-gray-500">({getCartCount()} Items)</h5>
             </div>
             <div className="flex flex-wrap lg:flex-nowrap gap-8 mt-5">
@@ -101,7 +101,7 @@ const Cart = () => {
                   return (
                     <motion.div
                       key={i}
-                      className="border-e-[30px] border-s-[30px] border-t border-b  border-slate-600 hover:shadow-lg p-4 mb-5 rounded-3xl rounded-s-full rounded-e-full"
+                      className="border-e-[30px] border-s-[30px] border-t border-b border-slate-600 hover:shadow-lg p-4 mb-5 rounded-md"
                       initial={{ opacity: 0, x: 500 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{
@@ -155,22 +155,60 @@ const Cart = () => {
                   );
                 })}
               </div>
-              {/* Order Summary on Right */}
-              <motion.div
-                className="bg-amber-200 p-6 rounded-2xl w-full lg:w-[450px] shadow-lg"
-                initial={{ opacity: 0, x: 500 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 1, ease: 'easeInOut' }}
-              >
-                <CartTotal />
-                <button
-                  onClick={() => navigate('/place-order')}
-                  className="btn-secondary flexCenter hover:bg-slate-700 duration-300 mt-5 w-full"
+              {/* Subtotal on Right */}
+              <div className=''>
+                <motion.div
+                  className=" p-6 rounded-2xl w-full lg:w-[450px] bg-amber-200 shadow-lg"
+                  initial={{ opacity: 0, x: 500 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 1, ease: 'easeInOut' }}
                 >
-                  Proceed to Checkout <MdShoppingCartCheckout className='ml-3 text-[20px]'/>
-                </button>
-              </motion.div>
+                  {/* Progress Bar for Free Shipping */}
+                  {
+                    getCartAmount() < 1000 ? (
+                      <div className="mb-4">
+                        <p>Free Shipping on or above {currency}1000</p>
+                        <h3 className="text-gray-900 text-sm mb-1.5">Add more for free shipping</h3>
+                        <div className="w-full h-2 bg-gray-200 rounded-full">
+                          <div
+                            className="h-full flex bg-green-500 rounded-full"
+                            style={{
+                              width: `${Math.min((getCartAmount() / 1000) * 100, 100)}%`, // Calculate percentage based on cartAmount
+                            }}
+                          >
+                          </div>
+                        </div>
+                        <p className="text-sm text-gray-900 mt-1.5">
+                          <span className='bold-15'> {currency}{1000 - getCartAmount()} </span> more to get free shipping
+                        </p>
+                      </div>
+                    ) 
+                    : (
+                      <div className="mb-4 flexCenter">
+                        <FaCheck className='me-3 bg-green-600 text-white text-3xl p-1 rounded-full'/> 
+                        <h3 className=" bold-18 text-green-600">Your order is eligible for FREE Delivery.</h3>
+                      </div>
+                    )
+                    
+                  }
+
+                  <div className='flex justify-between items-center'>
+                    <h1>Subtotal <span>({getCartCount()} Items)</span></h1>
+                    <h3 className='bold-24'>{currency}{getCartAmount()}</h3>
+                  </div>
+                  <button
+                    onClick={() => navigate('/place-order')}
+                    className="btn-secondary flexCenter hover:bg-slate-700 duration-300 mt-5 w-full"
+                  >
+                    Proceed to Checkout <MdShoppingCartCheckout className='ml-3 text-[20px]'/>
+                  </button>
+                </motion.div>
+              </div>
             </div>
+            {/* Related Products Section */}
+            {firstProduct && (
+              <PairWithYourCart category={firstProduct.category} products={products} onNavigate={handleNavigateToProduct} />
+            )}
           </>
         )}
       </div>
