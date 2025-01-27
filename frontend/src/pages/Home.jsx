@@ -11,17 +11,18 @@ import { ClimbingBoxLoader } from 'react-spinners';
 
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(true); // Initial state is loading
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setIsLoading(false); // Update state after 2 seconds
+      setIsLoading(false); 
     }, 1500);
 
     return () => {
-      clearTimeout(timer); // Cleanup timer when component unmounts
+      clearTimeout(timer); 
     };
   }, []);
+
 
   // Conditional rendering
   if (isLoading) {
@@ -49,5 +50,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
