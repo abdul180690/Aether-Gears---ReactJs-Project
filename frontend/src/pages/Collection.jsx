@@ -72,7 +72,7 @@ const Collection = () => {
 
   return (
     <>
-      <div className="mt-16 p-5 bg-primary max-padd-container !px-0">
+      <div className="pt-5 bg-white max-padd-container !px-0">
         <Notification />
         <div className="flex flex-col sm:flex-row gap-8">
           {/* Sidebar */}
@@ -89,7 +89,7 @@ const Collection = () => {
             />
             {open && (
               <>
-                <Search />
+                <Search  />
                 <div className="pe-20 xs:pe-10 pl-5 py-5 bg-white rounded">
                   <h5 className="h5 mb-4">Categories</h5>
                   <div className="flex flex-col gap-2 text-sm font-light">
