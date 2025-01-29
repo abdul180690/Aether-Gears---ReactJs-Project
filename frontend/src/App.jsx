@@ -14,14 +14,16 @@ import PlaceOrder from './pages/PlaceOrder';
 import Login from './pages/Login';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import WishList from './pages/WishList';
+import Contact from './pages/Contact';
+import Offers from './pages/Offers';
+import Navbar from './components/Navbar';
 
 const App = () => {
   const location = useLocation();  
   return (
     <main className="overflow-hidden bg-amber-100" style={{backgroundColor: ""}}> 
       <ToastContainer />
-      <Header />
-
+      {/* <Header /> */}
       {/* Transition Group for page fade animations */}
       <TransitionGroup>
         <CSSTransition
@@ -32,8 +34,10 @@ const App = () => {
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/collection" element={<Collection />} />
+            <Route path="/offers" element={<Offers />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/about-us" element={<AboutUs />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/product/:productId" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/wishlist" element={<WishList />} />
