@@ -5,6 +5,7 @@ import Item from '../components/Item';
 import { FaArrowRight } from 'react-icons/fa';
 import notfound from '../assets/not-found.png';
 import Notification from '../components/Notification';
+import Header from '../components/Header';
 
 const Collection = () => {
   const { products = [], search } = useContext(ShopContext);
@@ -72,25 +73,27 @@ const Collection = () => {
 
   return (
     <>
-      <div className="pt-5 bg-white max-padd-container !px-0">
+      <Header />
+      <div className=" bg-white max-padd-container !px-0">
         <Notification />
+        <Search  />
         <div className="flex flex-col sm:flex-row gap-8">
           {/* Sidebar */}
           <div
-            className={`my-3 rounded-xl ml-10 pt-5 relative ${
+            className={` rounded-xl ml-10 relative ${
               open ? 'w-3/12 xs:w-10/12 duration-500' : 'w-24 duration-500'
             }`}
           >
             <FaArrowRight
               onClick={() => setOpen(!open)}
-              className={`p-3 bg-primary text-dark-purple text-5xl rounded-full absolute lg:-top-6c lg:-right-1  md:-top-4 md:-right-1  xs:-top-2 xs:right-16 border-2 border-slate-300 shadow-md cursor-pointer hover:scale-110 ${
+              className={`p-3 bg-primary text-dark-purple text-5xl rounded-full absolute lg:-top-14 lg:-right-2  md:-top-4 md:-right-1  xs:-top-4 xs:right-16 border-2 border-slate-300 shadow-md cursor-pointer hover:scale-110 ${
                 open ? 'rotate-180 duration-500 mt-0 ml-0' : 'duration-500'
               }`}
             />
             {open && (
               <>
-                <Search  />
-                <div className="pe-20 xs:pe-10 pl-5 py-5 bg-white rounded">
+                
+                <div className="pe-20 xs:pe-10 pl-5 py-5 bg-primary rounded">
                   <h5 className="h5 mb-4">Categories</h5>
                   <div className="flex flex-col gap-2 text-sm font-light">
                     {['Headphones', 'Cameras', 'Mobiles', 'Speakers', 'Mouse', 'Watches'].map((cat) => (
@@ -106,7 +109,7 @@ const Collection = () => {
                     ))}
                   </div>
                 </div>
-                <div className="px-4 py-3 mt-6 bg-white rounded">
+                <div className="px-4 py-3  bg-primary rounded">
                   <h5 className="h5 mb-4">Sort By</h5>
                   <select
                     onChange={(e) => setSortType(e.target.value)}
@@ -122,7 +125,7 @@ const Collection = () => {
           </div>
 
           {/* Product List */}
-          <div className="px-5 rounded-1-xl">
+          <div className="px-5 rounded-xl">
             <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6">
               {getPaginatedProducts().length > 0 ? (
                 getPaginatedProducts().map((product, index) => (

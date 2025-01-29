@@ -1,23 +1,32 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 const Notification = () => {
-  // State to control popup visibility
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupContent, setPopupContent] = useState("");
 
-  // Function to open the popup with specific content
   const handleOpenPopup = (content) => {
-    setPopupContent(content); // Set the popup content
-    setIsPopupOpen(true); // Open the popup
+    setPopupContent(content); 
+    setIsPopupOpen(true); 
   };
 
-  // Function to close the popup
   const handleClosePopup = () => {
-    setIsPopupOpen(false); // Close the popup
+    setIsPopupOpen(false);
+  };
+
+  const handleCopyPromoCode = () => {
+    navigator.clipboard.writeText('NEWYEAR20')
+      .then(() => {
+        toast.success('Promo code copied to clipboard!', { autoClose: 1000 });
+      })
+      .catch((err) => {
+        toast.error('Failed to copy promo code.', { autoClose: 2000 });
+        console.error('Clipboard copy error: ', err);
+      });
   };
 
   return (
-    <div className="max-padd-container flex lg:flexbetween gap-3 py-1 xs:flex-wrap items-center justify-center bg-slate-300 text-slate-950 mb-6">
+    <div className="max-padd-container flex lg:flexbetween gap-3 py-2 xs:flex-wrap items-center justify-center bg-amber-400 text-slate-950 mb-6">
       {/* Free Shipping Section */}
       <div className="my-1  text-center">
         <p className="text-secondary capitalize font-semibold">
@@ -26,7 +35,7 @@ const Notification = () => {
           <span
             className="underline text-xs lowercase font-bold hover:text-red-500 cursor-pointer"
             onClick={() => handleOpenPopup(
-              "Shop now and enjoy free shipping on all orders above ₹1000! Add your favorite items to your cart and get them delivered right to your doorstep at no extra cost")}
+              "Shop now and enjoy free shipping on all orders above ₹1000! Add your favorite items to your cart and get them delivered in Indian Address right to your doorstep at no extra cost")}
           >
             *details
           </span>
@@ -38,10 +47,10 @@ const Notification = () => {
       {/* Offer Section */}
       <div className="my-1 text-center ">
         <p className="text-secondary capitalize font-semibold">
-        Ring in the New Year with <span className="text-red-600 font-bold">20% off</span> everything! Use code <span className="underline uppercase text-red-600 font-extrabold animate-pulse flash">NEWYEAR20</span> now. 
+        Ring in the New Year with <span className="text-red-600 font-bold">20% off</span> everything! Use code <span onClick={handleCopyPromoCode} className="cursor-pointer underline uppercase text-red-600 font-extrabold animate-pulse flash">NEWYEAR20</span> now. 
           <span
             className="underline text-xs lowercase font-bold hover:text-red-500 cursor-pointer"
-            onClick={() => handleOpenPopup("Kick off the New Year with HUGE savings! 🎉 Use code '20% OFF' at checkout to grab a massive discount on your favorite items - don't miss this killer deal!")}
+            onClick={() => handleOpenPopup("Kick off the New Year with HUGE savings! 🎉 Use code 'NEWYEAR20' at checkout to grab a massive discount on your favorite items - don't miss this killer deal!")}
           >
             *details
           </span>

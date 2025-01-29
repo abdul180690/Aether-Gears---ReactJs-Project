@@ -1,39 +1,44 @@
 import React from 'react';
-import bg from '../assets/bg.png'
-import headphone from '../assets/headphone.png'
+import bg from '../assets/bg.png';
+import headphone from '../assets/headphone.png';
 import { FaArrowRightLong } from 'react-icons/fa6';
-
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
-    <section className=" relative max-padd-container h-[633px]  overflow-hidden top-">
-     {/* Hero background Image */}
-      <img src={bg} alt="" className='absolute object-cover w-full h-full top-0 left-0 '/>
+    <section className="relative top-0 left-0 max-padd-container h-[633px] overflow-hidden">
+      {/* Hero background Image */}
+      <img src={bg} alt="" className="absolute object-cover w-full h-full top-0 left-0" />
 
       {/* Overlay (Optional for Better Text Visibility) */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-20"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black lg:bg-opacity-10 xs:bg-opacity-40"></div>
 
       {/* Hero Content */}
-      <div className="relative grid grid-cols-1 xs:grid-cols-2 h-full items-center">
-        {/* Left Side */}
-        <div className="p-6 lg:block xs:hidden">
-          <p className="text-white text-xl xs:text-2xl max-w-xs">
+      <div className="relative flex flex-col lg:flex-row justify-between items-center w-full h-full px-4 py-6 text-center lg:text-left">
+        {/* Left Side (Text & Button) */}
+        <div className=" text-white  ">
+          <h1 className="lg:w-9/12 lg:text-3xl/[1.5] tracking-widest title-font lg:text-stroke font-semibold xs:text-2xl max-w-lg mx-auto lg:mx-0 mb-6 text-white ">
             Discover the best audio experience with cutting-edge technology and sleek designs.
-          </p>
-          <button className="btn bg-white mt-6 rounded-full text-black px-6 py-2 hover:bg-gray-300 duration-300">
+          </h1>
+          <Link
+            to={`/collection`}
+            className="btn bg-white text-black text-sm rounded-full px-6 py-2 hover:bg-gray-300 duration-300">
             Explore More
-          </button>
+          </Link>
         </div>
 
-        {/* Right Side */}
-        <div className=" xs:flex items-center lg:justify-end xs:justify-center p-6">
-          <div className="flex flex-col items-center rounded-2xl w-[300px] p-4">
-            <div className='w-100 h-100 overflow-hidden rounded-3xl'>
-              <img src= {headphone} alt="" className='rounded-3xl zoom'/>
+        {/* Right Side (Image & Button) */}
+        <div className="lg:w-1/3 flex justify-center lg:justify-end mt-8 lg:mt-0">
+          <div className="flex flex-col items-center lg:items-center w-[300px] p-4">
+            <div className="w-[250px] h-[250px]">
+              <img src={headphone} alt="Headphone" className="lg:animate-bounce" />
             </div>
-            <button className="btn flex items-center justify-center gap-2 mt-4 py-2 px-4 rounded-full text-black text-[12px] text-nowrap bg-white hover:bg-gray-300 hover:text-black duration-300">
+            <Link 
+              to={`/product/1`}
+              className="btn flex items-center justify-center gap-2 mt-4 py-2 px-4 rounded-full text-black text-[12px] text-nowrap bg-white hover:bg-gray-300 hover:text-black duration-300"
+            >
               Explore This Product <FaArrowRightLong />
-            </button>
+            </Link>
           </div>
         </div>
       </div>

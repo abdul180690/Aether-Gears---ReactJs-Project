@@ -23,7 +23,10 @@ const NewsLetter = () => {
               placeholder="Email Address"
               className="p-4 w-full outline-none text-[13px] text-black placeholder-gray-500 bg-white"
             />
-            <button className="btn bg-slate-800 text-white p-4 !rounded-none !text-[13px] !font-bold uppercase  hover:bg-slate-700 duration-300">
+            <button
+              type="submit" 
+              className="btn bg-slate-800 text-white p-4 !rounded-none !text-[13px] !font-bold uppercase  hover:bg-slate-700 duration-300"
+            >
               Submit
             </button>
           </div>

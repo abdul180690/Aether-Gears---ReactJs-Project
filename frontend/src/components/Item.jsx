@@ -30,7 +30,7 @@ const Item = ({ product }) => {
 
   return (
     <div
-      className="relative bg-white overflow-hidden border border-slate-300 p-2 rounded-xl hover:shadow-lg duration-300 group"
+      className="relative bg-primary overflow-hidden border border-slate-300 p-2 rounded-xl hover:shadow-lg duration-300 group"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -78,8 +78,8 @@ const Item = ({ product }) => {
       {/* Hover Effect: Select Color & Add to cart */}
       <div
         className={`absolute bottom-0 left-0 right-0 bg-slate-600 bg-opacity-50 backdrop-blur-sm p-4 rounded-t-xl transform ${
-          hovered ? "translate-y-0 opacity-100" : "translate-y-1 opacity-0"
-        } transition-all duration-400 ease-in-out`}
+          hovered ? "translate-y-3 opacity-100 duration-300" : "translate-y-52 opacity-0 duration-1000"
+        } transition-all ease-in-out`}
       >
         <div className="flex flex-col items-center gap-3">
           {/* Select Color Buttons */}
@@ -117,7 +117,7 @@ const Item = ({ product }) => {
               }}
               className="btn-secondary flexCenter w-full hover:bg-slate-700 duration-300 text-nowrap"
             >
-              Add To Cart <TbShoppingBagPlus className="ml-2 text-xl" />
+              Add To Cart <TbShoppingBagPlus className="ml-2 text-xl animate-bounce" />
             </button>
           </div>
         </div>
@@ -127,3 +127,5 @@ const Item = ({ product }) => {
 };
 
 export default Item;
+
+

@@ -5,6 +5,7 @@ import { TbLocation } from 'react-icons/tb'
 import { RiAdminLine, RiSecurePaymentLine, RiSoundModuleLine } from 'react-icons/ri'
 import { FaQuoteLeft, FaUsersLine } from 'react-icons/fa6'
 import about from  '../assets/about.png'
+import Header from './Header'
 
 const About = () => {
   return (

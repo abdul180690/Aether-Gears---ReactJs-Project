@@ -16,6 +16,7 @@ import vivo from "../assets/partner_brands/vivo.png";
 import logitech from "../assets/partner_brands/logitech.png";
 import skullcandy from "../assets/partner_brands/skullcandy.png";
 import NewsLetter from "../components/NewsLetter";
+import Header from "../components/Header";
 
 const AboutUs = () => {
   useEffect(() => {
@@ -45,12 +46,13 @@ const AboutUs = () => {
     <>
       {/* Section: About Us */}
       <section className="pb-6 bg-amber-100 ">
+        <Header />
         <div className="flex flex-col lg:flex-row gap-6 px-6 lg:px-10 scroll-section">
-          <div className="my-5">
+          <div className="my-5 w-full">
             <h3 className="text-secondary py-5 text-xl lg:text-2xl font-semibold uppercase">
               About Us
             </h3>
-            <h1 className="text-lg lg:text-xl text-justify text-slate-900 ">
+            <h1 className="text-lg lg:text-xl/10 text-justify text-slate-900">
               At <strong>Aether Gears</strong>, we are passionate about
               delivering the best technology products that are designed to
               enhance your life. With a
@@ -58,7 +60,7 @@ const AboutUs = () => {
               meet the needs of our diverse customers.
             </h1>
           </div>
-          <div className="my-5 p-6 lg:p-10">
+          <div className="my-5 p-6 lg:p-10 w-full">
             <p className="text-secondary text-lg lg:text-xl leading-8">
               Aether Gears is your one-stop online destination for all your
               electronic needs. Whether you're looking for the latest mobile
@@ -73,12 +75,12 @@ const AboutUs = () => {
       </section>
 
       {/* Section: Our Mission */}
-      <section className="bg-amber-200 py-12 px-6 lg:px-10 ">
+      <section className="bg-amber-100 py-12 px-6 lg:px-10 ">
         <div className="scroll-section">
             <h3 className="text-3xl font-semibold text-gray-800 text-center mb-6 ">
             Our Mission
             </h3>
-            <p className="text-lg text-gray-700 max-w-3xl mx-auto text-center leading-relaxed ">
+            <p className="text-lg/10 text-gray-700 max-w-3xl mx-auto text-center leading-relaxed ">
             Our mission is simple: to provide cutting-edge technology at an
             affordable price without compromising quality. We believe in creating
             long-lasting relationships with our customers by offering superior
@@ -129,19 +131,19 @@ const AboutUs = () => {
       </section>
 
       {/* Section: Our Team */}
-      <section className="bg-amber-200 py-12 px-6 lg:px-10 ">
+      <section className="bg-amber-100 py-12 px-6 lg:px-10 ">
         <div className="scroll-section">
-            <h1 className="mt-5 mb-3 text-center text-2xl font-semibold">
+            <h1 className=" h1 mt-5 mb-3 text-center font-semibold">
             THE TEAM BEHIND
             </h1>
-            <h1 className="mb-3 text-center text-xl">Our Team Experts</h1>
-            <p className="mx-10 mb-3 text-center text-secondary text-lg">
+            <h1 className="mb-3 text-center h2">Our Team Experts</h1>
+            <p className="mx-10 mb-3 text-center text-secondary text-xl/10">
             At Aether Gears, we pride ourselves on having a dedicated and
             passionate team that works tirelessly to provide you with the best
             shopping experience. Our team consists of experts in various fields,
             including electronics, customer service, logistics, and marketing.
             </p>
-            <div className="flex flex-wrap gap-5 justify-center items-center my-10">
+            <div className="flex flex-wrap gap-8 justify-center items-center mt-10">
             {/* Map through team members */}
             {[
                 { name: "Richard", role: "Creative Head", img: creative_lead },
@@ -185,7 +187,7 @@ const AboutUs = () => {
               <img src={sony} alt="Partner 1" />
             </div>
             <div className="item item2 me-1">
-              <img src={boat} alt="Partner 2" />
+              <img src={boat} alt="Partner 2" className="w-2"/>
             </div>
             <div className="item item3 me-1">
               <img src={apple} alt="Partner 3" />

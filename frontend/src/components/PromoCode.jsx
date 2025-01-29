@@ -8,8 +8,8 @@ const PromoCode = ({ setDiscount }) => {
   // List of valid promo codes with corresponding discounts
   const promoCodes = [
     { code: 'NEWYEAR20', discount: 20 },
-    { code: 'NEW10', discount: 10 },
-    { code: ' ', discount: 10 },
+    { code: 'FLAT30', discount: 30 },
+    { code: 'FLAT50', discount: 50 },
   ];
 
   const handlePromoCodeSubmit = (e) => {
@@ -56,3 +56,4 @@ const PromoCode = ({ setDiscount }) => {
 };
 
 export default PromoCode;
+

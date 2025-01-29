@@ -8,6 +8,7 @@ import About from '../components/About';
 import Blog from '../components/Blog';
 import NewsLetter from '../components/NewsLetter';
 import { ClimbingBoxLoader } from 'react-spinners';
+import Header from '../components/Header';
 
 
 const Home = () => {
@@ -37,6 +38,7 @@ const Home = () => {
 
   return (
     <>
+      <Header />
       <Hero />
       <Features />
       <NewArrivals />
