@@ -545,3 +545,179 @@ export const blogs = [
     { title: "Best Strategies to Find Online Discounts", category: "Mobiles", image: blog7 },
     { title: "How E-Commerce is Changing", category: "Headphones", image: blog8 }
 ]
+
+export const headphonesOffer = [
+    {
+        _id: "1",
+        name: "Bluetooth Headset Pro",
+        description: "Experience superior sound quality with these noise-cancelling headphones, perfect for long listening sessions.",
+        price: 1499,
+        image: [img1],
+        category: "Headphones",
+        colors: ["Black", "Red", "White"],
+        date: 1716634345448,
+        popular: false,
+    },
+    {
+        _id: "2",
+        name: "Noise Cancelling Headphones",
+        description: "A premium wireless headset designed for crystal-clear calls and high-quality audio.",
+        price: 2199,
+        image: [img2_1, img2_2, img2_3, img2_4],
+        category: "Headphones",
+        colors: ["Black", "Red", "White", "Blue"],
+        date: 1716621345448,
+        popular: false
+    },
+    {
+        _id: "3",
+        name: "Over-Ear Wireless Headphones",
+        description: "Comfortable over-ear headphones with advanced sound technology, ideal for music lovers.",
+        price: 1999,
+        image: [img3],
+        category: "Headphones",
+        colors: ["Black", "White", "Blue"],
+        date: 1716234545448,
+        popular: true
+    },
+    {
+        _id: "4",
+        name: "Wireless Noise Cancelling Headphones",
+        description: "Lightweight and noise-cancelling, designed for immersive listening on the go.",
+        price: 5499,
+        image: [img4],
+        category: "Headphones",
+        colors: ["Black", "Red", "Blue"],
+        date: 1716621345448,
+        popular: false
+    },
+    {
+        _id: "5",
+        name: "Gaming Headphones with Mic",
+        description: "High-quality gaming headphones with a built-in microphone for an immersive gaming experience.",
+        price: 3999,
+        image: [img5],
+        category: "Headphones",
+        colors: ["Red", "White", "Blue"],
+        date: 1716622345448,
+        popular: false
+    },
+    {
+        _id: "6",
+        name: "Sports Bluetooth Earphones",
+        description: "Sweat-resistant Bluetooth earphones, perfect for active users who enjoy running and working out.",
+        price: 5999,
+        image: [img6],
+        category: "Headphones",
+        colors: ["XS", "Black", "Red"],
+        date: 1716623345448,
+        popular: false
+    },
+    {
+        _id: "7",
+        name: "Foldable Wireless Headphones",
+        description: "Portable foldable headphones offering excellent sound quality and comfort for on-the-go listening.",
+        price: 2999,
+        image: [img7],
+        category: "Headphones",
+        colors: ["Black", "Red", "White", "Blue"],
+        date: 1716624345448,
+        popular: false
+    },
+]
+
+export const cameraOffer = [
+    {
+        _id: "8",
+        name: "Digital Camera Pro",
+        description: "Capture stunning photos with this professional-grade digital camera, equipped with advanced features.",
+        price: 39999,
+        image: [img8_1, img8_2, img8_3, img8_4],
+        category: "Cameras",
+        colors: ["Black", "Red"],
+        date: 1716625345448,
+        popular: false
+    },
+    {
+        _id: "9",
+        name: "4K DSLR Camera",
+        description: "A 4K resolution DSLR camera designed for professional photographers and videographers.",
+        price: 59999,
+        image: [img9],
+        category: "Cameras",
+        colors: ["Black", "Red",],
+        date: 1716626345448,
+        popular: false
+    },
+    {
+        _id: "10",
+        name: "Compact Digital Camera",
+        description: "Compact and lightweight digital camera for everyday use, capturing high-quality images effortlessly.",
+        price: 49999,
+        image: [img10],
+        category: "Cameras",
+        colors: ["Black", "Red"],
+        date: 1716627345448,
+        popular: false
+    },
+    {
+        _id: "11",
+        name: "Outdoor Action Camera",
+        description: "Designed for adventurers, this action camera is waterproof and built to capture every moment in high-definition.",
+        price: 29999,
+        image: [img11],
+        category: "Cameras",
+        colors: ["Red", "Red"],
+        date: 1716628345448,
+        popular: false
+    },
+    {
+        _id: "12",
+        name: "Professional Mirrorless Camera",
+        description: "Mirrorless camera with advanced image stabilization and 4K video recording capability.",
+        price: 19999,
+        image: [img12],
+        category: "Cameras",
+        colors: ["Black", "Red"],
+        date: 1716629345448,
+        popular: true
+    },
+    {
+        _id: "13",
+        name: "Camera Lens Kit",
+        description: "Enhance your photography with this professional camera lens kit, perfect for a variety of shoots.",
+        price: 25999,
+        image: [img13],
+        category: "Cameras",
+        colors: ["Black", "Red"],
+        date: 1716630345448,
+        popular: false
+    },
+    {
+        _id: "14",
+        name: "Camera Tripod Stand",
+        description: "Stable tripod stand for perfect shots, whether you're shooting in the studio or outdoors.",
+        price: 5999,
+        image: [img14],
+        category: "Cameras",
+        colors: ["Black", "Red"],
+        date: 1716631345448,
+        popular: false
+    },
+
+]
+
+export const offersData = [
+    {
+      id: 1,
+      title: "Flat 30% OFF",
+      description: "Flat offer of 30% on all Headphones. USE 'FLAT30' when checkout",
+      products: headphonesOffer, 
+    },
+    {
+      id: 2,
+      title: "Flat 50% OFF",
+      description: "Flat offer of 30% on all Cameras. USE 'FLAT50' when checkout",
+      products: cameraOffer, 
+    },
+  ];
