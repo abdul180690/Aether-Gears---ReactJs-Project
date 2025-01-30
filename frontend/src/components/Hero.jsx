@@ -11,7 +11,7 @@ const Hero = () => {
       <img src={bg} alt="" className="absolute object-cover w-full h-full top-0 left-0" />
 
       {/* Overlay (Optional for Better Text Visibility) */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black lg:bg-opacity-10 xs:bg-opacity-40"></div>
+      <div className="absolute top-0 left-0 w-full h-full bg-black lg:bg-opacity-0 xs:bg-opacity-40"></div>
 
       {/* Hero Content */}
       <div className="relative flex flex-col lg:flex-row justify-between items-center w-full h-full px-4 py-6 text-center lg:text-left">

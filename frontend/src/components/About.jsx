@@ -19,9 +19,9 @@ const About = () => {
           <FaQuoteLeft className='text-3xl'/>
           <p className='max-w-(222px) mt-5 text-center'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quod quam necessitatibus illo.</p>
         </div>
-        <div className='flex-[2] flex rounded-2xl relative'>
+        <div className='flex-[2] flex rounded-2xl relative shadow-lg'>
           <img src={about} alt="" className='rounded-2xl'/>
-          <div className='absolute h-full w-full bg-white/20 top-0 left-0'/>
+          <div className='absolute h-full w-full bg-black/10 top-0 left-0'/>
           <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/80 p-6 rounded-xl'>
             <h4 className='bold-18 text-center text-slate-900'>Top view in this <br />week</h4>
             <h2 className='h2 uppercase text-blue-950'>Trending</h2>

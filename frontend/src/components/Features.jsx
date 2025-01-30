@@ -10,22 +10,22 @@ const Features = () => {
             <div className='flexCenter gap-x-3 bg-orange-600/80 p-3 rounded-full shadow-md mb-4'>
                 <PiCurrencyInrBold className='text-4xl p-2 bg-amber-100 rounded-full'/>
                 <div>
-                    <h4 className='medium-15'>MONEY-BACK GUARANTEE</h4>
-                    <p className='text-gray-50'>100% refund guaranteed if you're not satisfied.</p>
+                    <h4 className='medium-15 text-white'>MONEY-BACK GUARANTEE</h4>
+                    <p className='text-slate-700'>100% refund guaranteed if you're not satisfied.</p>
                 </div>
             </div>
             <div className='flexCenter gap-x-3 bg-orange-600/80 p-3 rounded-full shadow-md mb-4'>
                 <TbTruckDelivery className='text-4xl p-2 bg-amber-100 rounded-full'/>
                 <div>
-                    <h4 className='medium-15'>FREE SHIPPING & RETURNS</h4>
-                    <p className='text-gray-50'>Free shipping available on all orders above ₹1000.</p>
+                    <h4 className='medium-15 text-white'>FREE SHIPPING & RETURNS</h4>
+                    <p className='text-slate-700'>Free shipping available on all orders above ₹1000.</p>
                 </div>
             </div>
             <div className='flexCenter gap-x-3 bg-orange-600/80 p-3 rounded-full shadow-md mb-4'>
                 <BiSupport className='text-4xl p-2 bg-amber-100 rounded-full'/>
                 <div>
-                    <h4 className='medium-15'>24/7 ONLINE SUPPORT</h4>
-                    <p className='text-gray-50'>Our team is here to assist you round the clock.</p>
+                    <h4 className='medium-15 text-white'>24/7 ONLINE SUPPORT</h4>
+                    <p className='text-slate-700'>Our team is here to assist you round the clock.</p>
                 </div>
             </div>
         </div>

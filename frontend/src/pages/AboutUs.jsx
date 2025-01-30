@@ -44,130 +44,119 @@ const AboutUs = () => {
 
   return (
     <>
-      {/* Section: About Us */}
-      <section className="pb-6 bg-amber-100 ">
-        <Header />
-        <div className="flex flex-col lg:flex-row gap-6 px-6 lg:px-10 scroll-section">
-          <div className="my-5 w-full">
-            <h3 className="text-secondary py-5 text-xl lg:text-2xl font-semibold uppercase">
-              About Us
-            </h3>
-            <h1 className="text-lg lg:text-xl/10 text-justify text-slate-900">
-              At <strong>Aether Gears</strong>, we are passionate about
-              delivering the best technology products that are designed to
-              enhance your life. With a
-              commitment to quality, we ensure that each product is tailored to
-              meet the needs of our diverse customers.
-            </h1>
-          </div>
-          <div className="my-5 p-6 lg:p-10 w-full">
-            <p className="text-secondary text-lg lg:text-xl leading-8">
-              Aether Gears is your one-stop online destination for all your
-              electronic needs. Whether you're looking for the latest mobile
-              phones, high-quality headphones, powerful speakers, stylish
-              watches, or other electronic gadgets, Aether Gears has got you
-              covered. With a wide range of products from top brands, you can
-              find everything you need to stay connected, entertained, and
-              on-trend.
-            </p>
-          </div>
+      <Header />
+      {/* Section: About Us as Hero Section */}
+      <section className="about-bg  pb-6 bg-cover bg-center text-white relative">
+        <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 px-6 lg:px-10 w-full text-center">
+          <h3 className="text-2xl lg:text-3xl font-semibold uppercase text-shadow">
+            About Us
+          </h3>
+          <h1 className="text-lg lg:text-xl/10 text-center mt-5 mx-60 ">
+            At <strong className="">Aether Gears</strong>, we are passionate
+            about delivering the best technology products that are designed to
+            enhance your life. With a commitment to quality, we ensure that each
+            product is tailored to meet the needs of our diverse customers.
+          </h1>
         </div>
       </section>
 
       {/* Section: Our Mission */}
-      <section className="bg-amber-100 py-12 px-6 lg:px-10 ">
+      <section className="bg-amber-100 py-12 px-6 lg:px-10">
         <div className="scroll-section">
-            <h3 className="text-3xl font-semibold text-gray-800 text-center mb-6 ">
+          <h3 className="text-3xl font-semibold text-gray-800 text-center mb-6">
             Our Mission
-            </h3>
-            <p className="text-lg/10 text-gray-700 max-w-3xl mx-auto text-center leading-relaxed ">
+          </h3>
+          <p className="text-lg/10 text-gray-700 max-w-3xl mx-auto text-center leading-relaxed">
             Our mission is simple: to provide cutting-edge technology at an
-            affordable price without compromising quality. We believe in creating
-            long-lasting relationships with our customers by offering superior
-            products, exceptional customer service, and unparalleled value.
-            </p>
+            affordable price without compromising quality. We believe in
+            creating long-lasting relationships with our customers by offering
+            superior products, exceptional customer service, and unparalleled
+            value.
+          </p>
         </div>
       </section>
 
       {/* Section: Why Choose Us */}
       <section className="text-center py-20 bg-amber-100">
         <div className="max-padd-container scroll-section">
-            <h3 className="text-3xl font-semibold text-gray-800 mb-6">
+          <h3 className="text-3xl font-semibold text-gray-800 mb-6">
             Why Choose Aether Gears?
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 lg:px-10">
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 lg:px-10">
             <div className="bg-amber-300 p-6 rounded-xl shadow-lg text-center">
-                <MdWorkspacePremium className="text-secondary bg-amber-100 p-1 rounded-full text-4xl mb-4" />
-                <h4 className="text-xl font-bold text-gray-800 mb-2">
+              <MdWorkspacePremium className="text-secondary bg-amber-100 p-1 rounded-full text-4xl mb-4" />
+              <h4 className="text-xl font-bold text-gray-800 mb-2">
                 Premium Quality
-                </h4>
-                <p className="text-lg text-gray-600">
+              </h4>
+              <p className="text-lg text-gray-600">
                 We offer only the best quality products, rigorously tested to
                 ensure durability and performance.
-                </p>
+              </p>
             </div>
             <div className="bg-amber-300 p-6 rounded-xl shadow-lg text-center">
-                <PiCurrencyInrBold className="text-secondary bg-amber-100 p-1 rounded-full text-4xl mb-4" />
-                <h4 className="text-xl font-bold text-gray-800 mb-2">
+              <PiCurrencyInrBold className="text-secondary bg-amber-100 p-1 rounded-full text-4xl mb-4" />
+              <h4 className="text-xl font-bold text-gray-800 mb-2">
                 Affordable Prices
-                </h4>
-                <p className="text-lg text-gray-600">
-                Get the best value for your money with our competitive pricing on
-                all tech products.
-                </p>
+              </h4>
+              <p className="text-lg text-gray-600">
+                Get the best value for your money with our competitive pricing
+                on all tech products.
+              </p>
             </div>
             <div className="bg-amber-300 p-6 rounded-xl shadow-lg text-center">
-                <MdOutlineSupportAgent className="text-secondary bg-amber-100 p-1 rounded-full text-4xl mb-4" />
-                <h4 className="text-xl font-bold text-gray-800 mb-2">
+              <MdOutlineSupportAgent className="text-secondary bg-amber-100 p-1 rounded-full text-4xl mb-4" />
+              <h4 className="text-xl font-bold text-gray-800 mb-2">
                 Excellent Support
-                </h4>
-                <p className="text-lg text-gray-600">
+              </h4>
+              <p className="text-lg text-gray-600">
                 Our customer service team is always ready to assist you with any
                 questions or concerns.
-                </p>
+              </p>
             </div>
-            </div>
+          </div>
         </div>
       </section>
 
       {/* Section: Our Team */}
       <section className="bg-amber-100 py-12 px-6 lg:px-10 ">
         <div className="scroll-section">
-            <h1 className=" h1 mt-5 mb-3 text-center font-semibold">
+          <h1 className=" h1 mt-5 mb-3 text-center font-semibold">
             THE TEAM BEHIND
-            </h1>
-            <h1 className="mb-3 text-center h2">Our Team Experts</h1>
-            <p className="mx-10 mb-3 text-center text-secondary text-xl/10">
+          </h1>
+          <h1 className="mb-3 text-center h2">Our Team Experts</h1>
+          <p className="mx-10 mb-3 text-center text-secondary text-xl/10">
             At Aether Gears, we pride ourselves on having a dedicated and
             passionate team that works tirelessly to provide you with the best
             shopping experience. Our team consists of experts in various fields,
             including electronics, customer service, logistics, and marketing.
-            </p>
-            <div className="flex flex-wrap gap-8 justify-center items-center mt-10">
+          </p>
+          <div className="flex flex-wrap gap-8 justify-center items-center mt-10">
             {/* Map through team members */}
             {[
-                { name: "Richard", role: "Creative Head", img: creative_lead },
-                { name: "Mathew", role: "Manager", img: manager },
-                { name: "Lisa", role: "SEO", img: seo },
-                { name: "Robert", role: "Programming Guru", img: programming_guru },
-                { name: "Yuki", role: "Programming Guru", img: programming_guru_2 },
-                { name: "Manasa", role: "Programming Guru", img: programming_guru_3 }
+              { name: "Richard", role: "Creative Head", img: creative_lead },
+              { name: "Mathew", role: "Manager", img: manager },
+              { name: "Lisa", role: "SEO", img: seo },
+              { name: "Robert", role: "Programming Guru", img: programming_guru },
+              { name: "Yuki", role: "Programming Guru", img: programming_guru_2 },
+              { name: "Monisha", role: "Programming Guru", img: programming_guru_3 },
             ].map((member, idx) => (
-                <div
+              <div
                 key={idx}
                 className="flex mx-5 p-3 bg-primary rounded-2xl justify-center items-center w-full sm:w-5/12 md:w-4/12 lg:w-3/12 shadow-lg scroll-section"
-                >
+              >
                 <img src={member.img} alt={member.name} className="w-1/2" />
                 <div className="text-left mx-3">
-                    <h3 className="mt-3 text-xl font-semibold">{member.name}</h3>
-                    <h6 className="text-gray-500 text-md text-nowrap ">{member.role}</h6>
-                    <p className="mt-3 text-gray-700">
+                  <h3 className="mt-3 text-xl font-semibold">{member.name}</h3>
+                  <h6 className="text-gray-500 text-md text-nowrap ">
+                    {member.role}
+                  </h6>
+                  <p className="mt-3 text-gray-700">
                     Lorem ipsum dolor sit, amet consectetur. Magni, maiores.
-                    </p>
+                  </p>
                 </div>
-                </div>
+              </div>
             ))}
-            </div>
+          </div>
         </div>
       </section>
 
@@ -187,7 +176,7 @@ const AboutUs = () => {
               <img src={sony} alt="Partner 1" />
             </div>
             <div className="item item2 me-1">
-              <img src={boat} alt="Partner 2" className="w-2"/>
+              <img src={boat} alt="Partner 2" className="w-2" />
             </div>
             <div className="item item3 me-1">
               <img src={apple} alt="Partner 3" />

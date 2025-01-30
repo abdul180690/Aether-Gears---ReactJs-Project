@@ -1,165 +1,24 @@
-// import React, { useState } from "react";
-// import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
-// import { toast } from "react-toastify";
-// import contact from "../assets/contact-bg.png";
-// import Header from "../components/Header";
-// import Title from "../components/Title";
-
-// const Contact = () => {
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     email: "",
-//     message: "",
-//   });
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleFormSubmit = (e) => {
-//     e.preventDefault();
-//     // Validate and process form data
-//     if (formData.name && formData.email && formData.message) {
-//       toast.success("Message sent successfully!");
-//       setFormData({ name: "", email: "", message: "" }); // Reset form
-//     } else {
-//       toast.error("Please fill in all fields.");
-//     }
-//   };
-
-//   return (
-//     <>
-//       <Header />
-//       <div className="max-padd-container  pt-10 pb-20">
-//         <div className=" mx-auto px-4 ">
-//           <Title title1={"Contact"} title2={"Us"} titleStyles={"h1 pb-3"} />
-
-//           {/* Contact Information */}
-//           <div className="flex lg:flexCenter gap-40 xs:flex-wrap flex-cols-1 sm:flex-cols-2 lg:flex-cols-3 my-6">
-//             <div className="flex items-center  space-x-3">
-//               <FaPhoneAlt className="text-3xl text-orange-700" />
-//               <div>
-//                 <h5 className="bold-20 ">Phone</h5>
-//                 <p className="text-gray-800">+191 - 98765 43210</p>
-//               </div>
-//             </div>
-
-//             <div className="flex items-center space-x-3">
-//               <FaEnvelope className="text-3xl text-orange-700" />
-//               <div>
-//                 <h5 className="bold-20">Email</h5>
-//                 <p className="text-gray-800">contact@aethergears.com</p>
-//               </div>
-//             </div>
-
-//             <div className="flex items-center space-x-3">
-//               <FaMapMarkerAlt className="text-3xl text-orange-700" />
-//               <div>
-//                 <h5 className="bold-20">Address</h5>
-//                 <p className="text-gray-800">12 New Street, Madurai, India</p>
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* Contact Form */}
-//           <div className="flex p-8 rounded-lg ">
-//             <div className="lg:w-1/2 xs:w-full">
-//               <h3 className="text-2xl font-medium mb-6">Send Us A Message</h3>
-
-//               <form onSubmit={handleFormSubmit}>
-//                 <div className="relative">
-//                   <input
-//                     type="text"
-//                     id="name"
-//                     name="name"
-//                     placeholder="Full Name"
-//                     className=" mb-7 pl-3 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-slate-600 rounded-lg"
-//                     required
-//                   />
-//                   <label
-//                     for="name"
-//                     class="pl-3 absolute left-0 -top-5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-//                   >
-//                     Full Name
-//                   </label>
-//                 </div>
-//                 <div className="relative">
-//                   <input
-//                     type="email"
-//                     id="email"
-//                     name="email"
-//                     placeholder="Email Address"
-//                     className=" mb-7 pl-3 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-slate-600 rounded-lg"
-//                   />
-//                   <label
-//                     for="phoneNumber"
-//                     class="pl-3 absolute left-0 -top-5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-//                   >
-//                     Email Address
-//                   </label>
-//                 </div>
-
-//                 <div className="relative">
-//                   <textarea
-//                     type="text"
-//                     id="message"
-//                     name="message"
-//                     placeholder="Message"
-//                     className=" mb-3 pl-3 peer  w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-slate-600 rounded-lg"
-//                     rows="10"
-//                   />
-//                   <label
-//                     for="email"
-//                     class="pl-3 absolute left-0 -top-5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
-//                   >
-//                     Message in 200 words
-//                   </label>
-//                 </div>
-
-//                 <button
-//                   type="submit"
-//                   className="w-full bg-secondary text-white py-3 rounded-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary"
-//                 >
-//                   Send Message
-//                 </button>
-//               </form>
-//             </div>
-//             <div className="lg:block xs:hidden">
-//               <img src={contact} alt="" className="w-9/12" />
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Contact;
-
-
 import React from 'react';
 import Header from '../components/Header';
+import contact_hero from '../assets/contact-hero.png'
+
 
 const Contact = () => {
   return (
     <>
       <Header />
-      <div className="bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen py-10">
+      <div className="min-h-screen ">
         {/* Hero Section */}
         <div className="relative h-96 flex items-center justify-center mb-10 overflow-hidden">
           <img
-            src="https://via.placeholder.com/1200x400"
+            src={contact_hero}
             alt="Customer Support"
             className="absolute inset-0 w-full h-full object-cover rounded-lg transform scale-105 hover:scale-100 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-black bg-opacity-40 rounded-lg"></div>
+          <div className="absolute inset-0  rounded-lg"></div>
           <div className="relative text-center text-white">
-            <h1 className="text-5xl font-bold mb-4 animate-fade-in-down">Contact Us</h1>
-            <p className="text-xl animate-fade-in-up">We're here to help! Reach out to us for any questions or concerns.</p>
+            <h1 className="text-5xl font-bold mb-4 animate-fade-in-down text-shadow">Contact Us</h1>
+            <p className="text-xl animate-fade-in-up text-white">We're here to help! Reach out to us for any questions or concerns.</p>
           </div>
         </div>
 
@@ -184,7 +43,7 @@ const Contact = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-semibold mb-2">Call Us</h3>
-              <p className="text-gray-600">+1 (123) 456-7890</p>
+              <p className="text-gray-600">+91 - 98765 43210</p>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-purple-100 p-4 rounded-full mb-4">
@@ -204,7 +63,7 @@ const Contact = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-semibold mb-2">Email Us</h3>
-              <p className="text-gray-600">support@ecommerce.com</p>
+              <p className="text-gray-600">support@aethergears.com</p>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-pink-100 p-4 rounded-full mb-4">
@@ -230,13 +89,13 @@ const Contact = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-semibold mb-2">Visit Us</h3>
-              <p className="text-gray-600">123 Main Street, City, Country</p>
+              <p className="text-gray-600">123 Main Street, Madurai, India.</p>
             </div>
           </div>
         </div>
 
         {/* Contact Form Section */}
-        <div className="container mx-auto px-4 mb-10">
+        <div className=" mx-16 px-4 mb-10">
           <div className="bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-3xl font-bold text-center mb-6">Send Us a Message</h2>
             <form>
@@ -249,7 +108,7 @@ const Contact = () => {
                   id="name"
                   name="name"
                   placeholder="Your Name"
-                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300"
                   required
                 />
               </div>
@@ -262,7 +121,7 @@ const Contact = () => {
                   id="email"
                   name="email"
                   placeholder="Your Email"
-                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300"
                   required
                 />
               </div>
@@ -275,13 +134,13 @@ const Contact = () => {
                   name="message"
                   placeholder="Your Message"
                   rows="5"
-                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-transparent transition-all duration-300"
                   required
                 ></textarea>
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+                className="w-full bg-gradient-to-r from-orange-600 to-amber-600 text-white py-3 px-4 rounded-lg hover:from-orange-700 hover:to-amber-700 transition-all duration-300"
               >
                 Send Message
               </button>

@@ -33,7 +33,7 @@ const Header = () => {
               <img
                 src={logo}
                 alt="Logo"
-                className="lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-10 sm:h-10 xs:w-12 xs:h-12 rounded-full shadow-xl ring-1 ring-slate-900/40 mr-2"
+                className="lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-10 sm:h-10 xs:w-12 xs:h-12 rounded-full shadow-xl ring-1 ring-slate-900/40 "
               />
             </span>
             <span className="title-font text-slate-900 text-nowrap uppercase bold-20 tracking-[5px] lg:block md:block xs:hidden">
@@ -48,7 +48,7 @@ const Header = () => {
             containerStyles={`${
               menuOpened
                 ? "flex items-start flex-col gap-y-7 fixed top-20 right-5 p-6 bg-slate-900 bg-opacity-80 backdrop-blur-sm rounded-xl shadow-2xl w-60 ring-1 ring-slate-900/5 z-50 transition-all duration-300"
-                : "hidden  xl:flex gap-x-5 xl:gap-x-7 tracking-widest bg-black bg-opacity-70 justify-center backdrop-blur-sm shadow-lg text-sm  py-3 px-8 ring-1 ring-slate-100/20 rounded-b-3xl"
+                : "hidden  xl:flex gap-x-5 xl:gap-x-7 tracking-widest bg-black bg-opacity-70 justify-center backdrop-blur-sm shadow-lg text-sm  py-3 px-3 ring-1 ring-slate-100/20 rounded-b-3xl"
             }`}
             onClick={() => setMenuOpened(false)}
             className=""

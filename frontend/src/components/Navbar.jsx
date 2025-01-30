@@ -57,7 +57,7 @@ const Navbar = ({ containerStyles, onClick }) => {
     <nav
       className={`${containerStyles} ${
         headerVisible
-          ? "fixed top-0 left-[30%] z-40 flex justify-center shadow-sm ring-1 ring-slate-100"
+          ? "fixed top-0 left-[30%] z-40 flex justify-center shadow-lg "
           : "-translate-y-full"
       } flex gap-4`}
     >

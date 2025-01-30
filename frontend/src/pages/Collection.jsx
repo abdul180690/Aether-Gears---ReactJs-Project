@@ -77,7 +77,7 @@ const Collection = () => {
       <div className=" bg-white max-padd-container !px-0">
         <Notification />
         <Search  />
-        <div className="flex flex-col sm:flex-row gap-8">
+        <div className="flex flex-col mt-2 sm:flex-row gap-8">
           {/* Sidebar */}
           <div
             className={` rounded-xl ml-10 relative ${
@@ -91,9 +91,8 @@ const Collection = () => {
               }`}
             />
             {open && (
-              <>
-                
-                <div className="pe-20 xs:pe-10 pl-5 py-5 bg-primary rounded">
+              <>                
+                <div className="pe-20 xs:pe-10 pl-5 py-5 bg-primary rounded-xl mb-4">
                   <h5 className="h5 mb-4">Categories</h5>
                   <div className="flex flex-col gap-2 text-sm font-light">
                     {['Headphones', 'Cameras', 'Mobiles', 'Speakers', 'Mouse', 'Watches'].map((cat) => (
@@ -109,7 +108,7 @@ const Collection = () => {
                     ))}
                   </div>
                 </div>
-                <div className="px-4 py-3  bg-primary rounded">
+                <div className="px-4 py-3  bg-primary rounded-xl">
                   <h5 className="h5 mb-4">Sort By</h5>
                   <select
                     onChange={(e) => setSortType(e.target.value)}
