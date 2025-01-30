@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Search from '../components/Search';
 import { ShopContext } from '../context/ShopContext';
 import Item from '../components/Item';
-import { FaArrowRight } from 'react-icons/fa';
+import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 import notfound from '../assets/not-found.png';
 import Notification from '../components/Notification';
 import Header from '../components/Header';
@@ -84,9 +84,9 @@ const Collection = () => {
               open ? 'w-3/12 xs:w-10/12 duration-500' : 'w-24 duration-500'
             }`}
           >
-            <FaArrowRight
+            <MdKeyboardDoubleArrowRight
               onClick={() => setOpen(!open)}
-              className={`p-3 bg-primary text-dark-purple text-5xl rounded-full absolute lg:-top-14 lg:-right-2  md:-top-4 md:-right-1  xs:-top-4 xs:right-16 border-2 border-slate-300 shadow-md cursor-pointer hover:scale-110 ${
+              className={`p-3 bg-primary text-slate-800 text-5xl rounded-full absolute lg:-top-14 lg:-right-2  md:-top-4 md:-right-1  xs:-top-6 xs:right-16 border-2 border-slate-300 shadow-md cursor-pointer hover:scale-110 ${
                 open ? 'rotate-180 duration-500 mt-0 ml-0' : 'duration-500'
               }`}
             />

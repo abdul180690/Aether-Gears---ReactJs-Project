@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 import contact_hero from '../assets/contact-hero.png'
+import Title from '../components/Title';
 
 
 const Contact = () => {
@@ -9,15 +10,19 @@ const Contact = () => {
       <Header />
       <div className="min-h-screen ">
         {/* Hero Section */}
-        <div className="relative h-96 flex items-center justify-center mb-10 overflow-hidden">
+        <div className="relative h-[450px] flex items-center justify-center mb-10 overflow-hidden ">
           <img
             src={contact_hero}
             alt="Customer Support"
-            className="absolute inset-0 w-full h-full object-cover rounded-lg transform scale-105 hover:scale-100 transition-transform duration-500"
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0  rounded-lg"></div>
+          <div className="absolute inset-0  rounded-lg "></div>
           <div className="relative text-center text-white">
-            <h1 className="text-5xl font-bold mb-4 animate-fade-in-down text-shadow">Contact Us</h1>
+          <Title 
+            title1={"Contact "}
+            title2={"Us"}
+            titleStyles={"text-shadow"}
+          />
             <p className="text-xl animate-fade-in-up text-white">We're here to help! Reach out to us for any questions or concerns.</p>
           </div>
         </div>
@@ -43,7 +48,7 @@ const Contact = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-semibold mb-2">Call Us</h3>
-              <p className="text-gray-600">+91 - 98765 43210</p>
+              <p className="text-gray-600 text-lg">+91 - 98765 43210</p>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-purple-100 p-4 rounded-full mb-4">
@@ -63,7 +68,7 @@ const Contact = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-semibold mb-2">Email Us</h3>
-              <p className="text-gray-600">support@aethergears.com</p>
+              <p className="text-gray-600 text-lg">support@aethergears.com</p>
             </div>
             <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-pink-100 p-4 rounded-full mb-4">
@@ -89,7 +94,7 @@ const Contact = () => {
                 </svg>
               </div>
               <h3 className="text-2xl font-semibold mb-2">Visit Us</h3>
-              <p className="text-gray-600">123 Main Street, Madurai, India.</p>
+              <p className="text-gray-600 text-lg">123 Main Street, Madurai, India.</p>
             </div>
           </div>
         </div>
@@ -152,7 +157,7 @@ const Contact = () => {
         <div className="container mx-auto px-4 mb-10">
           <h2 className="text-3xl font-bold text-center mb-6">Our Location</h2>
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.8354345093747!2d144.95373531531615!3d-37.816279742021665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad642af0f11fd81%3A0xf577d2a6c8f4f4f4!2s123%20Main%20St%2C%20City%2C%20Country!5e0!3m2!1sen!2sus!4v1622549402999!5m2!1sen!2sus"
+            src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=madurai&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
             width="100%"
             height="400"
             className="border-0 rounded-lg shadow-lg"
@@ -167,3 +172,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

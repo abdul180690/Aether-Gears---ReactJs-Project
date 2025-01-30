@@ -80,7 +80,7 @@ const ProductCard = ({ product }) => {
         <div className="flex flex-col items-center gap-3">
           {/* Select Color Buttons */}
           <div className="mt-4 xs:mt-1">
-            <h4 className="medium-14 mb-2 text-white">Select Color:</h4>
+            <h4 className="medium-14 mb-2 text-white text-center">Select Color</h4>
             <div className="flex gap-x-2">
               {product.colors.map((item, i) => (
                 <button

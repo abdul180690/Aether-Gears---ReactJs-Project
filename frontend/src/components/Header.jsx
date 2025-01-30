@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <header
-      className={`max-padd-container w-screen  bg-amber-400`}
+      className={`max-padd-container w-screen  bg-amber-400 py-2`}
     >
       <div className="flex justify-between items-center">
         <div className="flex-1">
@@ -33,10 +33,10 @@ const Header = () => {
               <img
                 src={logo}
                 alt="Logo"
-                className="lg:w-10 lg:h-10 md:w-10 md:h-10 sm:w-10 sm:h-10 xs:w-12 xs:h-12 rounded-full shadow-xl ring-1 ring-slate-900/40 "
+                className="lg:w-7 lg:h-7 md:w-7 md:h-7 sm:w-10 sm:h-10 xs:w-12 xs:h-12 rounded-full shadow-xl ring-1 ring-slate-900/20 "
               />
             </span>
-            <span className="title-font text-slate-900 text-nowrap uppercase bold-20 tracking-[5px] lg:block md:block xs:hidden">
+            <span className="title-font text-[#10375C] text-nowrap uppercase bold-18 tracking-[5px] lg:block md:block xs:hidden">
               Aether Gears
             </span>
           </Link>
@@ -84,7 +84,7 @@ const Header = () => {
           <div className="relative">
             <button
               onClick={() => navigate("/login")}
-              className="p-2 bold-14 px-5 bg-amber-100 ring-1 ring-slate-950/30 rounded-full text-sm flexCenter gap-x-1 hover:bg-amber-200 duration-300"
+              className="py-1 bold-14 px-3 bg-amber-100 ring-1 ring-slate-950/30 rounded-full text-sm flexCenter gap-x-1 hover:bg-amber-200 duration-300"
             >
               Login
               <RiUserLine className="" />

@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { TbShoppingBagPlus } from "react-icons/tb";
 import { toast } from "react-toastify"; 
 import { ShopContext } from "../context/ShopContext";
+import Title from "./Title";
 
 const PairWithYourCart = ({ products, onNavigate }) => {
   const { cartItems, addToCart } = useContext(ShopContext);
@@ -68,12 +69,16 @@ const PairWithYourCart = ({ products, onNavigate }) => {
 
   return (
     <div className="mt-8">
-      <h2 className="text-xl font-semibold text-gray-900 mb-4">Pair with your cart</h2>
+      <Title 
+        title1={"Pair with "}
+        title2={"Your cart"}
+        title1Styles={"mt-28"}
+      />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {relatedItems.map((product, index) => (
           <motion.div
             key={product._id}
-            className="relative border rounded-lg p-4 bg-white shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
+            className="relative border rounded-lg p-4 bg-white overflow-hidden shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -83,7 +88,7 @@ const PairWithYourCart = ({ products, onNavigate }) => {
             <img
               src={product.image[0]}
               alt={product.name}
-              className="w-full h-40 object-cover mb-4 cursor-pointer"
+              className="w-full h-60 object-cover mb-4 cursor-pointer rounded-t-lg hover:scale-105 duration-300 transition-all ease-in-out"
               onClick={() => onNavigate(product._id)}
             />
             <h3 className="font-medium text-sm line-clamp-1">{product.name}</h3>
@@ -94,11 +99,11 @@ const PairWithYourCart = ({ products, onNavigate }) => {
 
             {/* Show color selection when hovered */}
             {hoveredIndex === index && (
-              <div className="absolute bottom-0 left-0 right-0 bg-slate-600 bg-opacity-50 backdrop-blur-sm py-2 rounded-t-xl transform translate-y-0 opacity-100 transition-all duration-400 ease-in-out">
+              <div className="absolute bottom-0 left-0 right-0 bg-slate-600 bg-opacity-50 backdrop-blur-sm py-2 rounded-t-xl">
                 <div className="flex flex-col items-center gap-1">
                   {/* Select Color Buttons */}
                   <div className="mt-4 xs:mt-1">
-                    <h4 className="medium-14 mb-2 text-white">Select Color:</h4>
+                    <h4 className="medium-14 mb-2 text-white text-center">Select Color</h4>
                     <div className="flex gap-x-2">
                       {product.colors.map((item, i) => (
                         <button

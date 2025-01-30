@@ -21,7 +21,7 @@ import Navbar from './components/Navbar';
 const App = () => {
   const location = useLocation();  
   return (
-    <main className="overflow-hidden bg-amber-100" style={{backgroundColor: ""}}> 
+    <main className="overflow-hidden bg-amber-50"> 
       <ToastContainer />
       {/* <Header /> */}
       {/* Transition Group for page fade animations */}

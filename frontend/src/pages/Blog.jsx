@@ -13,7 +13,8 @@ const Blog = () => {
   return (
     <>
       <Header />
-      <div className="max-padd-container pb-16">
+      <div className="max-padd-container mt-10 mb-20">
+        <h1 className='text-center h3 underline text-amber-800'>Shop Smart: Expert Tips & Trends</h1>
         <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 gap-y-12 pt-6 ">
           {blogs.map((blog, index) => (
             <div

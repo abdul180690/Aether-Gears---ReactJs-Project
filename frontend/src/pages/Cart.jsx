@@ -104,7 +104,7 @@ const Cart = () => {
                     return (
                       <motion.div
                         key={i}
-                        className="border-e-[30px] border-s-[30px] border-t border-b border-slate-600 hover:shadow-lg p-4 mb-5 rounded-md"
+                        className="border border-slate-600 hover:shadow-lg px-4 py-2 mb-5 rounded-lg bg-primary"
                         initial={{ opacity: 0, x: 500 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{
@@ -112,12 +112,12 @@ const Cart = () => {
                           duration: 0.750,
                         }}
                       >
-                        <div className="flex items-center pl-5 gap-x-5">
+                        <div className="flex items-center  gap-x-5">
                           {/* Product Image */}
                           <img
                             src={productData.image[0]}
                             alt="productImg"
-                            className="w-24 sm:w-20 rounded cursor-pointer hover:scale-125 duration-300 xs:hover:scale-110"
+                            className="w-20 sm:w-20 rounded cursor-pointer hover:scale-105 duration-300 "
                             onClick={() => handleNavigateToProduct(productData._id)}
                           />
                           {/* Product Details */}
