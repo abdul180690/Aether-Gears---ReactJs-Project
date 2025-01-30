@@ -17,13 +17,13 @@ const Contact = () => {
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0  rounded-lg "></div>
-          <div className="relative text-center text-white">
+          <div className="relative text-center text-slate-800">
           <Title 
             title1={"Contact "}
             title2={"Us"}
-            titleStyles={"text-shadow"}
+            titleStyles={""}
           />
-            <p className="text-xl animate-fade-in-up text-white">We're here to help! Reach out to us for any questions or concerns.</p>
+            <p className="text-xl animate-fade-in-up text-slate-800">We're here to help! Reach out to us for any questions or concerns.</p>
           </div>
         </div>
 

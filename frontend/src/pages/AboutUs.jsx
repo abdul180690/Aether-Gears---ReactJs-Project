@@ -57,11 +57,11 @@ const AboutUs = () => {
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0  rounded-lg "></div>
-          <div className="relative text-center text-white">
+          <div className="relative text-center text-slate-800">
             <Title 
               title1={"About "}
               title2={"Us"}
-              titleStyles={"text-shadow"}
+              titleStyles={""}
             />
             <h1 className="text-lg lg:text-xl/10 text-center mt-5 mx-60 ">
             At <strong className="">Aether Gears</strong>, we are passionate

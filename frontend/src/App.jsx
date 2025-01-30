@@ -16,7 +16,6 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import WishList from './pages/WishList';
 import Contact from './pages/Contact';
 import Offers from './pages/Offers';
-import Navbar from './components/Navbar';
 
 const App = () => {
   const location = useLocation();  
@@ -42,7 +41,7 @@ const App = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/wishlist" element={<WishList />} />
             <Route path="/place-order" element={<PlaceOrder />} />
-            <Route path="/login" element={<Login />} />c
+            <Route path="/login" element={<Login />} />
           </Routes>
         </CSSTransition>
       </TransitionGroup>

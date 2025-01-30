@@ -385,7 +385,9 @@
 .bg {
   background-image: url(./assets/login-bg.jpg);
   background-size: cover;
+  background-repeat: no-repeat;
   background-position: center;
+  
 }
 
 .underlined {
@@ -397,9 +399,9 @@
   content: "";
   position: absolute;
   width: 100%;
-  border-top: solid 3px #ffffff;
+  border-top: solid 3px #323232;
   left: 0;
-  bottom: -10px;
+  bottom: -15px;
   border-radius: 50%;
   height: 9px;
   padding-bottom: 15px;
