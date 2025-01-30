@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
+import bg from '../assets/login-bg.jpg'
 
 const Login = () => {
-  const [currState, setCurrState] = useState('Sign Up');
+  const [currState, setCurrState] = useState('Login');
 
   return (
         <>
           <Header />
-          <div className='bg py-10'>
-            <div className='flexCenter h-full w-full'>
+          <div className='relative'>
+            <img src={bg} className='h-[75vh] '/>
+            <div className='absolute top-0 left-0  flexCenter h-full w-full'>
               <form className='flex flex-col items-center w-[90%] sm:max-w-md m-auto gap-y-5 p-10 rounded-3xl text-white '>
                 <div className='w-full mb-5'>
                   <h3 className='bold-36 tracking-wider text-slate-800'>
@@ -78,14 +80,14 @@ const Login = () => {
                 <div className='w-full flex flex-col gap-y-3'>
                   {currState === "Login" ? (
                     <>
-                      <div className='medium-15 cursor-pointer text-primary underline hover:text-blue-600'>
+                      <div className='medium-15 cursor-pointer text-primary underline hover:text-slate-800'>
                         Forgot your password?
                       </div>
                       <div className='medium-15 text-primary'>
                         Don't have an account? 
                         <span 
                           onClick={() => setCurrState("Sign Up")} 
-                          className='cursor-pointer pl-1 underline hover:text-blue-600'
+                          className='cursor-pointer pl-1 underline hover:text-slate-800'
                         >
                           Create account
                         </span>
@@ -96,7 +98,7 @@ const Login = () => {
                       Already registered? 
                       <span 
                         onClick={() => setCurrState("Login")} 
-                        className='cursor-pointer pl-1 underline hover:text-blue-600'
+                        className='cursor-pointer pl-1 underline hover:text-slate-800'
                       >
                         Login
                       </span>
