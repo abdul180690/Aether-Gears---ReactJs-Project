@@ -33,7 +33,7 @@ const Header = () => {
               <img
                 src={logo}
                 alt="Logo"
-                className="lg:w-7 lg:h-7 md:w-7 md:h-7 sm:w-10 sm:h-10 xs:w-12 xs:h-12 rounded-full shadow-xl ring-1 ring-slate-900/20 "
+                className="lg:w-7 lg:h-7 md:w-7 md:h-7 sm:w-10 sm:h-10 xs:w-12 xs:h-12 rounded-full shadow-lg ring-2 ring-slate-900/70 "
               />
             </span>
             <span className="title-font text-[#10375C] text-nowrap uppercase bold-18 tracking-[5px] lg:block md:block xs:hidden">
@@ -61,7 +61,7 @@ const Header = () => {
           {cartCount > 0 && (
             <Link to={"/cart"} className="relative">
               <div className="flex ">
-                <IoMdCart className="lg:text-2xl xs:text-2xl  xs:text-slate-900 text-white hover:scale-125 duration-300" />
+                <IoMdCart className="lg:text-3xl xs:text-2xl  xs:text-slate-900 text-white hover:scale-125 duration-300" />
                 <span className="bg-white  ring-black ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-4 flexCenter w-4 h-4 rounded-full shadow-lg">
                   {cartCount}
                 </span>
@@ -73,7 +73,7 @@ const Header = () => {
           {wishlistCount > 0 && (
             <Link to={"/wishlist"} className="relative">
               <div className="flex">
-                <BsClipboard2HeartFill className="lg:text-lg xs:text-xl xs:text-slate-900 text-white hover:scale-125 duration-300" />
+                <BsClipboard2HeartFill className="lg:text-xl xs:text-xl xs:text-slate-900 text-white hover:scale-125 duration-300" />
                 <span className="bg-white  ring-black ring-1 text-black text-[12px] font-semibold absolute -top-2 -right-4 flexCenter w-4 h-4 rounded-full shadow-lg">
                   {wishlistCount}
                 </span>

@@ -138,7 +138,7 @@ const Offers = () => {
   return (
     <>
         <Header />
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-padd-container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Title 
             title1={'Our '} 
             title2={'Latest Offers'} 
@@ -146,10 +146,11 @@ const Offers = () => {
         />
         {offersData.map((offer) => (
             <OfferSection
-            key={offer.id}
-            title={offer.title}
-            description={offer.description}
-            products={offer.products}
+              key={offer.id}
+              title={offer.title}
+              description={offer.description}
+              products={offer.products}
+              className={'shadow-lg'}
             />
         ))}
         </div>

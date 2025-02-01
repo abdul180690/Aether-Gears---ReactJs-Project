@@ -9,6 +9,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Inter", system-ui;
+  
 }
 select,input,textarea{
   outline: none;

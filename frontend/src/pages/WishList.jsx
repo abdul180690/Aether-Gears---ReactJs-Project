@@ -2,9 +2,11 @@ import React, { useContext, useState, useEffect } from "react";
 import Title from "../components/Title";
 import { ShopContext } from "../context/ShopContext";
 import { useNavigate } from "react-router-dom";
-import { FaCheck, FaRegWindowClose } from "react-icons/fa";
+import { FaCheck } from "react-icons/fa";
+import { ImBin } from "react-icons/im";
 import { motion } from 'framer-motion'; // Importing framer-motion for animations
 import Header from "../components/Header";
+import { TbShoppingBagPlus } from "react-icons/tb";
 
 const WishList = () => {
   const { currency, products, wishListItems, removeFromWishList, addToCart, getWishListCount } =
@@ -74,7 +76,7 @@ const WishList = () => {
                       duration: 0.5,
                     }}
                   >
-                    <div className="flex mt-5 border-s-8 border-e-8 border-gray-30 bg-primary overflow-hidden  p-5 rounded-xl hover:shadow-lg duration-300 zoom-in-animation">
+                    <div className="flex mt-5 border border-slate-300 bg-primary overflow-hidden  p-5 rounded-xl shadow-lg duration-300 zoom-in-animation">
                       <div className="flex items-center">
                         {/* Product Image */}
                         <div className="cursor-pointer flexCenter">
@@ -96,7 +98,7 @@ const WishList = () => {
                             <h5 className="h5 line-clamp-1">
                               {productData.name}
                             </h5>
-                            <FaRegWindowClose
+                            <ImBin
                               onClick={() => handleRemoveFromWishList(item._id)} // Remove from wishlist
                               className="cursor-pointer text-secondary text-xl"
                             />
@@ -149,8 +151,8 @@ const WishList = () => {
                             <div className=" gap-x-2 mt-5">
                               <button
                                 onClick={() => addToCart(productData._id, color)} 
-                                className="btn-secondary">
-                                Add To Cart
+                                className="btn-secondary flex">
+                                Add To Cart <TbShoppingBagPlus className="ml-2 text-lg animate-pulse" />
                               </button>
                             </div>
                           </div>

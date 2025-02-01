@@ -68,7 +68,7 @@ const Item = ({ product }) => {
         </h4>
         <div className="flexBetween pt-1">
           <p className="h5 me-2">{product?.category || "Uncategorized"}</p>
-          <h5 className="h5">₹{product?.price || "N/A"}</h5>
+          <h5 className="h5">₹ {product?.price || "N/A"}</h5>
         </div>
         <p className="line-clamp-2 py-1">
           {product?.description || "No description available."}

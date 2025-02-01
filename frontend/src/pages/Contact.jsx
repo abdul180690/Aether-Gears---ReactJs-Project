@@ -8,7 +8,7 @@ const Contact = () => {
   return (
     <>
       <Header />
-      <div className="min-h-screen ">
+      <div className="min-h-screen  ">
         {/* Hero Section */}
         <div className="relative h-[450px] flex items-center justify-center mb-10 overflow-hidden ">
           <img
@@ -28,7 +28,7 @@ const Contact = () => {
         </div>
 
         {/* Contact Information Section */}
-        <div className="container mx-auto px-4 mb-10">
+        <div className="max-padd-container mx-auto px-4 mb-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-blue-100 p-4 rounded-full mb-4">
@@ -100,7 +100,7 @@ const Contact = () => {
         </div>
 
         {/* Contact Form Section */}
-        <div className=" mx-16 px-4 mb-10">
+        <div className="max-padd-container mx-16 px-4 mb-10">
           <div className="bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-3xl font-bold text-center mb-6">Send Us a Message</h2>
             <form>
@@ -154,7 +154,7 @@ const Contact = () => {
         </div>
 
         {/* Map Section */}
-        <div className="container mx-auto px-4 mb-10">
+        <div className="max-padd-container mx-auto px-4 mb-10">
           <h2 className="text-3xl font-bold text-center mb-6">Our Location</h2>
           <iframe
             src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=madurai&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"

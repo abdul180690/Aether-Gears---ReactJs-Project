@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { ShopContext } from '../context/ShopContext';
 import Title from '../components/Title';
-import { FaMinus, FaPlus, FaRegWindowClose, FaCheck } from 'react-icons/fa';
+import { FaMinus, FaPlus, FaCheck } from 'react-icons/fa';
+import { ImBin } from "react-icons/im";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import emptyCart from '../assets/empty-cart.mp4';
 import { motion } from 'framer-motion';
@@ -104,7 +105,7 @@ const Cart = () => {
                     return (
                       <motion.div
                         key={i}
-                        className="border border-slate-600 hover:shadow-lg px-4 py-2 mb-5 rounded-lg bg-primary"
+                        className="border border-slate-300 shadow-md px-4 py-2 mb-5 rounded-lg bg-primary"
                         initial={{ opacity: 0, x: 500 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{
@@ -124,7 +125,7 @@ const Cart = () => {
                           <div className="flex flex-col w-full">
                             <div className="flexBetween">
                               <h5 className="h5 !my-0 line-clamp-1">{productData.name}</h5>
-                              <FaRegWindowClose
+                              <ImBin
                                 onClick={() => updateQuantity(item._id, item.color, 0)}
                                 className="cursor-pointer text-secondary"
                               />

@@ -2,6 +2,7 @@
 import React from "react";
 import banner1 from "../assets/headphone-video.mp4";
 import banner2 from "../assets/camera-video.mp4";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -22,12 +23,15 @@ const Banner = () => {
           <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <h2 className="text-3xl font-bold mb-2">Headphone</h2>
             <h2 className="text-2xl mb-2">Collection</h2>
-            <p className="text-lg text-red-500 font-bold mb-4">
+            <p className="text-5xl text-amber-300 font-bold mb-4">
               Flat 30% Off
             </p>
-            <button className="px-6 py-2 bg-white text-black rounded-full font-semibold hover:bg-gray-300 hover:text-secondary transition">
-              Shop Now
-            </button>
+            <Link 
+              to={'/offers'}
+              className="px-6 py-2 bg-white text-black rounded-full font-semibold hover:bg-gray-300 hover:text-secondary transition"
+            >
+              Explore Now
+            </Link>
           </div>
         </div>
 
@@ -46,12 +50,15 @@ const Banner = () => {
           <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <h2 className="text-3xl font-bold mb-2">Camera</h2>
             <h2 className="text-2xl mb-2">Collection</h2>
-            <p className="text-lg text-red-500 font-bold mb-4">
+            <p className="text-5xl text-amber-300 font-bold mb-4">
               Flat 50% off
             </p>
-            <button className="px-6 py-2 bg-white text-black rounded-full font-semibold hover:bg-slate-300 hover:text-secondary transition">
+            <Link 
+              to={'/offers'} 
+              className="px-6 py-2 bg-white text-black rounded-full font-semibold hover:bg-slate-300 hover:text-secondary transition"
+            >
               Explore Now
-            </button>
+            </Link>
           </div>
         </div>
       </div>

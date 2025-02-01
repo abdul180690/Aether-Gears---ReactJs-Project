@@ -74,7 +74,7 @@ const AboutUs = () => {
       </section>
 
       {/* Section: Our Mission */}
-      <section className=" py-12 px-6 lg:px-10">
+      <section className="max-padd-container py-12 px-6 lg:px-10">
         <div className="scroll-section">
           <Title 
             title1={"Our "}
@@ -92,7 +92,7 @@ const AboutUs = () => {
       </section>
 
       {/* Section: Why Choose Us */}
-      <section className="text-center py-10">
+      <section className="max-padd-container text-center py-10">
         <div className="max-padd-container scroll-section">
         <Title 
             title1={"Why Choose "}
@@ -101,30 +101,36 @@ const AboutUs = () => {
         />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 lg:px-10">
             <div className="bg-amber-300 p-6 rounded-xl shadow-lg text-center">
-              <MdWorkspacePremium className="text-secondary bg-amber-50 p-1 rounded-full text-4xl mb-4" />
-              <h4 className="text-xl font-bold text-gray-800 mb-2">
-                Premium Quality
-              </h4>
+              <div className="flexCenter mb-5">  
+                <MdWorkspacePremium className="text-secondary me-5  bg-amber-50 p-1 rounded-full text-4xl " />
+                <h4 className="text-xl font-bold text-gray-800 ">
+                  Premium Quality
+                </h4>
+              </div>
               <p className="text-lg text-gray-600 leading-8">
                 We offer only the best quality products, rigorously tested to
                 ensure durability and performance.
               </p>
             </div>
             <div className="bg-amber-300 p-6 rounded-xl shadow-lg text-center">
-              <PiCurrencyInrBold className="text-secondary bg-amber-50 p-1 rounded-full text-4xl mb-4" />
-              <h4 className="text-xl font-bold text-gray-800 mb-2">
-                Affordable Prices
-              </h4>
+              <div className="flexCenter mb-5">
+                <PiCurrencyInrBold className="text-secondary me-5  bg-amber-50 p-1 rounded-full text-4xl" />
+                <h4 className="text-xl font-bold text-gray-800 ">
+                  Affordable Prices
+                </h4>
+              </div>
               <p className="text-lg text-gray-600  leading-8">
                 Get the best value for your money with our competitive pricing
                 on all tech products.
               </p>
             </div>
             <div className="bg-amber-300 p-6 rounded-xl shadow-lg text-center">
-              <MdOutlineSupportAgent className="text-secondary bg-amber-50 p-1 rounded-full text-4xl mb-4" />
-              <h4 className="text-xl font-bold text-gray-800 mb-2">
-                Excellent Support
-              </h4>
+              <div className="flexCenter mb-5">
+                <MdOutlineSupportAgent className="text-secondary me-5 bg-amber-50 p-1 rounded-full text-4xl" />
+                <h4 className="text-xl font-bold text-gray-800">
+                  Excellent Support
+                </h4>
+              </div>
               <p className="text-lg text-gray-600  leading-8">
                 Our customer service team is always ready to assist you with any
                 questions or concerns.

@@ -84,9 +84,9 @@ const CartTotal = ({ discount }) => {
 
       {/* Shipping Fee */}
       <div className="flex justify-between items-center py-1">
-        <h5 className="text-gray-700">Shipping Fee:</h5>
+        <h5 className="text-gray-700">Shipping Fee: <span className='font-bold'>{}</span></h5>
         <p className="text-gray-800">
-          {currency} {shippingFee.toFixed(2)}
+          {(shippingFee === 0.00) ? "Free" : (currency + shippingFee.toFixed(2))}
         </p>
       </div>
       
