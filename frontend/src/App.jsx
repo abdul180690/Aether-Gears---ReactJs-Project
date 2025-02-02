@@ -24,12 +24,12 @@ const App = () => {
       <ToastContainer />
       {/* <Header /> */}
       {/* Transition Group for page fade animations */}
-      <TransitionGroup>
+      {/* <TransitionGroup>
         <CSSTransition
           key={location.key} // Unique key for each location to trigger animations
           timeout={750} // Duration of the transition
           classNames="fade" // CSS class for animation
-        >
+        > */}
           <Routes location={location}>
             <Route path="/" element={<Home />} />
             <Route path="/collection" element={<Collection />} />
@@ -43,8 +43,8 @@ const App = () => {
             <Route path="/place-order" element={<PlaceOrder />} />
             <Route path="/login" element={<Login />} />
           </Routes>
-        </CSSTransition>
-      </TransitionGroup>
+        {/* </CSSTransition>
+      </TransitionGroup> */}
 
       <Footer />
       <BackToTop />
