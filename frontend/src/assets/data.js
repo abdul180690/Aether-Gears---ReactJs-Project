@@ -179,7 +179,7 @@ export const products = [
         price: 29999,
         image: [img11],
         category: "Cameras",
-        colors: ["Red", "Red"],
+        colors: ["Red", "white"],
         date: 1716628345448,
         popular: false
     },
@@ -225,7 +225,7 @@ export const products = [
         price: 15999,
         image: [img15],
         category: "Mobiles",
-        colors: ["XS", "Black", "Red"],
+        colors: ["white", "Black", "Red"],
         date: 1716632345448,
         popular: true
     },
@@ -473,7 +473,7 @@ export const products = [
         price: 4599,
         image: [img37],
         category: "Watches",
-        colors: ["Gold", "Silver", "Black"],
+        colors: ["Red", "White", "Black"],
         date: 1716654345448,
         popular: false
     },
@@ -506,7 +506,7 @@ export const products = [
         price: 3599,
         image: [img40],
         category: "Watches",
-        colors: ["Gold", "Silver", "Black", "White"],
+        colors: ["Red", "Blue", "Black", "White"],
         date: 1716657345448,
         popular: false
     },
@@ -528,7 +528,7 @@ export const products = [
         price: 1299,
         image: [img42],
         category: "Watches",
-        colors: ["Pink", "Blue", "Red"],
+        colors: ["White", "Blue", "Red"],
         date: 1716659345448,
         popular: false
     }
