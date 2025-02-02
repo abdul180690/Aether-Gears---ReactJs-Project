@@ -16,9 +16,9 @@ const Hero = () => {
       {/* Hero Content */}
       <div className="relative flex flex-col lg:flex-row justify-between items-center w-full h-full px-4 py-6 text-center lg:text-left">
         {/* Left Side (Text & Button) */}
-        <div className="xl:text-slate-800 lg:text-slate-800 md:text-white xs:text-white">
+        <div className="xl:text-slate-900/80 lg:text-slate-800 md:text-white xs:text-white">
           <h1 className="lg:w-9/12 lg:text-3xl/[1.5] tracking-widest title-font lg:text-stroke font-semibold xs:text-2xl max-w-lg mx-auto lg:mx-0 mb-6 ">
-            Discover the best audio experience with cutting-edge technology and sleek designs.
+          Unleash epic sound with next-gen tech and killer style!
           </h1>
           <Link
             to={`/collection`}
