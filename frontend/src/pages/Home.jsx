@@ -12,29 +12,29 @@ import Header from '../components/Header';
 
 
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(true); 
+  // const [isLoading, setIsLoading] = useState(true); 
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false); 
-    }, 1500);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsLoading(false); 
+  //   }, 1500);
 
-    return () => {
-      clearTimeout(timer); 
-    };
-  }, []);
+  //   return () => {
+  //     clearTimeout(timer); 
+  //   };
+  // }, []);
 
 
-  // Conditional rendering
-  if (isLoading) {
-    return (<>
-    <div className='flexCenter h-screen w-full bg-gray-800'>
-        <ClimbingBoxLoader color="#f79825" loading={isLoading} size={window.innerWidth < 640 ? 15 : 20} />
-        <p className="text-white text-xl">Loading, please wait...</p>
-    </div>
-    </>
-    )
-  }
+  // // Conditional rendering
+  // if (isLoading) {
+  //   return (<>
+  //   <div className='flexCenter h-screen w-full bg-gray-800'>
+  //       <ClimbingBoxLoader color="#f79825" loading={isLoading} size={window.innerWidth < 640 ? 15 : 20} />
+  //       <p className="text-white text-xl">Loading, please wait...</p>
+  //   </div>
+  //   </>
+  //   )
+  // }
 
   return (
     <>
