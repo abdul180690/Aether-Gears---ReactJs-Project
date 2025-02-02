@@ -8,7 +8,7 @@ import List from './pages/List'
 import Orders from './pages/Orders'
 
 export const backend_url = import.meta.env.VITE_BACKEND_URL
-export const currency = "₹"
+export const currency = "₹ "
 
 export default function App() {
 
@@ -20,7 +20,7 @@ export default function App() {
 
 
   return (
-    <main>
+    <main >
       <ToastContainer />
       {token === "" ? (
         <Login setToken={setToken} />
@@ -40,4 +40,4 @@ export default function App() {
   )
 }
 
-// 9:47:00
+// 11:09:55

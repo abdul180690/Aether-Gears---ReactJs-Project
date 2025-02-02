@@ -1,12 +1,11 @@
-import React from "react";
-import upload_icon from "../assets/upload_icon.png";
+import React, { useState, useCallback } from "react";
 import { FaCheck } from "react-icons/fa6";
-import { useState } from "react";
-import { useCallback } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
+import upload_icon from "../assets/upload_icon.png";
 import { backend_url } from "../App";
-import { toast } from 'react-toastify'
 
-const Add = ({token}) => {
+const Add = ({ token }) => {
   const [images, setImages] = useState({
     image1: null,
     image2: null,
@@ -20,14 +19,42 @@ const Add = ({token}) => {
   const [category, setCategory] = useState("Headphones");
   const [popular, setPopular] = useState(false);
   const [colors, setColors] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (e, key) => {
-    setImages((prev) => ({ ...prev, [key]: e.target.files[0] }));
+    const file = e.target.files[0];
+    if (file && !file.type.startsWith("image/")) {
+      toast.error("Please upload a valid image file.");
+      return;
+    }
+    if (file && file.size > 5 * 1024 * 1024) {
+      toast.error("Image size should be less than 5MB.");
+      return;
+    }
+    setImages((prev) => ({ ...prev, [key]: file }));
   };
 
   const onSubmitHandler = useCallback(
     async (e) => {
       e.preventDefault();
+
+      // Basic Validation
+      if (!name || !description || !price || !category) {
+        toast.error("Please fill in all fields.");
+        return;
+      }
+
+      if (
+        !images.image1 &&
+        !images.image2 &&
+        !images.image3 &&
+        !images.image4
+      ) {
+        toast.error("Please upload at least one product image.");
+        return;
+      }
+
+      setLoading(true);
       try {
         const formData = new FormData();
         formData.append("name", name);
@@ -58,17 +85,38 @@ const Add = ({token}) => {
           toast.error(response.data.message);
         }
       } catch (error) {
-        toast.error(
-          error.response?.data?.message || 
-          "Something went wrong whie adding product"
-        );
+        if (error.response) {
+          toast.error(error.response.data.message || "Server error occurred.");
+        } else if (error.request) {
+          toast.error("No response from the server. Please check your connection.");
+        } else {
+          toast.error("An unexpected error occurred.");
+        }
+      } finally {
+        setLoading(false);
       }
     },
     [name, description, price, category, popular, colors, images, token]
   );
 
+  const ImageUpload = ({ imgKey, images, handleImageChange }) => (
+    <label htmlFor={imgKey}>
+      <img
+        src={images[imgKey] ? URL.createObjectURL(images[imgKey]) : upload_icon}
+        alt=""
+        className="w-16 h-16 aspect-square object-cover ring-1 ring-slate-900/5 rounded-lg cursor-pointer"
+      />
+      <input
+        onChange={(e) => handleImageChange(e, imgKey)}
+        type="file"
+        id={imgKey}
+        hidden
+      />
+    </label>
+  );
+
   return (
-    <div className="px-2 sm:px-8 mt-2 sm:mt-14 pb-16">
+    <div className="px-2 xs:px-8 xs:pt-3 sm:px-8 mt-2 sm:mt-6 pb-16">
       <form
         onSubmit={onSubmitHandler}
         className="flex flex-col gap-y-3 medium-14 lg:w-[777px]"
@@ -84,6 +132,7 @@ const Add = ({token}) => {
             className="px-3 py-1.5 ring-1 ring-slate-900/10 rounded bg-white mt-1 w-full max-w-lg"
           />
         </div>
+
         <div className="w-full">
           <h5 className="h5">Product Description</h5>
           <textarea
@@ -97,7 +146,7 @@ const Add = ({token}) => {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <div className="">
+          <div>
             <h5 className="h5">Categories</h5>
             <select
               id="category"
@@ -113,6 +162,7 @@ const Add = ({token}) => {
               <option value="Watches">Watches</option>
             </select>
           </div>
+
           <div>
             <h5 className="h5">Product Price</h5>
             <input
@@ -141,8 +191,8 @@ const Add = ({token}) => {
                 }
               >
                 <span
-                  className="h-9 w-9 rounded-full flexCenter"
-                  style={{ backgroundColor: color.toLocaleLowerCase() }}
+                  className="h-9 w-9 rounded-full flexCenter ring-1 ring-slate-900/20 cursor-pointer"
+                  style={{ backgroundColor: color.toLowerCase() }}
                 >
                   {colors.includes(color) && (
                     <FaCheck
@@ -159,38 +209,40 @@ const Add = ({token}) => {
 
         <div className="flex gap-3 pt-2">
           {["image1", "image2", "image3", "image4"].map((imgKey, i) => (
-            <label key={i} htmlFor={imgKey}>
-              <img
-                src={
-                  images[imgKey]
-                    ? URL.createObjectURL(images[imgKey])
-                    : upload_icon
-                }
-                alt=""
-                className="w-16 h-16 aspect-square object-cover ring-1 ring-slate-900/5 rounded-lg"
-              />
-              <input 
-                onChange={(e)=> handleImageChange(e, imgKey) }
-                type="file" 
-                id={imgKey} 
-                hidden 
-              />
-            </label>
+            <ImageUpload
+              key={i}
+              imgKey={imgKey}
+              images={images}
+              handleImageChange={handleImageChange}
+            />
           ))}
         </div>
+
         <div className="flex items-center gap-2 my-2">
-          <input 
-            onChange={(e)=>setPopular((prev)=> !prev)}
+          <input
+            onChange={() => setPopular((prev) => !prev)}
             checked={popular}
             id="popular"
-            type="checkbox" 
+            type="checkbox"
           />
           <label htmlFor="popular" className="cursor-pointer">
             Add to Popular
           </label>
         </div>
-        <button type="submit" className="btn-dark mt-3 max-w-44 sm:w-full">
-          Add Product
+
+        <button
+          type="submit"
+          className="btn-dark mt-3 max-w-44 sm:w-full"
+          disabled={loading}
+        >
+          {loading ? (
+            <div className="flex items-center gap-2">
+              <span>Adding...</span>
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : (
+            "Add Product"
+          )}
         </button>
       </form>
     </div>

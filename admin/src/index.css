@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -8,7 +9,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Inter", system-ui;
+  font-family: "Montserrat", serif;;
   
 }
 select,input,textarea{
@@ -72,7 +73,7 @@ select,input,textarea{
 
 @layer utilities {
   .active-link{
-    @apply flexStart gap-x-2 p-5 sm:pl-12 medium-15 cursor-pointer h-10 bg-primary text-secondary max-sm:border-b-4 sm:border-r-4 border-secondary;
+    @apply flexStart gap-x-2 p-6 sm:pl-12 medium-15 cursor-pointer h-10 bg-primary text-red-600 max-sm:border-b-4 sm:border-r-4 border-secondary transition-all ease-in-out duration-300;
   }
   
   .hide-scrollbar {
