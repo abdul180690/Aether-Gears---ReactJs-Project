@@ -1,9 +1,10 @@
-import React, { useContext } from 'react'
-import { ShopContext } from '../context/ShopContext'
-import Title from './Title'
+import React, { useContext, useEffect } from 'react';
+import { ShopContext } from '../context/ShopContext';
+import Title from './Title';
+import { toast } from 'react-toastify'; // Import toast
 
 const CartTotal = ({ discount }) => {
-  const { currency, getCartAmount, delivery_charges } = useContext(ShopContext)
+  const { currency, getCartAmount, delivery_charges } = useContext(ShopContext);
 
   const cartAmount = getCartAmount(); // Subtotal before tax
 
@@ -20,8 +21,18 @@ const CartTotal = ({ discount }) => {
   const afterTaxAmount = discountedAmount + taxAmount; // Subtotal after tax
 
   // Shipping fee: Only applies if total (after discount) exceeds a certain threshold, else it's zero
-  const shippingFee = cartAmount < 1000 ? delivery_charges : 0; 
+  const shippingFee = discountedAmount < 1000 ? delivery_charges : 0; 
   const totalAmount = afterTaxAmount + shippingFee; // Final total (after tax + shipping)
+
+  // Show toast for remaining amount to get free shipping (based on before tax amount)
+  useEffect(() => {
+    if (discountedAmount < 1000) {
+      const remainingAmount = 1000 - discountedAmount;
+      toast.info(`Add ₹${remainingAmount.toFixed(2)} more to get free shipping!`, {
+        autoClose: 5000,
+      });
+    }
+  }, [discountedAmount]);
 
   return (
     <section className="p-5 rounded-2xl">
@@ -100,7 +111,7 @@ const CartTotal = ({ discount }) => {
         </p>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default CartTotal
+export default CartTotal;
