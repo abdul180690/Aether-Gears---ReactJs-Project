@@ -1,23 +1,39 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
-import { FaCheck, FaHeart, FaStar, FaStarHalfStroke, FaTruckFast } from "react-icons/fa6";
-import { TbShoppingBagPlus } from "react-icons/tb";
+import {
+  FaCheck,
+  FaStar,
+  FaStarHalfStroke,
+  FaTruckFast,
+} from "react-icons/fa6";
+import { TiHeartFullOutline } from "react-icons/ti";
+import { MdAddShoppingCart, MdShoppingCartCheckout } from "react-icons/md";
+
 import ProductDescription from "../components/ProductDescription";
 import ProductFeatures from "../components/ProductFeatures";
 import RelatedProducts from "../components/RelatedProducts";
-import cod from '../assets/cod2.png'
-import { CiZoomIn } from "react-icons/ci";
-import Header from "../components/Header";
+import cod from "../assets/cod2.png";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products, currency, addToCart, addToWishList } = useContext(ShopContext);
+  const {
+    navigate,
+    products,
+    currency,
+    addToCart,
+    addToWishList,
+    removeFromWishList,
+    isInWishlist,
+    token,
+  } = useContext(ShopContext);
   const [product, setProduct] = useState(null);
   const [image, setImage] = useState("");
   const [color, setColor] = useState("");
   const [hovered, setHovered] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+  const [isHighlighted, setIsHighlighted] = useState(false);
 
   const fetchProductData = async () => {
     const selectedProduct = products.find((item) => item._id === productId);
@@ -29,7 +45,8 @@ const Product = () => {
 
   useEffect(() => {
     fetchProductData();
-  }, [productId, products]);
+    setIsHighlighted(isInWishlist(productId));
+  }, [productId, products, isInWishlist]);
 
   const handleMouseMove = (e) => {
     const { left, top, width, height } = e.target.getBoundingClientRect();
@@ -38,52 +55,89 @@ const Product = () => {
     setZoomPosition({ x, y });
   };
 
+  const handleWishlistClick = async () => {
+    if (!token) {
+      // If there is no token, prompt the user to log in
+      toast.error("Please login to manage your wishlist.", { autoClose: 3000 });
+      return;
+    }
+
+    try {
+      if (isHighlighted) {
+        // Remove from wishlist
+        await removeFromWishList(product._id);
+        setIsHighlighted(false);
+      } else {
+        // Add to wishlist
+        await addToWishList(product._id);
+        setIsHighlighted(true);
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.", {
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const handleBuyNow = () => {
+    if (!token) {
+      toast.error("Please login to add items to your cart", {
+        autoClose: 3000,
+      });
+      return;
+    }
+    addToCart(product._id, color);
+    navigate("/place-order");
+  };
+
   if (!product) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="loader"></div>
+      <div>
+        <div className="flex items-center justify-center h-screen bg-slate-800">
+          <div className="loader"></div>
+          <p className="ml-10">Loading...</p>
+        </div>
       </div>
     );
   }
 
   return (
     <>
-      <Header />
       <div className="max-padd-container bg-white">
         <div className=" ">
           <div className="flex gap-10 flex-col xl:flex-row rounded-2xl p-3 mb-6">
             {/* Image Section */}
             <div className="flex flex-1 gap-x-2 max-w-[477px]">
-              <div className="flex-1 flexCenter flex-col gap-[7px] flex-wrap">
+              <div className="flex-1 flexCenter flex-col gap-[7px] flex-wrap ">
                 {product.image.map((item, i) => (
-                  <img
-                    key={i}
-                    src={item}
-                    alt={`Thumbnail of ${product.name}`}
-                    onClick={() => setImage(item)}
-                    className={`object-cover aspect-square rounded-lg cursor-pointer border border-slate-400/50 ${
-                      image === item ? "border border-slate-400/50" : ""
-                    }`}
-                  />
+                  <div className="overflow-hidden bg-primary border border-slate-400/50 rounded-lg">
+                    <img
+                      key={i}
+                      src={item}
+                      alt={`Thumbnail of ${product.name}`}
+                      onClick={() => setImage(item)}
+                      className={`object-cover aspect-square  cursor-pointer hover:scale-125 hover:rotate-[30deg] duration-300 ${
+                        image === item ? "scale-125 hover:!rotate-0" : ""
+                      }`}
+                    />
+                  </div>
                 ))}
-              <p className="text-center mt-1">Hover on image to zoom </p>
+                <p className="text-center mt-1">Hover on image to zoom </p>
               </div>
-              <div
-                className="flex-[4] flex items-center relative"
-              >
+              <div className="flex-[4] flex items-center relative ">
                 <img
                   src={image}
                   alt={`Main view of ${product.name}`}
-                  className="rounded-xl w-full object-cover border border-slate-400/50 cursor-zoom-in"
+                  className="rounded-xl w-full object-cover border border-slate-400/50 cursor-zoom-in shadow-lg"
                   onMouseEnter={() => setHovered(true)}
                   onMouseLeave={() => setHovered(false)}
                   onMouseMove={handleMouseMove}
                 />
-                
+
                 {hovered && (
                   <>
                     {/* Large Image View */}
-                    <div className="absolute top-0 left-[110%] w-[500px] h-[450px] border border-gray-300 rounded-lg overflow-hidden shadow-lg">
+                    <div className="absolute top-0 left-[110%] w-[500px] h-[450px] border border-gray-300 rounded-lg overflow-hidden shadow-lg z-10">
                       <img
                         src={image}
                         alt="Zoomed Product"
@@ -93,9 +147,8 @@ const Product = () => {
                           transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`,
                         }}
                       />
-                      
                     </div>
-                    
+
                     {/* Magnifying Box */}
                     <div
                       className="absolute pointer-events-none border-2 border-gray-400 rounded-md"
@@ -105,19 +158,28 @@ const Product = () => {
                         width: "175px",
                         height: "175px",
                         background: `url(${image})`,
-                        backgroundSize: "350%", 
+                        backgroundSize: "350%",
                         backgroundPosition: `${zoomPosition.x}% ${zoomPosition.y}%`,
                         transform: "translate(-50%, -50%)",
                       }}
-                    >
-                    </div>
+                    ></div>
                   </>
                 )}
               </div>
             </div>
             {/* Product Details Section */}
             <div className="flex-[1.5] rounded-2xl px-5 py-3 bg-primary border border-slate-400/50">
-              <h3 className="h3 leading-none">{product.name}</h3>
+              <div className="flex justify-between items-center">
+                <h3 className="h3 leading-none">{product.name}</h3>
+                <TiHeartFullOutline
+                  onClick={handleWishlistClick}
+                  className={`cursor-pointer duration-300 transition-transform scale-150 hover:scale-125  ${
+                    isHighlighted
+                      ? "text-red-500 drop-shadow-lg"
+                      : "text-amber-500 bg-slate-800 p-0.5 rounded-full before:content=[''] before:-top-1 before:-left-1 before:border before:border-red"
+                  }`}
+                />
+              </div>
               <div className="flex items-baseline gap-x-5">
                 <div className="flex items-center gap-x-2 text-secondary">
                   <div className="flex gap-x-2 text-secondary">
@@ -145,13 +207,17 @@ const Product = () => {
                       key={i}
                       onClick={() => setColor(item)}
                       className={`h-9 w-9 rounded-full flexCenter cursor-pointer border border-gray-400 hover:ring-2 ring-slate-400 duration-300 ${
-                        color === item ? "ring-2 ring-offset-2 ring-primary" : ""
+                        color === item
+                          ? "ring-2 ring-offset-2 ring-primary"
+                          : ""
                       }`}
                       style={{ backgroundColor: item }}
                     >
                       {color === item && (
                         <FaCheck
-                          className={item === "White" ? "text-black" : "text-white"}
+                          className={
+                            item === "White" ? "text-black" : "text-white"
+                          }
                         />
                       )}
                     </button>
@@ -162,24 +228,45 @@ const Product = () => {
               {/* Buttons */}
               <div className="flex gap-x-4 mt-6">
                 <button
-                  onClick={() => addToCart(product._id, color)}
-                  className="btn-secondary !rounded-2xl sm:w-1/2 flexCenter gap-x-2 capitalize hover:bg-slate-700 duration-300"
+                  onClick={() => {
+                    if (color) {
+                      addToCart(product._id, color);
+                    } else {
+                      toast.error("Please select a color.", {
+                        autoClose: 1000,
+                      });
+                    }
+                  }}
+                  className="flexCenter relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-[#FCC737] rounded-[3px] py-1.5 px-5 text-black before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:hover:border-0 before:w-full before:h-full before:rounded-[3px] before:border-e-2 before:border-b-2 before:border-slate-800 before:-z-100 before:transition-all duration-300"
                 >
-                  Add to Cart <TbShoppingBagPlus className="text-lg" />
+                  <MdAddShoppingCart className="me-3  text-2xl bg-black text-white p-1 rounded-md" />
+                  Add To Cart
                 </button>
-                <button onClick={() => addToWishList(product._id)}
-                  className="btn-secondary !rounded-2xl  flexCenter gap-x-2 capitalize hover:bg-slate-700 duration-300"
+                <button
+                  onClick={() => {
+                    if (color) {
+                      handleBuyNow();
+                    } else {
+                      toast.error("Please select a color.", {
+                        autoClose: 1000,
+                      });
+                    }
+                  }}
+                  className="flexCenter relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-[#FCC737] rounded-[3px] py-1.5 px-5 text-black before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:hover:border-0 before:w-full before:h-full before:rounded-[3px] before:border-e-2 before:border-b-2 before:border-slate-800 before:-z-100 before:transition-all duration-300"
                 >
-                  <FaHeart className="text-amber-400 hover:scale-150 duration-300"/>
+                  <MdShoppingCartCheckout className="me-3  text-2xl bg-black text-white p-1 rounded-md" />
+                  Buy Now
                 </button>
               </div>
 
               {/* Additional Info */}
               <div className="mt-6 flex">
                 <FaTruckFast className="text-lg me-3" />
-                <span className="medium-14">Free Delivery on orders over ₹1000</span>
+                <span className="medium-14">
+                  Free Delivery on orders over ₹1000
+                </span>
               </div>
-              <img src={cod} alt="" className="w-12"/>
+              <img src={cod} alt="" className="w-12" />
               <hr className="my-3 w-2/3" />
               <div className="mt-2 flex flex-col gap-1 text-gray-30 transitions">
                 <p>Authenticity You Can Trust</p>

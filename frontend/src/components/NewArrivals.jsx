@@ -51,7 +51,7 @@ const NewArrivals = () => {
           },
         }}
         modules={[Autoplay]}
-        className=":h-full"
+        className="h-full"
       >
         {PopularProducts.map((product) => (
           <SwiperSlide key={product._id}>

@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import { FaCheck } from "react-icons/fa6";
+import { MdFormatListBulletedAdd } from "react-icons/md";
 import { toast } from "react-toastify";
 import axios from "axios";
 import upload_icon from "../assets/upload_icon.png";
@@ -88,7 +89,9 @@ const Add = ({ token }) => {
         if (error.response) {
           toast.error(error.response.data.message || "Server error occurred.");
         } else if (error.request) {
-          toast.error("No response from the server. Please check your connection.");
+          toast.error(
+            "No response from the server. Please check your connection."
+          );
         } else {
           toast.error("An unexpected error occurred.");
         }
@@ -241,7 +244,10 @@ const Add = ({ token }) => {
               <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
             </div>
           ) : (
-            "Add Product"
+            <div className="flex items-center gap-2">
+              <MdFormatListBulletedAdd className="text-lg" />
+              Add Product
+            </div>
           )}
         </button>
       </form>
@@ -250,3 +256,4 @@ const Add = ({ token }) => {
 };
 
 export default Add;
+

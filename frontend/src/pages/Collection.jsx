@@ -5,7 +5,6 @@ import Item from '../components/Item';
 import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
 import notfound from '../assets/not-found.png';
 import Notification from '../components/Notification';
-import Header from '../components/Header';
 
 const Collection = () => {
   const { products = [], search } = useContext(ShopContext);
@@ -71,9 +70,19 @@ const Collection = () => {
     1
   );
 
+  if (!products ) {
+    return (
+      <div>
+        <div className="flex items-center justify-center h-screen bg-slate-800">
+          <div className="loader"></div>
+          <p className="ml-10">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      <Header />
       <div className=" bg-white max-padd-container !px-0">
         <Notification />
         <Search  />
@@ -86,8 +95,8 @@ const Collection = () => {
           >
             <MdKeyboardDoubleArrowRight
               onClick={() => setOpen(!open)}
-              className={`p-3 bg-primary text-slate-800 text-5xl rounded-full absolute lg:-top-14 lg:-right-2  md:-top-4 md:-right-1  xs:-top-6 xs:right-16 border-2 border-slate-300 shadow-md cursor-pointer hover:scale-110 ${
-                open ? 'rotate-180 duration-500 mt-0 ml-0' : 'duration-500'
+              className={`p-1 bg-gray-900 text-gray-100/90 text-3xl rounded-e-full absolute lg:-top-14 lg:right-5  md:-top-4 md:-right-1  xs:-top-6 xs:right-24 border border-slate-300 shadow-md cursor-pointer hover:scale-110 duration-300 ${
+                open ? 'rotate-180 duration-500  mt-0 lg:-mr-14 md:-mr-0 sm:-mr-32 xs:-mr-32' : 'duration-500'
               }`}
             />
             {open && (
@@ -132,7 +141,7 @@ const Collection = () => {
                     key={product.id}
                     className="zoom-in-animation"
                     style={{
-                      animationDelay: `${index * 0.1}s`, // Staggered animation
+                      animationDelay: `${index * 0.2}s`, // Staggered animation
                     }}
                   >
                     <Item product={product} />
@@ -140,7 +149,7 @@ const Collection = () => {
                 ))
               ) : (
                 <div>
-                  <img src={notfound} alt="" className="w-72 h-68" />
+                  <img src={notfound} alt="" className="w-72 h-68" loading='lazy' />
                   <p className="h3">No Products found for selected filters</p>
                 </div>
               )}

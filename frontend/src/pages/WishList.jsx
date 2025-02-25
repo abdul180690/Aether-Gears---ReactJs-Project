@@ -4,13 +4,18 @@ import { ShopContext } from "../context/ShopContext";
 import { useNavigate } from "react-router-dom";
 import { FaCheck } from "react-icons/fa";
 import { ImBin } from "react-icons/im";
-import { motion } from 'framer-motion'; // Importing framer-motion for animations
-import Header from "../components/Header";
+import { motion } from "framer-motion"; // Importing framer-motion for animations
 import { TbShoppingBagPlus } from "react-icons/tb";
 
 const WishList = () => {
-  const { currency, products, wishListItems, removeFromWishList, addToCart, getWishListCount } =
-    useContext(ShopContext);
+  const {
+    currency,
+    products,
+    wishListItems,
+    removeFromWishList,
+    addToCart,
+    getWishListCount,
+  } = useContext(ShopContext);
   const [wishListData, setWishListData] = useState([]);
   const [color, setColor] = useState("");
 
@@ -41,9 +46,15 @@ const WishList = () => {
 
   return (
     <>
-      <Header />
       <div className="max-padd-container pb-20 bg-white min-h-screen">
-        <div className="flex items-center">
+        <motion.div 
+          initial={{ opacity: 0, x: -500 }} // Initial state: hidden and small
+          animate={{ opacity: 1, x: 0 }} // Animate to full opacity and normal scale
+          transition={{
+            duration: 0.5,
+          }}  
+          className="flex items-center"
+        >
           <Title
             title1="Your "
             title2="Wish List"
@@ -52,27 +63,27 @@ const WishList = () => {
           <h5 className=" relative  pl-3 text-gray-500">
             ({getWishListCount()} Items)
           </h5>
-        </div>
+        </motion.div>
 
         {/* Render Wishlist Items */}
         <div className="mt-5">
           <div className="flex-1 flex-wrap gap-5 ">
             {wishListData.length > 0 ? (
-              wishListData.map((item) => {
+              wishListData.map((item, i) => {
                 // Find the product data using the item._id
                 const productData = products.find(
                   (product) => product._id === item._id
                 );
-                if (!productData) return null; // Handle missing product data
+                if (!productData) return null; 
 
                 return (
-                  <motion.div 
+                  <motion.div
                     className="flex-1 "
-                    key={item._id}
-                    initial={{ opacity: 0, scale: 0 }} // Initial state: hidden and small
-                    animate={{ opacity: 1, scale: 1 }} // Animate to full opacity and normal scale
+                    key={i}
+                    initial={{ opacity: 0, y: 500, scale: 0 }} // Initial state: hidden and small
+                    animate={{ opacity: 1, y: 0, scale: 1 }} // Animate to full opacity and normal scale
                     transition={{
-                      delay: item * 0.1, // Delay based on index for cascading effect
+                      delay: i * 0.1, // Delay based on index for cascading effect
                       duration: 0.5,
                     }}
                   >
@@ -150,9 +161,13 @@ const WishList = () => {
                             {/* add to cart button */}
                             <div className=" gap-x-2 mt-5">
                               <button
-                                onClick={() => addToCart(productData._id, color)} 
-                                className="btn-secondary flex">
-                                Add To Cart <TbShoppingBagPlus className="ml-2 text-lg animate-pulse" />
+                                onClick={() =>
+                                  addToCart(productData._id, color)
+                                }
+                                className="flexCenter relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-[#FCC737]  rounded-[3px] py-1.5 px-5 text-black before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:hover:border-0 before:w-full before:h-full before:rounded-[3px] before:border-e-2 before:border-b-2 before:border-slate-800 before:-z-100 before:transition-all duration-300"
+                              >
+                                <TbShoppingBagPlus className="me-3  text-2xl bg-black text-white p-1 rounded-md" />
+                                Add To Cart
                               </button>
                             </div>
                           </div>
@@ -163,8 +178,8 @@ const WishList = () => {
                 );
               })
             ) : (
-              <div className="h-full w-full flex items-center justify-center py-60">
-                <h1 className="text-gray-500">Your wishlist is empty.</h1>
+              <div className="h-full w-full flex items-center justify-center ">
+                <h1 className="text-gray-500 h1 mx-auto">Your wishlist is empty.</h1>
               </div>
             )}
           </div>

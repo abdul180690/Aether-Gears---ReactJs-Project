@@ -20,15 +20,16 @@ const Banner = () => {
             preload="auto"
           ></video>
           {/* Text Overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h2 className="text-3xl font-bold mb-2">Headphone</h2>
+          <div className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <h2 className="text-3xl font-bold mb-2">Headphones</h2>
             <h2 className="text-2xl mb-2">Collection</h2>
-            <p className="text-5xl text-amber-300 font-bold mb-4">
+            <p className="text-5xl text-amber-300  font-bold mb-4">
               Flat 30% Off
             </p>
+            <p className="text-white">Use Code : <span>"FLAT30"</span></p>
             <Link 
-              to={'/offers'}
-              className="px-6 py-2 bg-white text-black rounded-full font-semibold hover:bg-gray-300 hover:text-secondary transition"
+              to={'/collection'}
+              className="flexCenter mt-3 relative border-2 font-medium border-white bg-transparent py-1.5 px-5 uppercase text-white transition-colors before:absolute before:left-0 before:top-0 before:-z-10 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:bg-white before:transition-transform before:duration-300 before:content-[''] hover:text-slate-900 before:hover:scale-x-100"
             >
               Explore Now
             </Link>
@@ -47,15 +48,16 @@ const Banner = () => {
             preload="auto"
           ></video>
           {/* Text Overlay */}
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h2 className="text-3xl font-bold mb-2">Camera</h2>
+          <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <h2 className="text-3xl font-bold mb-2">Cameras</h2>
             <h2 className="text-2xl mb-2">Collection</h2>
             <p className="text-5xl text-amber-300 font-bold mb-4">
               Flat 50% off
             </p>
+            <p className="text-white">Use Code : <span>"FLAT50"</span></p>
             <Link 
-              to={'/offers'} 
-              className="px-6 py-2 bg-white text-black rounded-full font-semibold hover:bg-slate-300 hover:text-secondary transition"
+              to={'/collection'}
+              className="flexCenter mt-3 relative border-2 font-medium border-white bg-transparent py-1.5 px-5 uppercase text-white transition-colors before:absolute before:left-0 before:top-0 before:-z-10 before:h-full before:w-full before:origin-top-left before:scale-x-0 before:bg-white before:transition-transform before:duration-300 before:content-[''] hover:text-slate-900 before:hover:scale-x-100"
             >
               Explore Now
             </Link>

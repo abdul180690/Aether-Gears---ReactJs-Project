@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="flex flex-col max-w-sm gap-y-5">
           <div className="bold-28">
             <div className="flex items-center heading-gradient">
-              <img src={logo} alt="Aether Gears Logo" className="w-8 h-8 me-3" />
+              <img src={logo} alt="Aether Gears Logo" className="w-8 h-8 me-3 ring-1 ring-white/80 rounded-full" />
               <span className="text-white uppercase tracking-widest">Aether Gears</span>
             </div>
           </div>

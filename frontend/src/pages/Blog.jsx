@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { blogs } from '../assets/data';
-import Header from '../components/Header';
 
 const Blog = () => {
   const [animate, setAnimate] = useState(false);
@@ -12,7 +11,6 @@ const Blog = () => {
 
   return (
     <>
-      <Header />
       <div className="max-padd-container mt-10 mb-20">
         <h1 className='text-center h3 underline text-amber-800'>Shop Smart: Expert Tips & Trends</h1>
         <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 gap-y-12 pt-6 ">
@@ -26,7 +24,7 @@ const Blog = () => {
                 animationDelay: `${index * 0.1}s`, // Staggered animation
               }}
             >
-              <img src={blog.image} alt="blogimg" className="rounded-xl" />
+              <img src={blog.image} alt="blogimg" className="rounded-xl" loading='lazy'/>
               <p className="medium-14 mt-6">{blog.category}</p>
               <h5 className="h5 pr-4 mb-1">{blog.title}</h5>
               <p>

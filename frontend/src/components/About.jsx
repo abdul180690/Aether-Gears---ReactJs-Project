@@ -5,7 +5,6 @@ import { TbLocation } from 'react-icons/tb'
 import { RiAdminLine, RiSecurePaymentLine, RiSoundModuleLine } from 'react-icons/ri'
 import { FaQuoteLeft, FaUsersLine } from 'react-icons/fa6'
 import about from  '../assets/about.png'
-import Header from './Header'
 
 const About = () => {
   return (
@@ -13,14 +12,14 @@ const About = () => {
       <div className='flex flex-col md:flex-row gap-5 gap-y-10'>
         <div className='flex-[1] flexCenter flex-col'>
           <Title title1={'People '} title2={'Says'} titleStyles={' h3 !pb-2 text-slate-900'}/>
-          <img src={testimonial} alt="" height={55} width={55} className='rounded-full'/>
+          <img src={testimonial} alt="" height={55} width={55} className='rounded-full' loading='lazy'/>
           <h4 className='h4 mt-6'>Richard Clark</h4>
           <p className='relative bottom-2'>CEO At TechStack</p>
           <FaQuoteLeft className='text-3xl'/>
           <p className='max-w-(222px) mt-5 text-center'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quod quam necessitatibus illo.</p>
         </div>
         <div className='flex-[2] flex rounded-2xl relative shadow-lg'>
-          <img src={about} alt="" className='rounded-2xl'/>
+          <img src={about} alt="" className='rounded-2xl' loading='lazy'/>
           <div className='absolute h-full w-full bg-black/10 top-0 left-0'/>
           <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/80 p-6 rounded-xl'>
             <h4 className='bold-18 text-center text-slate-900'>Top view in this <br />week</h4>

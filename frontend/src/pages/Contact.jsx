@@ -1,13 +1,34 @@
-import React from 'react';
-import Header from '../components/Header';
+import React, { useEffect } from 'react';
 import contact_hero from '../assets/contact-hero.png'
 import Title from '../components/Title';
 
 
 const Contact = () => {
+   useEffect(() => {
+            const handleScroll = () => {
+              const sections = document.querySelectorAll(".scroll-section"); // Select all sections with class 'scroll-section'
+              const windowHeight = window.innerHeight;
+        
+              sections.forEach((section) => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < windowHeight * 0.9 && rect.bottom >= 0) {
+                  section.classList.add("in-view"); // Add 'in-view' when the section is in view
+                } else {
+                  section.classList.remove("in-view"); // Remove 'in-view' when the section is out of view
+                }
+              });
+            };
+        
+            window.addEventListener("scroll", handleScroll);
+            handleScroll(); // Trigger scroll check on mount
+        
+            return () => {
+              window.removeEventListener("scroll", handleScroll);
+            };
+          }, []);
+        
   return (
     <>
-      <Header />
       <div className="min-h-screen  ">
         {/* Hero Section */}
         <div className="relative h-[450px] flex items-center justify-center mb-10 overflow-hidden ">
@@ -21,16 +42,16 @@ const Contact = () => {
           <Title 
             title1={"Contact "}
             title2={"Us"}
-            titleStyles={""}
+            titleStyles={"scroll-section"}
           />
-            <p className="text-xl animate-fade-in-up text-slate-800">We're here to help! Reach out to us for any questions or concerns.</p>
+            <p className=" scroll-section text-xl animate-fade-in-up text-slate-800">We're here to help! Reach out to us for any questions or concerns.</p>
           </div>
         </div>
 
         {/* Contact Information Section */}
         <div className="max-padd-container mx-auto px-4 mb-10">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
+            <div className="scroll-section bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-blue-100 p-4 rounded-full mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -50,7 +71,7 @@ const Contact = () => {
               <h3 className="text-2xl font-semibold mb-2">Call Us</h3>
               <p className="text-gray-600 text-lg">+91 - 98765 43210</p>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
+            <div className="scroll-section bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-purple-100 p-4 rounded-full mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +91,7 @@ const Contact = () => {
               <h3 className="text-2xl font-semibold mb-2">Email Us</h3>
               <p className="text-gray-600 text-lg">support@aethergears.com</p>
             </div>
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
+            <div className="scroll-section bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-pink-100 p-4 rounded-full mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -101,7 +122,7 @@ const Contact = () => {
 
         {/* Contact Form Section */}
         <div className="max-padd-container mx-16 px-4 mb-10">
-          <div className="bg-white p-8 rounded-lg shadow-lg">
+          <div className="scroll-section bg-white p-8 rounded-lg shadow-lg">
             <h2 className="text-3xl font-bold text-center mb-6">Send Us a Message</h2>
             <form>
               <div className="mb-6">
@@ -145,7 +166,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-orange-600 to-amber-600 text-white py-3 px-4 rounded-lg hover:from-orange-700 hover:to-amber-700 transition-all duration-300"
+                className="w-full bg-gradient-to-r from-orange-300 to-amber-600 text-white py-3 px-4 rounded-lg hover:from-orange-400 hover:to-amber-700 transition-all duration-300"
               >
                 Send Message
               </button>
@@ -154,7 +175,7 @@ const Contact = () => {
         </div>
 
         {/* Map Section */}
-        <div className="max-padd-container mx-auto px-4 mb-10">
+        <div className="scroll-section max-padd-container mx-auto px-4 mb-10">
           <h2 className="text-3xl font-bold text-center mb-6">Our Location</h2>
           <iframe
             src="https://maps.google.com/maps?width=600&amp;height=400&amp;hl=en&amp;q=madurai&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"

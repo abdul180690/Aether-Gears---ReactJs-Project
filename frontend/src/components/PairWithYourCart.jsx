@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { FaCheck } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { TbShoppingBagPlus } from "react-icons/tb";
-import { toast } from "react-toastify"; 
+import { toast } from "react-toastify";
 import { ShopContext } from "../context/ShopContext";
 import Title from "./Title";
 
@@ -68,8 +68,8 @@ const PairWithYourCart = ({ products, onNavigate }) => {
   }, [cartItems, products]);
 
   return (
-    <div className="mt-8">
-      <Title 
+    <div className="my-10">
+      <Title
         title1={"Pair with "}
         title2={"Your cart"}
         title1Styles={"mt-28"}
@@ -103,20 +103,26 @@ const PairWithYourCart = ({ products, onNavigate }) => {
                 <div className="flex flex-col items-center gap-1">
                   {/* Select Color Buttons */}
                   <div className="mt-4 xs:mt-1">
-                    <h4 className="medium-14 mb-2 text-white text-center">Select Color</h4>
+                    <h4 className="medium-14 mb-2 text-white text-center">
+                      Select Color
+                    </h4>
                     <div className="flex gap-x-2">
                       {product.colors.map((item, i) => (
                         <button
                           key={i}
                           onClick={() => setColor(item)}
                           className={`h-9 w-9 rounded-full flexCenter cursor-pointer border border-gray-400 hover:ring-2 ring-slate-400 duration-300 ${
-                            color === item ? "ring-2 ring-offset-2 ring-primary" : ""
+                            color === item
+                              ? "ring-2 ring-offset-2 ring-primary"
+                              : ""
                           }`}
                           style={{ backgroundColor: item }}
                         >
                           {color === item && (
                             <FaCheck
-                              className={item === "White" ? "text-black" : "text-white"}
+                              className={
+                                item === "White" ? "text-black" : "text-white"
+                              }
                             />
                           )}
                         </button>
@@ -129,14 +135,17 @@ const PairWithYourCart = ({ products, onNavigate }) => {
                     <button
                       onClick={() => {
                         if (color) {
-                          addToCart(product._id, color); // This will add the product to the cart with the selected color
+                          addToCart(product._id, color);
                         } else {
-                          toast.error("Please select a color.", { autoClose: 1000 });
+                          toast.error("Please select a color.", {
+                            autoClose: 1000,
+                          });
                         }
                       }}
-                      className="btn-secondary flexCenter w-full hover:bg-slate-700 duration-300 text-nowrap"
+                      className="flexCenter relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-gray-800 rounded-md py-1.5 px-5 text-white before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:w-full before:h-full before:rounded-md before:border-2 before:border-gray-800 before:-z-100 before:transition-all"
                     >
-                      Add To Cart <TbShoppingBagPlus className="ml-2 text-xl" />
+                      Add To Cart{" "}
+                      <TbShoppingBagPlus className="ml-2 text-xl animate-bounce" />
                     </button>
                   </div>
                 </div>

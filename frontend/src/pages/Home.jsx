@@ -1,4 +1,59 @@
-import React, { useState, useEffect } from 'react';
+// import React, { useEffect } from 'react';
+// import Hero from '../components/Hero';
+// import Features from '../components/Features';
+// import NewArrivals from '../components/NewArrivals';
+// import PopularProducts from '../components/PopularProducts';
+// import Banner from '../components/Banner';
+// import About from '../components/About';
+// import Blog from '../components/Blog';
+// import NewsLetter from '../components/NewsLetter';
+// import Header from '../components/Header';
+
+
+// const Home = () => {
+//    useEffect(() => {
+//      const handleScroll = () => {
+//        const sections = document.querySelectorAll(".scroll-section");
+//        const windowHeight = window.innerHeight;
+ 
+//        sections.forEach((section) => {
+//          const rect = section.getBoundingClientRect();
+//          if (rect.top < windowHeight * 0.75 && rect.bottom >= 0) {
+//            section.classList.add("in-view");
+//          } else {
+//            section.classList.remove("in-view");
+//          }
+//        });
+//      };
+ 
+//      window.addEventListener("scroll", handleScroll);
+//      handleScroll(); // Trigger scroll check on mount
+ 
+//      return () => {
+//        window.removeEventListener("scroll", handleScroll);
+//      };
+//    }, []);
+ 
+//   return (
+//     <>
+//       <Header />
+//       <Hero />
+//       <Features />
+//       <NewArrivals />
+//       <PopularProducts />
+//       <Banner />
+//       <About />
+//       <Blog />
+//       <NewsLetter />
+//     </>
+//   );
+// };
+
+// export default Home;
+
+
+
+import React, { useEffect } from 'react';
 import Hero from '../components/Hero';
 import Features from '../components/Features';
 import NewArrivals from '../components/NewArrivals';
@@ -7,45 +62,50 @@ import Banner from '../components/Banner';
 import About from '../components/About';
 import Blog from '../components/Blog';
 import NewsLetter from '../components/NewsLetter';
-import { ClimbingBoxLoader } from 'react-spinners';
-import Header from '../components/Header';
-
 
 const Home = () => {
-  // const [isLoading, setIsLoading] = useState(true); 
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll(".scroll-section"); // Select all sections with class 'scroll-section'
+      const windowHeight = window.innerHeight;
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsLoading(false); 
-  //   }, 1500);
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < windowHeight * 0.9 && rect.bottom >= 0) {
+          section.classList.add("in-view"); // Add 'in-view' when the section is in view
+        } else {
+          section.classList.remove("in-view"); // Remove 'in-view' when the section is out of view
+        }
+      });
+    };
 
-  //   return () => {
-  //     clearTimeout(timer); 
-  //   };
-  // }, []);
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Trigger scroll check on mount
 
-
-  // // Conditional rendering
-  // if (isLoading) {
-  //   return (<>
-  //   <div className='flexCenter h-screen w-full bg-gray-800'>
-  //       <ClimbingBoxLoader color="#f79825" loading={isLoading} size={window.innerWidth < 640 ? 15 : 20} />
-  //       <p className="text-white text-xl">Loading, please wait...</p>
-  //   </div>
-  //   </>
-  //   )
-  // }
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
-      <Header />
-      <Hero />
-      <Features />
-      <NewArrivals />
-      <PopularProducts />
-      <Banner />
-      <About />
-      <Blog />
+        <Hero />
+        <Features />
+      <div className="scroll-section">
+        <NewArrivals />
+      </div>
+      <div className="scroll-section">
+        <PopularProducts />
+      </div>
+      <div className="scroll-section">
+        <Banner />
+      </div>
+      <div className="scroll-section">
+        <About />
+      </div>
+      <div className="scroll-section">
+        <Blog />
+      </div>
       <NewsLetter />
     </>
   );

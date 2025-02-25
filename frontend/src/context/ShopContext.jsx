@@ -10,6 +10,7 @@ const ShopContextProvider = (props) => {
   const [products, setProducts] = useState([]);
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState(``);
+  const [user, setUser] = useState("");
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
   const navigate = useNavigate();
   const currency = "₹";
@@ -19,7 +20,7 @@ const ShopContextProvider = (props) => {
   // Add item to the cart with color option
   const addToCart = async (itemId, color) => {
     if (!token) {
-      toast.error("Please login to add items to the cart", { autoClose: 3000 });
+      toast.error("Please login to add items to your cart", { autoClose: 3000 });
       return;
     }
     
@@ -61,30 +62,6 @@ const ShopContextProvider = (props) => {
       }
     }
   };
-
-  // // Add item to the wishlist without color option
-  // const addToWishList = (itemId) => {
-  //   if (wishListItems[itemId]) {
-  //     toast.info("Item already in the wishlist", { autoClose: 3000 });
-  //     return;
-  //   }
-
-  //   try {
-  //     toast.success("Added to your Wishlist", { autoClose: 1000 });
-  //   } catch (error) {
-  //     toast.error("Failed to add to your Wishlist. Please try again.", {
-  //       autoClose: 3000,
-  //     });
-  //   }
-
-  //   let wishListData = { ...wishListItems }; // Using the correct state name
-  //   if (wishListData[itemId]) {
-  //     wishListData[itemId] += 1;
-  //   } else {
-  //     wishListData[itemId] = 1;
-  //   }
-  //   setWishListItems(wishListData); // Update wishlist state
-  // };
 
    // Add item to the wishlist
    const addToWishList = async (itemId) => {
@@ -146,7 +123,6 @@ const ShopContextProvider = (props) => {
     if (cartData[itemId] && cartData[itemId][color] > 0) {
       cartData[itemId][color] = quantity;
       setCartItems(cartData);
-      toast.info("Quantity updated successfully", { autoClose: 1000 });
       if(token){
         try {
           await axios.post(backendUrl + "/api/cart/update", {itemId, color, quantity}, {headers: {token}})
@@ -159,23 +135,6 @@ const ShopContextProvider = (props) => {
     }
   };
 
-  // // Get the total cart amount
-  // const getCartAmount = () => {
-  //   let totalAmount = 0;
-  //   for (const item in cartItems) {
-  //     let itemInfo = products.find((product) => product._id === item);
-  //     for (const color in cartItems[item]) {
-  //       try {
-  //         if(cartItems[items][item] > 0){
-  //           totalAmount += itemInfo.price * cartItems[item][color];
-  //         }
-  //       } catch (error) {
-  //         console.log(error)
-  //       }
-  //     }
-  //   }
-  //   return totalAmount;
-  // };
 
   // Get the total cart amount
   const getCartAmount = () => {
@@ -197,17 +156,6 @@ const ShopContextProvider = (props) => {
     return wishListItems[itemId] ? true : false;
   };
 
-  // // Remove item from the wishlist
-  // const removeFromWishList = (itemId) => {
-  //   if (!wishListItems[itemId]) {
-  //     toast.warn("Item not found in the wishlist", { autoClose: 3000 });
-  //     return;
-  //   }
-  //   let updatedWishList = { ...wishListItems };
-  //   delete updatedWishList[itemId];
-  //   setWishListItems(updatedWishList); // Update the state with the new wishlist
-  //   toast.info("Item removed from your wishlist", { autoClose: 1000 });
-  // };
 
    // Remove item from the wishlist
    const removeFromWishList = async (itemId) => {
@@ -278,6 +226,29 @@ const ShopContextProvider = (props) => {
     }
   };
 
+  // Function to get user profile
+  const getUserProfile = async (token) => {
+    try {
+      const response = await axios.get(backendUrl + "/api/user/profile", {
+        headers: { token: localStorage.getItem("token") },
+      });
+      if (response.data.success) {
+        setUser(response.data.user);  // Set the user profile data in the state
+      } else {
+        toast.error("Failed to fetch user profile.");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error fetching user profile.");
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      getUserProfile(token);
+    }
+  }, [token]);
+
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
@@ -308,6 +279,7 @@ const ShopContextProvider = (props) => {
     removeFromWishList,
     token,
     setToken,
+    user,
     backendUrl,
   };
 

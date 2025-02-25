@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FaHandPointUp } from "react-icons/fa";
+import { FaAngleDoubleUp } from "react-icons/fa";
 
 const BackToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,9 +29,9 @@ const BackToTop = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="fixed rounded-full bottom-5 right-5 bg-black border-none opacity-30 w-20 h-20 text-center cursor-pointer shadow-lg text-white text-4xl pl-5 z-50"
+          className="fixed rounded-full bottom-6 right-6 bg-black opacity-40 w-12 h-12 cursor-pointer shadow-lg text-white px-6 z-auto"
         >
-          <FaHandPointUp className=""/>
+          <FaAngleDoubleUp className="text-[20px] -ml-2.5"/>
         </button>
       )}
     </div>
