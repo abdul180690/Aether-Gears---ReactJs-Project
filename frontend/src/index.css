@@ -636,3 +636,9 @@ html {
   -webkit-background-clip: text;
   color: #361606;
 }
+
+.triangle {
+  border-bottom: 10px solid #000;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+}

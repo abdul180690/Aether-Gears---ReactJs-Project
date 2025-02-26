@@ -7,7 +7,6 @@ import { TbUserCircle } from "react-icons/tb";
 import { RiUserLine } from "react-icons/ri";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 import { IoBagCheck } from "react-icons/io5";
-
 import { ShopContext } from "../context/ShopContext";
 import logo from "../assets/icon.png";
 import { BsClipboard2HeartFill } from "react-icons/bs";
@@ -57,7 +56,7 @@ const Header = () => {
           <Navbar
             containerStyles={`${
               menuOpened
-                ? "flex items-start flex-col gap-y-5 fixed top-16 right-5 p-5 bg-black bg-opacity-50 backdrop-blur-md rounded-xl shadow-lg w-48 ring-1 ring-slate-900/5 z-50 transition-all duration-300"
+                ? "flex items-start flex-col gap-y-5 fixed top-16 right-5 p-5 bg-black bg-opacity-70 backdrop-blur-md rounded-xl shadow-lg w-48 ring-1 ring-slate-900/5 z-50 transition-all duration-300"
                 : "hidden xl:flex gap-x-5 xl:gap-x-7 tracking-widest bg-black bg-opacity-70 justify-center backdrop-blur-lg shadow-lg text-sm py-3 px-4 ring-1 ring-slate-100/20 rounded-b-lg"
             }`}
             onClick={() => setMenuOpened(false)}
@@ -97,56 +96,56 @@ const Header = () => {
             </div>
             {/* Dropdown */}
             {token && (
-              <ul className="bg-transperant backdrop-blur-md bg-black bg-opacity-50 p-2 w-52 h-35 ring-1 ring-slate-900/5 rounded-xl  absolute -right-16 top-8 hidden group-hover:flex flex-col medium-14 shadow-md z-50">
-                <li>
-                  <div className="flexCenter gap-x-2 text-white mb-1">
-                    <h5>Welcome </h5>
-                    <h5 className="font-bold"> "{user?.name}"</h5>
+              <div className="absolute xs:-right-[85px] lg:-right-[60px] top-10 hidden group-hover:flex flex-col medium-14 shadow-md z-50">
+                <span className=" absolute -top-3 lg:left-[125px] xs:left-[100px] triangle"></span>
+                <ul className="bg-transperant backdrop-blur-md bg-black bg-opacity-50 p-2 w-52 h-35 rounded-xl  ">                
+                  <div className="text-center p-1 text-white">
+                    Welcome <span>{user?.name}</span> 
                   </div>
-                  <p className="text-white text-[12px] text-center">
+                  <p className="text-white text-center text-[12px] p-1">
                     {user?.email}
                   </p>
-                </li>
-                <hr className="my-2"/>
-                <li
-                  onClick={() => navigate("/orders")}
-                  className="flexBetween text-white rounded-md hover:bg-black/30 cursor-pointer hover:font-extrabold p-2 hover:py-3 hover:text-amber-300 duration-300"
-                >
-                  My Orders
-                  <IoBagCheck className="bg-amber-300 text-slate-800 p-0.5 text-xl rounded-md"/>
-                </li>
-                <li
-                  onClick={() => navigate("/cart")}
-                  className="flexBetween text-white rounded-md hover:bg-black/30 cursor-pointer hover:font-extrabold p-2 hover:py-3 hover:text-amber-300 duration-300"
-                >
-                  My Cart
-                  <div className="flex relative">
-                    <IoMdCart className="bg-amber-300 text-slate-800 p-0.5 text-xl rounded-md"/>
-                    <span className="bg-white ring-black ring-1 text-black text-[10px] font-semibold absolute -top-1.5 -right-2.5 flexCenter w-3 h-3 rounded-full shadow-lg">
-                      {cartCount}
-                    </span>
-                  </div>
-                </li>
-                <li
-                  onClick={() => navigate("/wishlist")}
-                  className="flexBetween text-white rounded-md hover:bg-black/30 cursor-pointer hover:font-extrabold p-2 hover:py-3 hover:text-amber-300 duration-300"
-                >
-                  My Wishlist
-                  <div className="flex relative">
-                    <BsClipboard2HeartFill className="bg-amber-300 text-slate-800 p-0.5 text-xl rounded-md"/>
-                    <span className="bg-white ring-black ring-1 text-black text-[10px] font-semibold absolute -top-2 -right-3 flexCenter w-3 h-3 rounded-full shadow-lg">
-                      {wishlistCount}
-                    </span>
-                  </div>
-                </li>
-                <li
-                  onClick={logout}
-                  className="flexBetween text-white rounded-md hover:bg-black/30 cursor-pointer hover:font-extrabold hover:text-amber-300 p-2 hover:py-3 duration-300"
-                >
-                  Logout
-                  <RiLogoutCircleRLine className="bg-amber-300 text-slate-800 p-0.5 text-xl rounded-md "/>
-                </li>
-              </ul>
+                  <hr className="my-2" />
+                  <li
+                    onClick={() => navigate("/orders")}
+                    className="flexBetween text-white rounded-md hover:bg-black/30 cursor-pointer hover:font-extrabold p-2 hover:py-3 hover:text-amber-300 duration-300"
+                  >
+                    My Orders
+                    <IoBagCheck className="bg-amber-300 text-slate-800 p-0.5 text-xl rounded-md" />
+                  </li>
+                  <li
+                    onClick={() => navigate("/cart")}
+                    className="flexBetween text-white rounded-md hover:bg-black/30 cursor-pointer hover:font-extrabold p-2 hover:py-3 hover:text-amber-300 duration-300"
+                  >
+                    My Cart
+                    <div className="flex relative">
+                      <IoMdCart className="bg-amber-300 text-slate-800 p-0.5 text-xl rounded-md" />
+                      <span className="bg-white ring-black ring-1 text-black text-[10px] font-semibold absolute -top-1.5 -right-2.5 flexCenter w-3 h-3 rounded-full shadow-lg">
+                        {cartCount}
+                      </span>
+                    </div>
+                  </li>
+                  <li
+                    onClick={() => navigate("/wishlist")}
+                    className="flexBetween text-white rounded-md hover:bg-black/30 cursor-pointer hover:font-extrabold p-2 hover:py-3 hover:text-amber-300 duration-300"
+                  >
+                    My Wishlist
+                    <div className="flex relative">
+                      <BsClipboard2HeartFill className="bg-amber-300 text-slate-800 p-0.5 text-xl rounded-md" />
+                      <span className="bg-white ring-black ring-1 text-black text-[10px] font-semibold absolute -top-2 -right-3 flexCenter w-3 h-3 rounded-full shadow-lg">
+                        {wishlistCount}
+                      </span>
+                    </div>
+                  </li>
+                  <li
+                    onClick={logout}
+                    className="flexBetween text-white rounded-md hover:bg-black/30 cursor-pointer hover:font-extrabold hover:text-amber-300 p-2 hover:py-3 duration-300"
+                  >
+                    Logout
+                    <RiLogoutCircleRLine className="bg-amber-300 text-slate-800 p-0.5 text-xl rounded-md " />
+                  </li>
+                </ul>
+              </div>
             )}
           </div>
 

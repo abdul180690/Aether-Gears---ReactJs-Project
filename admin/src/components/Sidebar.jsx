@@ -13,16 +13,27 @@ const Sidebar = ({ setToken }) => {
         <div className="px-5 mx-ato">
           <Link
             to={"/"}
-            className="flexCenter xs:mb-3 bg-black/80 p-2 mx-3 rounded-full shadow-lg"
+            className="flexCenter   p-2 mx-3 "
           >
             <img src={logo_icon} alt="logo" className="w-6 h-6 me-2" />
-            <span className="bold-18 xl:bold-26 text-amber-400 text-nowrap">
+            <span className="bold-18 xl:bold-26 text-slate-800 text-nowrap">
               Aether Gears
             </span>
           </Link>
-          <p className="text-center mb-3 text-lg">Admin Panel</p>
+          <p className="text-center mb-16 text-lg">Admin Panel</p>
         </div>
         <div className="flex sm:flex-col gap-x-5 gap-y-8 ">
+        <NavLink
+            to={"/orders"}
+            className={({ isActive }) =>
+              isActive
+                ? "active-link shadow-lg duration-300 ease-in-out"
+                : "flexStart gap-x-2 sm:pl-12 p-5 medium-15 cursor-pointer h-10 rounded-xl"
+            }
+          >
+            <img src={orders_icon} alt="add-icon" className="w-6 h-6" />
+            <div className="hidden lg:flex text-md text-md">Dashboard - Manage Orders</div>
+          </NavLink>
           <NavLink
             to={"/"}
             className={({ isActive }) =>
@@ -45,17 +56,7 @@ const Sidebar = ({ setToken }) => {
             <img src={list_icon} alt="add-icon" className="w-6 h-6" />
             <div className="hidden lg:flex text-md">List</div>
           </NavLink>
-          <NavLink
-            to={"/orders"}
-            className={({ isActive }) =>
-              isActive
-                ? "active-link shadow-lg duration-300 ease-in-out"
-                : "flexStart gap-x-2 sm:pl-12 p-5 medium-15 cursor-pointer h-10 rounded-xl"
-            }
-          >
-            <img src={orders_icon} alt="add-icon" className="w-6 h-6" />
-            <div className="hidden lg:flex text-md">Orders</div>
-          </NavLink>
+          
         </div>
       <div className="lg:mt-40 xs:mt-0 lg:ml-12 xs:-ml-24">
         <button

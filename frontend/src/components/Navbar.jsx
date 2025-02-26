@@ -63,9 +63,9 @@ const Navbar = ({ containerStyles, onClick }) => {
     <nav
       className={`${containerStyles} ${
         headerVisible
-          ? "fixed top-0  z-40 flex justify-center drop-shadow-lg"
+          ? "fixed top-0 lg:left-[360px] z-40 flex justify-center drop-shadow-lg"
           : "-translate-y-full"
-      } flex gap-4`}
+      } transition-all duration-300`}
     >
       {/* Home Link */}
       <NavLink

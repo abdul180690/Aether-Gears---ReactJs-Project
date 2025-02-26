@@ -173,7 +173,6 @@ const Orders = () => {
             allOrdersItem.push(item);
           });
         });
-        console.log(allOrdersItem);
         setOrderData(allOrdersItem);
         setFilteredData(allOrdersItem.reverse()); // Initialize filtered data with all orders
       }

@@ -90,7 +90,7 @@ const Collection = () => {
           {/* Sidebar */}
           <div
             className={` rounded-xl ml-10 relative ${
-              open ? 'w-3/12 xs:w-10/12 duration-500' : 'w-24 duration-500'
+              open ? 'lg:w-3/12 xs:w-10/12 duration-500' : 'w-24 duration-500'
             }`}
           >
             <MdKeyboardDoubleArrowRight
