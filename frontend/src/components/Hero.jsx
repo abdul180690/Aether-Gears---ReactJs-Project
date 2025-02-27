@@ -67,7 +67,7 @@ const Hero = () => {
           transition={{ duration: 1.5, ease: "easeIn" }}
         >
           <div className="absolute text-center lg:top-5 lg:block xs:hidden -left-8 xs:mx-auto uppercase lg:w-full lg:text-4xl/[3] tracking-[10px] font-extrabold max-w-lg  ">
-            <div className="stroke_text"> Unleash epic</div>            
+            <div className="stroke_text drop-shadow-lg"> Unleash epic</div>            
               <motion.div
                 className="shadow_text text-center text-white text-7xl lowercase"
                 initial={{ opacity: 0 }}
@@ -86,7 +86,7 @@ const Hero = () => {
                 >
                 </motion.span>
               </motion.div>
-            <div className="stroke_text"> with next-gen tech and killer style! </div> 
+            <div className="stroke_text drop-shadow-lg"> with next-gen tech and killer style! </div> 
           </div>
         </motion.div>
 

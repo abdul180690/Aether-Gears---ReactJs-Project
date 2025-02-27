@@ -4,13 +4,17 @@ import { toast } from "react-toastify";
 import { PiPackageDuotone } from "react-icons/pi";
 import { AiOutlineSearch } from "react-icons/ai";
 import { IoClose } from "react-icons/io5";
-import { MdPictureAsPdf } from "react-icons/md";
+import { MdPictureAsPdf, MdDeliveryDining } from "react-icons/md";
 import { BiSolidSelectMultiple } from "react-icons/bi";
 import { backend_url } from "../App";
 import { jsPDF } from "jspdf";
 import { Chart, ArcElement, Tooltip, Legend, PieController } from "chart.js"; // Import Chart.js components
 import * as XLSX from "xlsx";
 import { RiFileExcel2Fill } from "react-icons/ri";
+import { TbPackages } from "react-icons/tb";
+import { LuPackagePlus, LuPackageOpen, LuPackageCheck } from "react-icons/lu";
+import { FaShippingFast } from "react-icons/fa";
+
 
 Chart.register(ArcElement, Tooltip, Legend, PieController);
 
@@ -77,7 +81,7 @@ const Orders = ({ token }) => {
         );
 
         if (newOrders.length > 0) {
-          toast.success(`${newOrders.length} New Orders Found! :)`, {
+          toast.success(`${newOrders.length} New Orders Found! 😀`, {
             autoClose: 1500,
           });
           setOrders(ordersData);
@@ -85,7 +89,7 @@ const Orders = ({ token }) => {
           updateStatusCounts(ordersData);
           setPrevOrders(ordersData); // Update previous orders
         } else {
-          toast.info("No New Orders :( ");
+          toast.info("No New Orders 😞 ");
         }
       } else {
         toast.error(response.data.message);
@@ -439,7 +443,7 @@ const Orders = ({ token }) => {
         </button>
       </div>
       {/* Count Section */}
-      <div className="mb-10 p-5 rounded-xl shadow-lg  border-e-8 border-b-8 border-black/70 bg-[#FFDFEF] flexCenter xs:flex-wrap gap-x-3 px-5  ">
+      <div className="mb-10 p-5 rounded-xl shadow-lg border-b-8 border-black/70 bg-[#FFDFEF] flexCenter xs:flex-wrap gap-x-3 px-5  ">
         <div className="mb-2 ">
           <h5 className="h5 text-center text-black">Orders Status</h5>
           <canvas
@@ -452,12 +456,13 @@ const Orders = ({ token }) => {
         </div>
         <div className="">
           {/* Total Order Counts  */}
-          <h2 className="h4 mb-5 text-center">Total Orders: {orders.length}</h2>
+          <h2 className="h4 mb-5 text-center flexCenter"><TbPackages className="mr-2"/>Total Orders: {orders.length}</h2>
           {/* Status Counts  */}
           <div className="flex gap-5 justify-center px-3">
             <div className="border-e  border-e-black  pe-5  text-center">
               <p className="text-[#E52020] mb-5 font-semibold text-[13px]">
                 New Orders
+                <LuPackagePlus className="mx-auto text-2xl"/>
               </p>
               <span className="font-bold text-white px-5 py-2 bg-[#E52020] rounded-full shadow-lg">
                 {statusCounts["Order Placed"]}
@@ -466,6 +471,7 @@ const Orders = ({ token }) => {
             <div className="border-e border-e-black pe-5 text-center">
               <p className="text-[#DF6D14] mb-5 font-semibold text-[13px]">
                 Under Packing
+                <LuPackageOpen className="mx-auto text-2xl"/>
               </p>
               <span className="font-bold text-white px-5 py-2 bg-[#DF6D14] rounded-full shadow-lg">
                 {statusCounts.Packing}
@@ -474,6 +480,7 @@ const Orders = ({ token }) => {
             <div className="border-e border-e-black pe-5 text-center">
               <p className="text-[#854836] mb-5 font-semibold text-[13px]">
                 Shipped Orders
+                <FaShippingFast className="mx-auto text-2xl"/>
               </p>
               <span className="font-bold text-white px-5 py-2 bg-[#854836] rounded-full shadow-lg">
                 {statusCounts.Shipped}
@@ -482,6 +489,7 @@ const Orders = ({ token }) => {
             <div className="border-e border-e-black pe-5 text-center">
               <p className="text-[#0079FF] mb-5 font-semibold text-[13px]">
                 Out for Delivery
+                <MdDeliveryDining className="mx-auto text-2xl"/>
               </p>
               <span className="font-bold text-white px-5 py-2 bg-[#0079FF] rounded-full shadow-lg">
                 {statusCounts["Out for Delivery"]}
@@ -490,6 +498,7 @@ const Orders = ({ token }) => {
             <div className=" text-center">
               <p className="text-[#3A7D44] mb-5 font-semibold text-[13px]">
                 Delivered Orders
+                <LuPackageCheck className="mx-auto text-2xl"/>
               </p>
               <span className="font-bold text-white px-5 py-2 bg-[#3A7D44] rounded-full shadow-lg">
                 {statusCounts.Delivered}

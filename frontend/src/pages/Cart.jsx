@@ -104,7 +104,7 @@ const Cart = () => {
                 }}
                 className="flex items-center"
               >
-                <Title title1="Shopping " title2="Cart" titleStyles="h3 mt-10" />
+                <Title title1="My " title2="Cart" titleStyles="h3 mt-10" />
                 <h5 className="relative -bottom-3 pl-3 text-gray-500">({getCartCount()} Items)</h5>
               </motion.div>
               <div className="flex flex-wrap lg:flex-nowrap gap-8 mt-5">
@@ -131,7 +131,7 @@ const Cart = () => {
                           <img
                             src={productData.image[0]}
                             alt="productImg"
-                            className="w-20 sm:w-20 rounded cursor-pointer hover:scale-125 hover:rotate-12 duration-300 "
+                            className="w-20 sm:w-20  rounded cursor-pointer hover:scale-105  duration-300 "
                             onClick={() => handleNavigateToProduct(productData._id)}
                           />
                           {/* Product Details */}
@@ -180,7 +180,7 @@ const Cart = () => {
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.5, ease: 'easeInOut' }} 
-                    className='bg-amber-300/80 border border-slate-700/20 shadow-lg p-5 rounded-lg xs:w-full lg:w-[450px]'>
+                    className='px-5 xs:w-full lg:w-[450px]'>
                   <h1 className='text-center h3 underline'>Subtotal</h1>
                   <div>
                     {/* Progress Bar for Free Shipping */}

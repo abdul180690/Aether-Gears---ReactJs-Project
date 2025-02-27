@@ -182,7 +182,7 @@ const Login = () => {
             {/* Submit button */}
             <motion.button
               type="submit"
-              className="p-5 bg-slate-900 text-primary !py-[8px] !rounded-full tracking-widest hover:bg-slate-800/80 hover:scale-95 duration-300 "
+              className="p-5 bg-slate-900 text-primary !py-[8px] !rounded-full tracking-widest hover:px-7 hover:tracking-[5px] hover:shadow-lg duration-300 "
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}

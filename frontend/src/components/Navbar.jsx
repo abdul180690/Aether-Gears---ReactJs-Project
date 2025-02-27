@@ -63,7 +63,7 @@ const Navbar = ({ containerStyles, onClick }) => {
     <nav
       className={`${containerStyles} ${
         headerVisible
-          ? "fixed top-0 lg:left-[360px] z-40 flex justify-center drop-shadow-lg"
+          ? "fixed top-0 lg:left-[360px] z-40 flex justify-center shadow-lg"
           : "-translate-y-full"
       } transition-all duration-300`}
     >
@@ -72,7 +72,9 @@ const Navbar = ({ containerStyles, onClick }) => {
         to="/"
         className={({ isActive }) =>
           `${
-            isActive ? "nav-underlined text-white duration-300" : "text-white"
+            isActive 
+              ? "nav-underlined text-white duration-300" 
+              : "text-white"
           } flex items-center p-1 hover:bg-slate-100 hover:bg-opacity-30 hover:rounded-full  duration-300`
         }
         onClick={onClick}

@@ -632,9 +632,9 @@ html {
   background-image: linear-gradient(0deg, #ffffff, #ffffff);
   background-clip: text;
   -webkit-text-stroke-color: transparent;
-  -webkit-text-stroke-width: calc(2em / 16);
+  -webkit-text-stroke-width: calc(2em / 12);
   -webkit-background-clip: text;
-  color: #361606;
+  color: #e7550b;
 }
 
 .triangle {
@@ -642,3 +642,21 @@ html {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
 }
+
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+.transform-style-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.rotate-y-180 {
+  transform: rotateY(-180deg);
+}
+

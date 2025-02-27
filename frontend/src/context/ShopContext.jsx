@@ -30,7 +30,7 @@ const ShopContextProvider = (props) => {
     }
 
     try {
-      toast.success("Added to your Cart", { autoClose: 1000 });
+      toast.success("Item added to cart!", { autoClose: 1000 });
     } catch (error) {
       toast.error("Failed to add item to cart. Please try again.", {
         autoClose: 3000,
@@ -233,7 +233,7 @@ const ShopContextProvider = (props) => {
         headers: { token: localStorage.getItem("token") },
       });
       if (response.data.success) {
-        setUser(response.data.user);  // Set the user profile data in the state
+        setUser(response.data.user); 
       } else {
         toast.error("Failed to fetch user profile.");
       }

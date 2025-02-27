@@ -12,7 +12,7 @@ const NewArrivals = () => {
 
   useEffect(() => {
     if (products && products.length > 0) {
-      const data = products.slice(0, 7); // Fetching only the first 7 products
+      const data = products.slice(0, 8); // Fetching only the first 7 products
       setPopularProducts(data);
     }
   }, [products]);
@@ -35,23 +35,23 @@ const NewArrivals = () => {
         breakpoints={{
           320: {
             slidesPerView: 2,
-            spaceBetween: 20,
+            spaceBetween: 10,
           },
           640: {
             slidesPerView: 3,
-            spaceBetween: 20,
+            spaceBetween: 10,
           },
           1024: {
             slidesPerView: 4,
-            spaceBetween: 30,
+            spaceBetween: 10,
           },
           1440: {
             slidesPerView: 5,
-            spaceBetween: 30,
+            spaceBetween: 10,
           },
         }}
         modules={[Autoplay]}
-        className="h-full"
+        className="max-h-full"
       >
         {PopularProducts.map((product) => (
           <SwiperSlide key={product._id}>

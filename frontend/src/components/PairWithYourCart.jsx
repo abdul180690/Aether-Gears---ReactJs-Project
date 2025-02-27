@@ -142,7 +142,7 @@ const PairWithYourCart = ({ products, onNavigate }) => {
                           });
                         }
                       }}
-                      className="flexCenter relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-gray-800 rounded-md py-1.5 px-5 text-white before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:w-full before:h-full before:rounded-md before:border-2 before:border-gray-800 before:-z-100 before:transition-all"
+                      className="flexCenter relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-amber-400 rounded-md py-1.5 px-5 text-slate-900 before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:w-full before:h-full before:rounded-md before:border-e-2 before:border-b-2 before:border-white before:-z-100 before:transition-all"
                     >
                       Add To Cart{" "}
                       <TbShoppingBagPlus className="ml-2 text-xl animate-bounce" />

@@ -83,20 +83,20 @@ const Collection = () => {
 
   return (
     <>
-      <div className=" bg-white max-padd-container !px-0">
+      <div className="  max-padd-container !px-0">
         <Notification />
         <Search  />
-        <div className="flex flex-col mt-2 sm:flex-row gap-8">
+        <div className="flex flex-col mt-2 sm:flex-row gap-2">
           {/* Sidebar */}
           <div
-            className={` rounded-xl ml-10 relative ${
-              open ? 'lg:w-3/12 xs:w-10/12 duration-500' : 'w-24 duration-500'
+            className={` rounded-xl ml-2 relative ${
+              open ? 'lg:w-[150px] xs:w-11/12 duration-500' : 'w-10 duration-500'
             }`}
           >
             <MdKeyboardDoubleArrowRight
               onClick={() => setOpen(!open)}
-              className={`p-1 bg-gray-900 text-gray-100/90 text-3xl rounded-e-full absolute lg:-top-14 lg:right-5  md:-top-4 md:-right-1  xs:-top-6 xs:right-24 border border-slate-300 shadow-md cursor-pointer hover:scale-110 duration-300 ${
-                open ? 'rotate-180 duration-500  mt-0 lg:-mr-14 md:-mr-0 sm:-mr-32 xs:-mr-32' : 'duration-500'
+              className={` bg-gray-900 text-gray-100/90 text-3xl rounded-e-full absolute lg:-top-14 lg:right-5  md:-top-4 md:-right-1  xs:-top-8 xs:right-3 border border-slate-300 shadow-md cursor-pointer hover:scale-110 duration-300 ${
+                open ? 'rotate-180 duration-500  mt-0 lg:-mr-14 md:-mr-0 sm:-mr-32 xs:-mr-10' : 'transition-opacity duration-500'
               }`}
             />
             {open && (
@@ -111,6 +111,7 @@ const Collection = () => {
                           type="checkbox"
                           value={cat}
                           className="w-3"
+                          checked={category.includes(cat)}
                         />
                         {cat}
                       </label>

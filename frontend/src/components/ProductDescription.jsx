@@ -11,7 +11,7 @@ const ProductDescription = () => {
           onClick={() => setActiveTab("description")}
           className={`p-3 w-32 ${
             activeTab === "description"
-              ? "border-b-2 border-secondary text-secondary"
+              ? "border-b-2 border-secondary text-secondary font-extrabold"
               : ""
           }`}
         >
@@ -21,7 +21,7 @@ const ProductDescription = () => {
           onClick={() => setActiveTab("care")}
           className={`p-3 w-32 ${
             activeTab === "care"
-              ? "border-b-2 border-secondary text-secondary"
+              ? "border-b-2 border-secondary text-secondary font-extrabold"
               : ""
           }`}
         >
@@ -31,7 +31,7 @@ const ProductDescription = () => {
           onClick={() => setActiveTab("color")}
           className={`p-3 w-32 ${
             activeTab === "color"
-              ? "border-b-2 border-secondary text-secondary"
+              ? "border-b-2 border-secondary text-secondary font-extrabold"
               : ""
           }`}
         >

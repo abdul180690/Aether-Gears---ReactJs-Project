@@ -14,8 +14,6 @@ const PlaceOrder = () => {
   const {
     navigate,
     products,
-    currency,
-    delivery_charges,
     cartItems,
     setCartItems,
     token,
@@ -36,6 +34,7 @@ const PlaceOrder = () => {
   });
 
   const [totalAmount, setTotalAmount] = useState(0);
+  const [orderSuccess, setOrderSuccess] = useState(false);
 
   const onChangeHandler = (event) => {
     const name = event.target.name;
@@ -73,7 +72,6 @@ const PlaceOrder = () => {
         items: orderItems,
         amount: totalAmount, 
       };
-      console.log(orderData);
       switch (method) {
         // API call for COD
         case "cod":
@@ -85,10 +83,10 @@ const PlaceOrder = () => {
           console.log(response.data);
           if (response.data.success) {
             setCartItems({});
-            navigate("/orders");
-            toast.success("Your Order Placed Successfully");
-            // Store the order ID in the session or local storage if needed
+            // navigate("/orders");
+            // toast.success("Your Order Placed Successfully");
             localStorage.setItem("orderId", response.data.orderId);
+            setOrderSuccess(true);
           } else {
             toast.error(response.data.message || "Failed to place order.");
           }
@@ -349,6 +347,26 @@ const PlaceOrder = () => {
           </form>
         </div>
       </div>
+      {/* Success Modal */}
+      {orderSuccess && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg text-center">
+            <h2 className="text-2xl font-bold text-green-600 flex items-center justify-center">
+              🎉 Order Placed Successfully! 🎉
+            </h2>
+            <p className="mt-2 text-lg">Thank you for your purchase! 🛍️</p>
+            <button
+              onClick={() => {
+                setOrderSuccess(false);
+                navigate("/orders");
+              }}
+              className="mt-4 px-5 py-2 bg-green-500 text-white rounded-md"
+            >
+              View Orders 📦
+            </button>
+          </div>
+        </div>
+      )}
     </>
   );
 };

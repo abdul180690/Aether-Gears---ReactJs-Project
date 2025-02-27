@@ -44,7 +44,7 @@ const Search = () => {
   return (
     <section className="max-padd-container pb-5">
       <div className="flexCenter">
-        <div className="flex items-center justify-center bg-slate-200 lg:w-4/12 w-10/12 md:w-8/12 sm:w-full rounded-full">
+        <div className="flex items-center shadow-lg justify-center bg-slate-200 lg:w-4/12 w-10/12 md:w-8/12 sm:w-full rounded-full ring-1 ring-slate-300">
           <div>
             <FaSearch className="text-[25px] p-1 mx-3 cursor-pointer" />
           </div>
@@ -53,7 +53,7 @@ const Search = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search here..."
-            className="bg-slate-200 border-none outline-none py-2 text-sm w-full text-center md:text-lg"
+            className="bg-slate-200 border-none outline-none py-2 text-sm w-full  md:text-lg"
           />
           <div>
             <MdMic

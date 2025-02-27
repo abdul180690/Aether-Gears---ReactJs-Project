@@ -34,6 +34,7 @@ const Product = () => {
   const [hovered, setHovered] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const [isHighlighted, setIsHighlighted] = useState(false);
+  const [isPulsing, setIsPulsing] = useState(false);
 
   const fetchProductData = async () => {
     const selectedProduct = products.find((item) => item._id === productId);
@@ -56,6 +57,9 @@ const Product = () => {
   };
 
   const handleWishlistClick = async () => {
+    setIsPulsing(true);
+    setTimeout(() => setIsPulsing(false), 500);
+
     if (!token) {
       // If there is no token, prompt the user to log in
       toast.error("Please login to manage your wishlist.", { autoClose: 3000 });
@@ -103,7 +107,7 @@ const Product = () => {
 
   return (
     <>
-      <div className="max-padd-container bg-white">
+      <div className="max-padd-container mt-5 bg-white">
         <div className=" ">
           <div className="flex gap-10 flex-col xl:flex-row rounded-2xl p-3 mb-6">
             {/* Image Section */}
@@ -169,15 +173,13 @@ const Product = () => {
             </div>
             {/* Product Details Section */}
             <div className="flex-[1.5] rounded-2xl px-5 py-3 bg-primary border border-slate-400/50">
-              <div className="flex justify-between items-center">
+              <div className="flexBetween items-center">
                 <h3 className="h3 leading-none">{product.name}</h3>
                 <TiHeartFullOutline
                   onClick={handleWishlistClick}
-                  className={`cursor-pointer duration-300 transition-transform scale-150 hover:scale-125  ${
-                    isHighlighted
-                      ? "text-red-500 drop-shadow-lg"
-                      : "text-amber-500 bg-slate-800 p-0.5 rounded-full before:content=[''] before:-top-1 before:-left-1 before:border before:border-red"
-                  }`}
+                  className={`cursor-pointer text-amber-500 text-3xl hover:scale-110 transition-transform ${
+                    isHighlighted ? "text-red-500 drop-shadow-lg" : ""
+                  } ${isPulsing ? "animate-ping" : ""}`}
                 />
               </div>
               <div className="flex items-baseline gap-x-5">

@@ -56,7 +56,7 @@ const WishList = () => {
           className="flex items-center"
         >
           <Title
-            title1="Your "
+            title1="My "
             title2="Wish List"
             titleStyles="text-lg py-5 text-secondary"
           />
@@ -94,7 +94,7 @@ const WishList = () => {
                           <img
                             src={productData.image[0]} // Assuming first image is the main one
                             alt="productImg"
-                            className="w-40 rounded relative scale-125 hover:scale-110 duration-300"
+                            className="w-40 rounded relative  hover:scale-125 hover:-rotate-6 duration-300"
                             onClick={() =>
                               handleNavigateToProduct(productData._id)
                             } // Navigate on image click
