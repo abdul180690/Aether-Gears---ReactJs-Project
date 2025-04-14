@@ -86,4 +86,76 @@ const singleProduct = async (req, res) => {
     }
 }
 
-export {addProduct, removeProduct, listProducts, singleProduct}
+// controller function for Adding bulk products
+const addBulkProducts = async (req, res) => {
+    try {
+      const { products } = req.body;
+  
+      if (!Array.isArray(products)) {
+        return res.status(400).json({ success: false, message: "Invalid products data format" });
+      }
+  
+      // Process each product (can also validate each entry here)
+      const bulkProducts = products.map(prod => ({
+        name: prod.name,
+        description: prod.description,
+        price: prod.price,
+        category: prod.category,
+        popular: prod.popular || false,
+        colors: prod.colors || [],
+        image: prod.image || ['https://via.placeholder.com/150'], // fallback
+        date: Date.now()
+      }));
+  
+      // Insert into DB
+      await productModel.insertMany(bulkProducts);
+      res.json({ success: true, message: `${bulkProducts.length} products added successfully.` });
+    } catch (error) {
+      console.log(error);
+      res.json({ success: false, message: error.message });
+    }
+  };
+
+  // controller function for updating product
+  const updateProduct = async (req, res) => {
+    try {
+      const {
+        _id,
+        name,
+        description,
+        price,
+        category,
+        colors,
+        image,
+        popular
+      } = req.body;
+  
+      const updatedProduct = await productModel.findByIdAndUpdate(
+        _id,
+        {
+          name,
+          description,
+          price,
+          category,
+          colors,
+          image,
+          popular
+        },
+        { new: true }
+      );
+  
+      if (!updatedProduct) {
+        return res.status(404).json({ success: false, message: "Product not found" });
+      }
+  
+      res.json({ success: true, message: "Product updated successfully", updatedProduct });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  };
+  
+  
+  
+
+export {addProduct, removeProduct, listProducts, singleProduct, addBulkProducts, updateProduct}
