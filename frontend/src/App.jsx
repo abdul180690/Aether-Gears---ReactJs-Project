@@ -17,6 +17,24 @@ import WishList from './pages/WishList';
 import Contact from './pages/Contact';
 import Orders from './pages/Orders';
 import Verify from './pages/Verify';
+import ViewOrder from './components/ViewOrder';
+import HelpCenter from './components/HelpCenter';
+import PaymentMethods from './components/PaymentMethods';
+import Complaints from './components/Complaints';
+import PrivacyPolicy from './components/PrivaryPolicy';
+import CookieSettings from './components/CookiSettings';
+import TermsConditions from './components/TermsConditions';
+import Cancellation from './components/Cancellations';
+import Imprint from './components/Imprint';
+import OurTeams from './components/OurTeams';
+import Sustainability from './components/Sustainability';
+import Press from './components/Press';
+import Jobs from './components/Jobs';
+import Newsletter2 from './components/NewsLetter2';
+import ReturnsAndRefunds from './components/ReturnsAndRefunds';
+import FAQs from './components/FAQs';
+import ShippingAndDelivery from './components/ShippingAndDelivery';
+
 
 const App = () => {
   const location = useLocation();
@@ -35,6 +53,23 @@ const App = () => {
     '/login': 'Login',
     '/orders': 'My Orders',
     '/verify': 'Verify',
+    "/view-order/:orderId": "View Order",
+    "/helpcenter": "Help Center",
+    "/payment-methods": "Payment Methods",
+    "/complaints": "Complaints",
+    "/privacy-policy": "Privacy Policy",
+    "/cookie-settings": "Cookie Settings",
+    "/terms-conditions": "Terms & Conditions",
+    "/cancellation": "Cancellation",
+    "/imprint": "Imprint",
+    "/our-teams": "Our Teams",
+    "/sustainability": "Sustainability",
+    "/press": "Press",
+    "/jobs": "Jobs",
+    "/news-letter2": "News Letter",
+    "/returns-refunds": "Returns & Refunds",
+    "/faqs": "FAQs",
+    "/shipping-delivery": "Shipping and Delivery",
   };
 
   // Update the document title based on the route
@@ -44,7 +79,7 @@ const App = () => {
   }, [location]);
 
   return (
-    <main className="">
+    <main className="bg-primary">
       <ToastContainer />
       <Header />
       <TransitionGroup>
@@ -66,6 +101,25 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/verify" element={<Verify />} />
+            <Route path="/view-order/:orderId" element={<ViewOrder />} />
+            <Route path="/helpcenter" element={<HelpCenter />} />
+            <Route path="/payment-methods" element={<PaymentMethods />} />
+            <Route path="/complaints" element={<Complaints />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/cookie-settings" element={<CookieSettings />} />
+            <Route path="/terms-conditions" element={<TermsConditions />} />
+            <Route path="/cancellation" element={<Cancellation />} />
+            <Route path="/imprint" element={<Imprint />} />
+            <Route path="/our-teams" element={<OurTeams />} />
+            <Route path="/sustainability" element={<Sustainability />} />
+            <Route path="/press" element={<Press />} />
+            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/news-letter2" element={<Newsletter2 />} />
+            <Route path="/returns-refunds" element={<ReturnsAndRefunds />} />
+            <Route path="/faqs" element={<FAQs />} />
+            <Route path="/shipping-delivery" element={<ShippingAndDelivery />} />
+            
+
           </Routes>
         </CSSTransition>
       </TransitionGroup>
