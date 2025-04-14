@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import upload_icon from "../assets/upload_icon.png";
 import { backend_url } from "../App";
+import BulkProductUploader from "../components/BulkProductUploader";
 
 const Add = ({ token }) => {
   const [images, setImages] = useState({
@@ -13,7 +14,6 @@ const Add = ({ token }) => {
     image3: null,
     image4: null,
   });
-
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("100");
@@ -22,6 +22,7 @@ const Add = ({ token }) => {
   const [colors, setColors] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // Image Upload Handler
   const handleImageChange = (e, key) => {
     const file = e.target.files[0];
     if (file && !file.type.startsWith("image/")) {
@@ -35,11 +36,11 @@ const Add = ({ token }) => {
     setImages((prev) => ({ ...prev, [key]: file }));
   };
 
+  // Form Submit Handler
   const onSubmitHandler = useCallback(
     async (e) => {
       e.preventDefault();
 
-      // Basic Validation
       if (!name || !description || !price || !category) {
         toast.error("Please fill in all fields.");
         return;
@@ -102,6 +103,7 @@ const Add = ({ token }) => {
     [name, description, price, category, popular, colors, images, token]
   );
 
+  // Image Upload Component
   const ImageUpload = ({ imgKey, images, handleImageChange }) => (
     <label htmlFor={imgKey}>
       <img
@@ -120,6 +122,12 @@ const Add = ({ token }) => {
 
   return (
     <div className="px-2 xs:px-8 xs:pt-3 sm:px-8 mt-2 sm:mt-6 pb-16">
+      {/* Bulk products upload */}
+      <BulkProductUploader token={token} backend_url={backend_url}/>
+      <hr className="border-2 border-black/50"/>
+
+      {/* Single product upload */}
+      <h2 className="h3 mt-4">Add New Product</h2>
       <form
         onSubmit={onSubmitHandler}
         className="flex flex-col gap-y-3 medium-14 lg:w-[777px]"
@@ -180,7 +188,12 @@ const Add = ({ token }) => {
         </div>
 
         <div>
-          <h5 className="h5">Product Colors</h5>
+          <h5 className="h5">
+            Available Product Colors{" "}
+            <span className="text-xs text-gray-400">
+              (Choose atleast one or multiple colors)
+            </span>
+          </h5>
           <div className="flex gap-2 my-4">
             {["Black", "Red", "White", "Blue"].map((color, i) => (
               <div
@@ -209,7 +222,12 @@ const Add = ({ token }) => {
             ))}
           </div>
         </div>
-
+        <h5 className="h5">
+          Product Image {" "}
+          <span className="text-xs text-gray-400">
+            (Upload atleast one or multiple Images)
+          </span>
+        </h5>
         <div className="flex gap-3 pt-2">
           {["image1", "image2", "image3", "image4"].map((imgKey, i) => (
             <ImageUpload
@@ -256,4 +274,3 @@ const Add = ({ token }) => {
 };
 
 export default Add;
-
