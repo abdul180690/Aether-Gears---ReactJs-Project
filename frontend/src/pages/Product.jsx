@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Navigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import {
   FaCheck,
@@ -9,7 +9,6 @@ import {
 } from "react-icons/fa6";
 import { TiHeartFullOutline } from "react-icons/ti";
 import { MdAddShoppingCart, MdShoppingCartCheckout } from "react-icons/md";
-
 import ProductDescription from "../components/ProductDescription";
 import ProductFeatures from "../components/ProductFeatures";
 import RelatedProducts from "../components/RelatedProducts";
@@ -36,6 +35,7 @@ const Product = () => {
   const [isHighlighted, setIsHighlighted] = useState(false);
   const [isPulsing, setIsPulsing] = useState(false);
 
+  // Fetch product data
   const fetchProductData = async () => {
     const selectedProduct = products.find((item) => item._id === productId);
     if (selectedProduct) {
@@ -44,11 +44,13 @@ const Product = () => {
     }
   };
 
+  // Check if the product is in the wishlist
   useEffect(() => {
     fetchProductData();
     setIsHighlighted(isInWishlist(productId));
   }, [productId, products, isInWishlist]);
 
+  // Handle image zoom
   const handleMouseMove = (e) => {
     const { left, top, width, height } = e.target.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
@@ -56,6 +58,7 @@ const Product = () => {
     setZoomPosition({ x, y });
   };
 
+  // Handle adding/removing from wishlist
   const handleWishlistClick = async () => {
     setIsPulsing(true);
     setTimeout(() => setIsPulsing(false), 500);
@@ -83,6 +86,7 @@ const Product = () => {
     }
   };
 
+  // Handle Buy Now button
   const handleBuyNow = () => {
     if (!token) {
       toast.error("Please login to add items to your cart", {
@@ -94,6 +98,14 @@ const Product = () => {
     navigate("/place-order");
   };
 
+  // Product name on the document title
+  useEffect(() => {
+    if (product?.name) {
+      document.title = product.name;
+    }
+  }, [product]);
+
+  // If product is not found in the database show a loading screen
   if (!product) {
     return (
       <div>
@@ -177,7 +189,7 @@ const Product = () => {
                 <h3 className="h3 leading-none">{product.name}</h3>
                 <TiHeartFullOutline
                   onClick={handleWishlistClick}
-                  className={`cursor-pointer text-amber-500 text-3xl hover:scale-110 transition-transform ${
+                  className={`cursor-pointer text-amber-500 text-2xl hover:scale-110 transition-transform ${
                     isHighlighted ? "text-red-500 drop-shadow-lg" : ""
                   } ${isPulsing ? "animate-ping" : ""}`}
                 />

@@ -7,8 +7,8 @@ const RelatedProducts = ({ category }) => {
   const {products} = useContext(ShopContext);
   const [relatedProducts, setRelatedProducts] = useState([])
 
+  // Filter products based on category
   useEffect(()=> {
-    
     if(products.length > 0) {
         let filtered = products.slice()
         filtered = filtered.filter((item) => category === item.category);

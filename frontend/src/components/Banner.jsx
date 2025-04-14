@@ -8,7 +8,7 @@ const Banner = () => {
   return (
     <section className="max-padd-container py-5">
       <div className="flex flex-col sm:flex-row flex-wrap gap-4 xl:gap-14 gap-y-10">
-        {/* First Banner */}
+        {/* Left Banner */}
         <div className="flex-1 relative overflow-hidden rounded-xl shadow-lg group">
           <video
             src={banner1}
@@ -21,9 +21,9 @@ const Banner = () => {
           ></video>
           {/* Text Overlay */}
           <div className="absolute inset-0 bg-black bg-opacity-60 backdrop-blur-sm flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h2 className="text-3xl font-bold mb-2">Headphones</h2>
+            <h2 className="text-3xl font-bold mb-2 uppercase">Headphones</h2>
             <h2 className="text-2xl mb-2">Collection</h2>
-            <p className="text-5xl text-amber-300  font-bold mb-4">
+            <p className="text-5xl text-orange-600  font-bold mb-4 uppercase">
               Flat 30% Off
             </p>
             <p className="text-white">Use Code : <span>"FLAT30"</span></p>
@@ -36,7 +36,7 @@ const Banner = () => {
           </div>
         </div>
 
-        {/* Second Banner */}
+        {/* Right Banner */}
         <div className="flex-1 relative overflow-hidden rounded-xl shadow-lg group">
           <video
             src={banner2}
@@ -49,9 +49,9 @@ const Banner = () => {
           ></video>
           {/* Text Overlay */}
           <div className="absolute inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex flex-col justify-center items-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <h2 className="text-3xl font-bold mb-2">Cameras</h2>
+            <h2 className="text-3xl font-bold mb-2 uppercase">Cameras</h2>
             <h2 className="text-2xl mb-2">Collection</h2>
-            <p className="text-5xl text-amber-300 font-bold mb-4">
+            <p className="text-5xl text-amber-300 font-bold mb-4 uppercase">
               Flat 50% off
             </p>
             <p className="text-white">Use Code : <span>"FLAT50"</span></p>

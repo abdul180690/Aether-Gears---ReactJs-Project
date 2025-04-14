@@ -10,9 +10,10 @@ const NewArrivals = () => {
   const { products } = useContext(ShopContext);
   const [PopularProducts, setPopularProducts] = useState([]);
 
+  // Fetching only the first 8 products
   useEffect(() => {
     if (products && products.length > 0) {
-      const data = products.slice(0, 8); // Fetching only the first 7 products
+      const data = products.slice(0, 8);
       setPopularProducts(data);
     }
   }, [products]);
@@ -29,7 +30,7 @@ const NewArrivals = () => {
       {/* Swiper for product slides */}
       <Swiper
         autoplay={{
-          delay: 4000,
+          delay: 3000,
           disableOnInteraction: true,
         }}
         breakpoints={{
@@ -42,7 +43,7 @@ const NewArrivals = () => {
             spaceBetween: 10,
           },
           1024: {
-            slidesPerView: 4,
+            slidesPerView: 5,
             spaceBetween: 10,
           },
           1440: {
@@ -51,10 +52,10 @@ const NewArrivals = () => {
           },
         }}
         modules={[Autoplay]}
-        className="max-h-full"
+        className="h-[340px] "
       >
         {PopularProducts.map((product) => (
-          <SwiperSlide key={product._id}>
+          <SwiperSlide key={product._id} className="my-auto">
             <Item product={product} />
           </SwiperSlide>
         ))}

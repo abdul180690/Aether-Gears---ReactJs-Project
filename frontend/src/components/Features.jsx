@@ -30,21 +30,21 @@ const Features = () => {
   return ( 
     <section className='max-padd-container mt-16'>
         <div className=' flexBetween flex-wrap gap-1 rounded-2xl '>
-            <div className='flexCenter gap-x-3 bg-orange-500 p-3 rounded-xl shadow-md mb-4 scroll-section'>
+            <div className='flexCenter gap-x-3 bg-[#FFA725] p-3 rounded-xl shadow-md mb-4 scroll-section'>
                 <PiCurrencyInrBold className='text-4xl p-2 bg-white rounded-full'/>
                 <div>
                     <h4 className='medium-15 text-white'>MONEY-BACK GUARANTEE</h4>
                     <p className='text-slate-800'>100% refund guaranteed if you're not satisfied.</p>
                 </div>
             </div>
-            <div className='flexCenter gap-x-3 bg-orange-500 p-3 rounded-xl shadow-md mb-4 scroll-section'>
+            <div className='flexCenter gap-x-3 bg-[#FFA725] p-3 rounded-xl shadow-md mb-4 scroll-section'>
                 <TbTruckDelivery className='text-4xl p-2 bg-white rounded-full'/>
                 <div>
                     <h4 className='medium-15 text-white'>FREE SHIPPING & RETURNS</h4>
                     <p className='text-slate-800'>Free shipping available on all orders above ₹1000.</p>
                 </div>
             </div>
-            <div className='flexCenter gap-x-3 bg-orange-500 p-3 rounded-xl shadow-md mb-4 scroll-section'>
+            <div className='flexCenter gap-x-3 bg-[#FFA725] p-3 rounded-xl shadow-md mb-4 scroll-section'>
                 <BiSupport className='text-4xl p-2 bg-white rounded-full'/>
                 <div>
                     <h4 className='medium-15 text-white'>24/7 ONLINE SUPPORT</h4>

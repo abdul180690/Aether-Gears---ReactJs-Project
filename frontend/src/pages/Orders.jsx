@@ -8,7 +8,9 @@ import { MdDeliveryDining } from "react-icons/md";
 import { LuPackageCheck, LuPackageOpen } from "react-icons/lu";
 import { FaSearch, FaShippingFast } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { TbEyeShare } from "react-icons/tb";
 
+// Order Status Steps
 const statusSteps = [
   { label: "Order Placed", icon: <BiSolidBadgeCheck /> },
   { label: "Packing", icon: <LuPackageOpen /> },
@@ -23,9 +25,12 @@ const Orders = () => {
   const [filteredData, setFilteredData] = useState([]); // State for filtered data
   const [searchTerm, setSearchTerm] = useState(""); // State for search term
   const [sortOption, setSortOption] = useState("new"); // State for sorting orders (newest/oldest)
+  const [ratings, setRatings] = useState({});
+  const [productRatings, setProductRatings] = useState({});
 
   const navigate = useNavigate();
 
+  // Load order data
   const loadOrderData = async () => {
     try {
       if (!token) {
@@ -87,6 +92,7 @@ const Orders = () => {
     setFilteredData(sortedData);
   };
 
+  // Load order data on component mount
   useEffect(() => {
     loadOrderData();
   }, [token]);
@@ -111,7 +117,7 @@ const Orders = () => {
               <div className="w-3/4  flex items-center space-x-2 border rounded-lg px-3 py-2 bg-white shadow-md">
                 <input
                   type="text"
-                  placeholder="Product Name or Order Id"
+                  placeholder="Search your products here ..."
                   className="w-full outline-none border-none bg-transparent"
                   value={searchTerm}
                   onChange={handleSearch}
@@ -153,8 +159,7 @@ const Orders = () => {
               filteredData.map((item, i) => (
                 <div
                   key={i}
-                  className={`border p-4 mt-5 rounded-lg shadow-lg ${
-                    item.status === "Delivered" ? "bg-gray-400/40" : "bg-white"
+                  className={`border border-slate-300 p-4 mt-5 rounded-lg shadow-lg bg-white
                   }`}
                 >
                   <div className="text-gray-700 flex gap-4 sm:gap-6">
@@ -163,7 +168,7 @@ const Orders = () => {
                         <img
                           src={item.image[0]}
                           alt="orderImg"
-                          className="w-24 sm:w-32 rounded-lg aspect-square shadow-lg object-cover cursor-pointer"
+                          className="w-24 sm:w-32 rounded-lg aspect-square shadow-lg object-cover cursor-pointer hover:scale-110 transition-transform duration-300"
                           title="View Item"
                         />
                       </Link>
@@ -206,7 +211,9 @@ const Orders = () => {
                         </div>
                       </div>
                       <div className="lg:flex xs:flex-wrap justify-between items-center mt-4">
-                        <div className="flex items-center gap-4 my-3">
+                        <div className="flex items-center gap-2 my-3">
+                          <span className="font-medium">Status:</span>
+                          {/* Order Status */}
                           {statusSteps.map((step, index) => {
                             const isCompleted =
                               statusSteps.findIndex(
@@ -217,42 +224,65 @@ const Orders = () => {
                                 key={index}
                                 className="flex flex-col items-center text-sm"
                               >
-                                <span
-                                  className={`text-[22px] mb-2 ${
-                                    isCompleted
-                                      ? "bg-green-500 text-white p-2 rounded-full drop-shadow-lg ring-1 ring-green-600"
-                                      : " text-gray-400"
-                                  }`}
-                                >
-                                  {step.icon}
-                                </span>
-                                <p
-                                  className={`text-[10px] font-semibold text-nowrap me-2 ${
-                                    isCompleted
-                                      ? "text-green-600"
-                                      : "text-gray-400"
-                                  }`}
-                                >
-                                  {step.label}
-                                </p>
+                                {/* Show only "Delivered" when the status is Delivered */}
+                                {item.status === "Delivered" &&
+                                step.label !== "Delivered" ? null : (
+                                  <>
+                                    <span
+                                      className={`text-lg mb-2 ${
+                                        isCompleted
+                                          ? "bg-green-500 text-white p-1 rounded-full ring-1 ring-green-600 shadow-lg"
+                                          : "hidden"
+                                      }`}
+                                    >
+                                      {step.icon}
+                                    </span>
+                                    <p
+                                      className={`text-medium text-nowrap me-2 ${
+                                        isCompleted
+                                          ? "text-green-600"
+                                          : "hidden"
+                                      }`}
+                                    >
+                                      {step.label}
+                                    </p>
+                                  </>
+                                )}
                               </div>
                             );
                           })}
                         </div>
-                        <button
-                          onClick={loadOrderData}
-                          className={`text-nowrap ${
-                            item.status === "Delivered"
-                              ? "hidden"
-                              : "btn-secondary !p-2 !text-xs flexCenter"
-                          }`}
-                          title="View order status"
-                          disabled={item.status === "Delivered"}
-                        >
-                          <FaTruckArrowRight className="me-2 text-[16px]" />
-                          Track Order
-                        </button>
+                        <div className="flex gap-3">
+                          
+                          {/* View Order button */}
+                          <button
+                            onClick={() =>
+                              navigate(`/view-order/${item.orderId}`)
+                            }
+                            className="btn-secondary !p-2 !text-xs flexCenter"
+                            title="View Order Details"
+                          >
+                            <TbEyeShare className="me-2 text-[16px]" /> View
+                            Order
+                          </button>
+                          {/* Track order button */}
+                          <button
+                            onClick={loadOrderData}
+                            className={`text-nowrap ${
+                              item.status === "Delivered"
+                                ? "hidden"
+                                : "btn-secondary !p-2 !text-xs flexCenter"
+                            }`}
+                            title="View order status"
+                            disabled={item.status === "Delivered"}
+                          >
+                            <FaTruckArrowRight className="me-2 text-[16px]" />
+                            Track Order
+                          </button>
+                        </div>
+                        
                       </div>
+                     
                     </div>
                   </div>
                 </div>

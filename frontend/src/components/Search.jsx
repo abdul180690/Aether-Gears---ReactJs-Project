@@ -11,6 +11,7 @@ const Search = () => {
     window.SpeechRecognition || window.webkitSpeechRecognition;
   const speechRecognition = recognition ? new recognition() : null;
 
+  // Function to handle the microphone click event
   const handleMicClick = () => {
     if (speechRecognition) {
       // Set the recognition parameters

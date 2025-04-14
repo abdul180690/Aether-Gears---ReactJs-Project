@@ -42,6 +42,7 @@ const ProductDescription = () => {
       {/* Tab Content */}
       <hr className="h-[1px] w-full" />
       <div className="flex flex-col gap-3 p-3">
+        {/* Product Description */}
         {activeTab === "description" && (
           <div>
             <div>
@@ -75,6 +76,7 @@ const ProductDescription = () => {
             </div>
           </div>
         )}
+        {/* Care */}
         {activeTab === "care" && (
           <div>
           <h2 className="h4">Electronics Care Guide: How to Maintain Your Gadgets</h2>
@@ -161,8 +163,8 @@ const ProductDescription = () => {
           <h2>Conclusion</h2>
           <p>By following these simple care guidelines, you can help ensure that your electronics remain in excellent working condition for years to come. Regular maintenance and mindful handling can go a long way in prolonging the lifespan of your gadgets.</p>
         </div>
-        
         )}
+        {/* Color guide */}
         {activeTab === "color" && (
           <div className="color-guide">
           <h2 className="h4">Color Guide for Electronics Gadgets</h2>

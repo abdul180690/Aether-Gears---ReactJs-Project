@@ -4,8 +4,8 @@ import { blogs } from '../assets/data';
 const Blog = () => {
   const [animate, setAnimate] = useState(false);
 
+  // Animate on mount
   useEffect(() => {
-    // Trigger animation when the component is mounted
     setAnimate(true);
   }, []);
 
@@ -17,7 +17,7 @@ const Blog = () => {
           {blogs.map((blog, index) => (
             <div
               key={blog.title}
-              className={`relative border bg-white border-slate-400 rounded-xl p-2 blog-card shadow-lg ${
+              className={`relative border bg-white border-slate-300 rounded-xl p-2 blog-card shadow-lg ${
                 animate ? 'zoom-in-animation' : ''
               }`}
               style={{

@@ -1,20 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react';
-import Search from '../components/Search';
-import { ShopContext } from '../context/ShopContext';
-import Item from '../components/Item';
-import { MdKeyboardDoubleArrowRight } from 'react-icons/md';
-import notfound from '../assets/not-found.png';
-import Notification from '../components/Notification';
+import React, { useContext, useEffect, useState } from "react";
+import Search from "../components/Search";
+import { ShopContext } from "../context/ShopContext";
+import Item from "../components/Item";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
+import notfound from "../assets/not-found.png";
+import Notification from "../components/Notification";
 
 const Collection = () => {
   const { products = [], search } = useContext(ShopContext);
   const [category, setCategory] = useState([]);
-  const [sortType, setSortType] = useState('relevant');
+  const [sortType, setSortType] = useState("relevant");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 15;
+  const itemsPerPage = 10;
   const [open, setOpen] = useState(false);
 
+  // Function to toggle filter
   const toggleFilter = (value, setState) => {
     setState((prev) =>
       prev.includes(value)
@@ -23,6 +24,7 @@ const Collection = () => {
     );
   };
 
+  // Function to apply filters
   const applyFilter = () => {
     let filtered = [...products];
 
@@ -41,17 +43,19 @@ const Collection = () => {
     return filtered;
   };
 
+  // Function to apply sorting
   const applySorting = (productList) => {
     switch (sortType.toLowerCase()) {
-      case 'low':
+      case "low":
         return productList.sort((a, b) => a.price - b.price);
-      case 'high':
+      case "high":
         return productList.sort((a, b) => b.price - a.price);
       default:
         return productList;
     }
   };
 
+  // Update filtered products when products, category, sortType or search changes
   useEffect(() => {
     let filtered = applyFilter();
     let sorted = applySorting(filtered);
@@ -59,6 +63,7 @@ const Collection = () => {
     setCurrentPage(1);
   }, [category, sortType, products, search]);
 
+  // Function to get paginated products
   const getPaginatedProducts = () => {
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
@@ -70,7 +75,8 @@ const Collection = () => {
     1
   );
 
-  if (!products ) {
+  // Loading State
+  if (!products) {
     return (
       <div>
         <div className="flex items-center justify-center h-screen bg-slate-800">
@@ -83,31 +89,56 @@ const Collection = () => {
 
   return (
     <>
-      <div className="  max-padd-container !px-0">
+      <div className="max-padd-container !px-0">
         <Notification />
-        <Search  />
-        <div className="flex flex-col mt-2 sm:flex-row gap-2">
+        <Search />
+        <div className="flex flex-col mt-2 sm:flex-row gap-3">
           {/* Sidebar */}
           <div
             className={` rounded-xl ml-2 relative ${
-              open ? 'lg:w-[150px] xs:w-11/12 duration-500' : 'w-10 duration-500'
+              open
+                ? "lg:w-[150px] xs:w-11/12 duration-500"
+                : "w-10 duration-500"
             }`}
           >
             <MdKeyboardDoubleArrowRight
               onClick={() => setOpen(!open)}
-              className={` bg-gray-900 text-gray-100/90 text-3xl rounded-e-full absolute lg:-top-14 lg:right-5  md:-top-4 md:-right-1  xs:-top-8 xs:right-3 border border-slate-300 shadow-md cursor-pointer hover:scale-110 duration-300 ${
-                open ? 'rotate-180 duration-500  mt-0 lg:-mr-14 md:-mr-0 sm:-mr-32 xs:-mr-10' : 'transition-opacity duration-500'
-              }`}
+              className={`bg-gray-900 text-gray-100/90 text-3xl rounded-e-full absolute border border-slate-300 shadow-md cursor-pointer hover:scale-110 duration-300 transform transition-all
+                ${open ? "rotate-180" : ""}
+                /* Large Screens (lg) */
+                lg:-top-14 lg:right-20 lg:-mr-14 
+
+                /* Medium Screens (md) */
+                md:-top-4 md:right-1 md:-mr-5 
+
+                /* Small Screens (sm) */
+                sm:-top-6 sm:right-2 sm:-mr-8 
+
+                /* Extra Small Screens (xs) */
+                xs:-top-6 xs:right-8 xs:-mr-10
+              `}
             />
             {open && (
-              <>                
+              <>
                 <div className="pe-20 xs:pe-10 pl-5 py-5 bg-primary rounded-xl mb-4">
                   <h5 className="h5 mb-4">Categories</h5>
                   <div className="flex flex-col gap-2 text-sm font-light">
-                    {['Headphones', 'Cameras', 'Mobiles', 'Speakers', 'Mouse', 'Watches'].map((cat) => (
-                      <label key={cat} className="flex gap-2 medium-14 text-gray-30">
+                    {[
+                      "Headphones",
+                      "Cameras",
+                      "Mobiles",
+                      "Speakers",
+                      "Mouse",
+                      "Watches",
+                    ].map((cat) => (
+                      <label
+                        key={cat}
+                        className="flex gap-2 medium-14 text-gray-30"
+                      >
                         <input
-                          onChange={(e) => toggleFilter(e.target.value, setCategory)}
+                          onChange={(e) =>
+                            toggleFilter(e.target.value, setCategory)
+                          }
                           type="checkbox"
                           value={cat}
                           className="w-3"
@@ -134,7 +165,7 @@ const Collection = () => {
           </div>
 
           {/* Product List */}
-          <div className="px-5 rounded-xl">
+          <div className="px-5 rounded-xl lg:mt-0 xs:mt-5">
             <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6">
               {getPaginatedProducts().length > 0 ? (
                 getPaginatedProducts().map((product, index) => (
@@ -149,9 +180,16 @@ const Collection = () => {
                   </div>
                 ))
               ) : (
-                <div>
-                  <img src={notfound} alt="" className="w-72 h-68" loading='lazy' />
-                  <p className="h3">No Products found for selected filters</p>
+                <div className="mt-10 flex flex-col items-center justify-center text-center">
+                  <img
+                    src={notfound}
+                    alt=""
+                    className="w-72 h-68 mb-4"
+                    loading="lazy"
+                  />
+                  <p className="h3 text-center">
+                    No Products found
+                  </p>
                 </div>
               )}
             </div>
@@ -161,7 +199,9 @@ const Collection = () => {
               <button
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((prev) => prev - 1)}
-                className={`${currentPage === 1 && 'opacity-50 cursor-not-allowed'} bg-slate-700 text-white rounded-full !py-1 !px-3`}
+                className={`${
+                  currentPage === 1 && "opacity-50 cursor-not-allowed"
+                } bg-slate-700 text-white rounded-full !py-1 !px-3`}
               >
                 Previous
               </button>
@@ -170,7 +210,8 @@ const Collection = () => {
                   key={index + 1}
                   onClick={() => setCurrentPage(index + 1)}
                   className={`${
-                    currentPage === index + 1 && '!bg-slate-900 text-black text-xl transitions'
+                    currentPage === index + 1 &&
+                    "!bg-slate-900 text-black text-xl transitions"
                   } bg-slate-700 text-white rounded-full !py-1 !px-3`}
                 >
                   {index + 1}
@@ -179,7 +220,9 @@ const Collection = () => {
               <button
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage((prev) => prev + 1)}
-                className={`${currentPage === totalPages && 'opacity-50 cursor-not-allowed'} bg-slate-700 text-white rounded-full !py-1 !px-3`}
+                className={`${
+                  currentPage === totalPages && "opacity-50 cursor-not-allowed"
+                } bg-slate-700 text-white rounded-full !py-1 !px-3`}
               >
                 Next
               </button>

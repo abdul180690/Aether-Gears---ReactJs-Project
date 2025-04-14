@@ -3,6 +3,8 @@ import cards from "../assets/cards.png";
 import logo from "../assets/icon.png";
 import netbanking from "../assets/netbanking.png";
 import cod from "../assets/cod.png";
+import paypal from "../assets/paypal.png";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -21,8 +23,9 @@ const Footer = () => {
           </p>
           <div className="flex items-center gap-3">
             <img src={cards} alt="Payment Cards" width={144} className="" />
-            <img src={netbanking} alt="Net Banking" width={60} className="" />
-            <img src={cod} alt="Cash on Delivery" width={54} className="" />
+            <img src={paypal} alt="Payment Cards" width={100} className="" />
+            <img src={netbanking} alt="Net Banking" width={65} className="" />
+            <img src={cod} alt="Cash on Delivery" width={60} className="" />
           </div>
         </div>
 
@@ -31,87 +34,87 @@ const Footer = () => {
           <ul>
             <h4 className="h4 mb-3">Customer Service</h4>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/helpcenter" className="text-gray-400 hover:text-white transition-all">
                 Help center
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/payment-methods" className="text-gray-400 hover:text-white transition-all">
                 Payment methods
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/contact" className="text-gray-400 hover:text-white transition-all">
                 Contact
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/orders" className="text-gray-400 hover:text-white transition-all">
                 Shipping status
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/complaints" className="text-gray-400 hover:text-white transition-all">
                 Complaints
-              </a>
+              </Link>
             </li>
           </ul>
 
           <ul>
             <h4 className="h4 mb-3">Legal</h4>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/privacy-policy" className="text-gray-400 hover:text-white transition-all">
                 Privacy Policy
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/cookie-settings" className="text-gray-400 hover:text-white transition-all">
                 Cookie settings
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/terms-conditions" className="text-gray-400 hover:text-white transition-all">
                 Terms & conditions
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/cancellation" className="text-gray-400 hover:text-white transition-all">
                 Cancellation
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/imprint" className="text-gray-400 hover:text-white transition-all">
                 Imprint
-              </a>
+              </Link>
             </li>
           </ul>
 
           <ul>
             <h4 className="h4 mb-3">Others</h4>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/our-teams" className="text-gray-400 hover:text-white transition-all">
                 Our teams
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/sustainability" className="text-gray-400 hover:text-white transition-all">
                 Sustainability
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/press" className="text-gray-400 hover:text-white transition-all">
                 Press
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/jobs" className="text-gray-400 hover:text-white transition-all">
                 Jobs
-              </a>
+              </Link>
             </li>
             <li className="my-2">
-              <a href="#" className="text-gray-400 hover:text-white transition-all">
+              <Link to="/news-letter2" className="text-gray-400 hover:text-white transition-all">
                 Newsletter
-              </a>
+              </Link>
             </li>
           </ul>
         </div>

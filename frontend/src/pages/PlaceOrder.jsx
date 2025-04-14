@@ -5,26 +5,20 @@ import { ShopContext } from "../context/ShopContext";
 import PromoCode from "../components/PromoCode";
 import { TiArrowBack } from "react-icons/ti";
 import { BsBoxSeamFill } from "react-icons/bs";
-import { FaStripe } from "react-icons/fa6";
+import { SiRazorpay } from "react-icons/si";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const PlaceOrder = () => {
   const [method, setMethod] = useState("cod");
-  const {
-    navigate,
-    products,
-    cartItems,
-    setCartItems,
-    token,
-    backendUrl,
-  } = useContext(ShopContext);
+  const { navigate, products, cartItems, setCartItems, token, backendUrl } =
+    useContext(ShopContext);
 
   const [discount, setDiscount] = useState(0);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    email: "", 
+    email: "",
     street: "",
     city: "",
     state: "",
@@ -43,6 +37,7 @@ const PlaceOrder = () => {
     setFormData((data) => ({ ...data, [name]: value }));
   };
 
+  // Submit button Handler
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     if (!token) {
@@ -67,24 +62,27 @@ const PlaceOrder = () => {
         }
       }
 
-      let orderData = {
+      let commonOrderData = {
         address: formData,
         items: orderItems,
-        amount: totalAmount, 
+        amount: totalAmount,
       };
       switch (method) {
         // API call for COD
         case "cod":
+          const orderData = {
+            ...commonOrderData,
+            paymentMethod: "cod",
+            payment: false,
+            paymentStatus: "pending",
+          };
           const response = await axios.post(
             backendUrl + "/api/order/place",
             orderData,
             { headers: { token } }
           );
-          console.log(response.data);
           if (response.data.success) {
             setCartItems({});
-            // navigate("/orders");
-            // toast.success("Your Order Placed Successfully");
             localStorage.setItem("orderId", response.data.orderId);
             setOrderSuccess(true);
           } else {
@@ -92,19 +90,51 @@ const PlaceOrder = () => {
           }
           break;
 
-          // API call for Stripe
-          case 'stripe':
-            const responseStripe = await axios.post(backendUrl + "/api/order/stripe", orderData, {headers: {token}} )
-            if(responseStripe.data.success){
-              const {session_url} = responseStripe.data
-              window.location.replace(session_url);
-            } else {
-              toast.error(responseStripe.data.message);
+        // API call for Razorpay
+        case "razorpay":
+          const razorResponse = await axios.post(
+            `${backendUrl}/api/order/razorpay`,
+            {
+              amount: totalAmount * 100,
             }
-            break;
+          );
 
-        default:
-          toast.error("Invalid payment method.");
+          const { order } = razorResponse.data;
+
+          const options = {
+            key: "rzp_test_oT9MugG3Tsih9T", // Replace with test key
+            amount: totalAmount * 100,
+            currency: "INR",
+            name: "Aether Gears",
+            description: "Test Transaction",
+            handler: async function (response) {
+              const razorpayOrderData = {
+                ...commonOrderData,
+                paymentId: response.razorpay_payment_id,
+                paymentMethod: "razorpay",
+                payment: true,
+                paymentStatus: "paid",
+              };
+              const orderResult = await axios.post(
+                backendUrl + "/api/order/place",
+                razorpayOrderData,
+                { headers: { token } }
+              );
+              if (orderResult.data.success) {
+                setCartItems({});
+                localStorage.setItem("orderId", orderResult.data.orderId);
+                setOrderSuccess(true);
+              } else {
+                toast.error("Order placement failed.");
+              }
+            },
+            theme: {
+              color: "#121212",
+            },
+          };
+
+          const rzp = new window.Razorpay(options);
+          rzp.open();
           break;
       }
     } catch (error) {
@@ -136,7 +166,7 @@ const PlaceOrder = () => {
                     />
                     <label
                       for="firstName"
-                      class="pl-3 font-extrabold absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      class="pl-3  absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                     >
                       First Name
                     </label>
@@ -154,7 +184,7 @@ const PlaceOrder = () => {
                     />
                     <label
                       for="lastName"
-                      class="pl-3 font-extrabold absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      class="pl-3  absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                     >
                       Last Name
                     </label>
@@ -173,7 +203,7 @@ const PlaceOrder = () => {
                   />
                   <label
                     for="email"
-                    class="pl-3 font-extrabold absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    class="pl-3  absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Email Address
                   </label>
@@ -191,7 +221,7 @@ const PlaceOrder = () => {
                   />
                   <label
                     for="phoneNumber"
-                    class="pl-3 font-extrabold absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    class="pl-3  absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Phone Number
                   </label>
@@ -209,7 +239,7 @@ const PlaceOrder = () => {
                   />
                   <label
                     for="street"
-                    class="pl-3 font-extrabold absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                    class="pl-3  absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                   >
                     Street
                   </label>
@@ -229,7 +259,7 @@ const PlaceOrder = () => {
                     />
                     <label
                       for="city"
-                      class="pl-3 font-extrabold absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      class="pl-3  absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                     >
                       City
                     </label>
@@ -247,7 +277,7 @@ const PlaceOrder = () => {
                     />
                     <label
                       for="state"
-                      class="pl-3 font-extrabold absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      class="pl-3  absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                     >
                       State
                     </label>
@@ -268,7 +298,7 @@ const PlaceOrder = () => {
                     />
                     <label
                       for="zipCode"
-                      class="pl-3 font-extrabold absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      class="pl-3  absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                     >
                       Zip Code
                     </label>
@@ -286,7 +316,7 @@ const PlaceOrder = () => {
                     />
                     <label
                       for="country"
-                      class="pl-3 font-extrabold absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
+                      class="pl-3  absolute left-0 -top-5 text-gray-400 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
                     >
                       Country
                     </label>
@@ -296,7 +326,11 @@ const PlaceOrder = () => {
 
               <div className="flex flex-1 flex-col">
                 {/* Promo Code Input */}
-                <PromoCode setDiscount={setDiscount} cartData={cartItems} products={products} />
+                <PromoCode
+                  setDiscount={setDiscount}
+                  cartData={cartItems}
+                  products={products}
+                />
 
                 {/* Cart Total with applied discount */}
                 <CartTotal
@@ -311,21 +345,22 @@ const PlaceOrder = () => {
                       onClick={() => setMethod("cod")}
                       className={`${
                         method === "cod"
-                          ? "bg-slate-800 px-3 text-white rounded-lg text-nowrap flexCenter"
-                          : "bg-white px-3 text-slate-800  border-2 border-slate-800 rounded-lg text-nowrap flexCenter"
+                          ? "bg-slate-800 px-3 py-2 text-white rounded-lg text-nowrap flexCenter"
+                          : "bg-white px-3 py-2 text-slate-800  border-2 border-slate-800 rounded-lg text-nowrap flexCenter"
                       }  bold-14 cursor-pointer`}
                     >
-                      COD
+                      Cash On Delivery
                     </div>
                     <div
-                      onClick={() => setMethod("stripe")}
+                      onClick={() => setMethod("razorpay")}
                       className={`${
-                        method === "stripe"
-                          ? "bg-slate-800 px-3 text-white rounded-lg text-nowrap flexCenter"
-                          : "bg-white px-3 text-slate-800 border-2 border-slate-800 rounded-lg text-nowrap flexCenter"
+                        method === "razorpay"
+                          ? "bg-slate-800 px-3 py-2 text-white rounded-lg text-nowrap flexCenter"
+                          : "bg-white px-3 py-2 text-slate-800 border-2 border-slate-800 rounded-lg text-nowrap flexCenter"
                       }  bold-14 cursor-pointer`}
                     >
-                      <FaStripe className="text-4xl" />
+                      <SiRazorpay className="mr-1" />
+                      Razorpay
                     </div>
                   </div>
                 </div>
@@ -337,7 +372,10 @@ const PlaceOrder = () => {
                     <TiArrowBack className="me-2 text-xl" />
                     Back to Cart
                   </button>
-                  <button type="submit" className="flexCenter mt-6  relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-gray-800 rounded-lg py-1.5 px-5 text-white before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:w-full before:h-full before:rounded-lg before:border-2 before:border-gray-800 before:-z-100 before:transition-all">
+                  <button
+                    type="submit"
+                    className="flexCenter mt-6  relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-gray-800 rounded-lg py-1.5 px-5 text-white before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:w-full before:h-full before:rounded-lg before:border-2 before:border-gray-800 before:-z-100 before:transition-all"
+                  >
                     <BsBoxSeamFill className="me-2" />
                     Place Order
                   </button>

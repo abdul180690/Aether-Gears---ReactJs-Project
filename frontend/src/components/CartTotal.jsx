@@ -1,6 +1,6 @@
-import React, { useContext, useEffect } from 'react';
-import { ShopContext } from '../context/ShopContext';
-import Title from './Title';
+import React, { useContext, useEffect } from "react";
+import { ShopContext } from "../context/ShopContext";
+import Title from "./Title";
 
 const CartTotal = ({ discount, setTotalAmount }) => {
   const { currency, getCartAmount, delivery_charges } = useContext(ShopContext);
@@ -24,13 +24,14 @@ const CartTotal = ({ discount, setTotalAmount }) => {
 
   const totalAmount = Math.round(afterTaxAmount + shippingFee); // Final total (after tax + shipping)
 
+  // Update total amount in parent component
   useEffect(() => {
     setTotalAmount(totalAmount);
   }, [totalAmount, setTotalAmount]);
 
   // Function to format numbers with currency separator
   const formatCurrency = (amount) => {
-    return amount.toLocaleString('en-IN', {
+    return amount.toLocaleString("en-IN", {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2,
     });
@@ -101,9 +102,11 @@ const CartTotal = ({ discount, setTotalAmount }) => {
           Shipping Fee: <span className="font-bold">{}</span>
         </h5>
         <p className="text-gray-800">
-          {shippingFee === 0.0 ? ' FREE Delivery ' : currency + formatCurrency(shippingFee)}
+          {shippingFee === 0.0
+            ? " FREE Delivery "
+            : currency + formatCurrency(shippingFee)}
           <span className="line-through text-[12px]">
-            {shippingFee === 0.0 ? '₹ 100.00' : ''}
+            {shippingFee === 0.0 ? "₹ 100.00" : ""}
           </span>
         </p>
       </div>
@@ -124,7 +127,7 @@ const CartTotal = ({ discount, setTotalAmount }) => {
       <div className="flex justify-between items-center py-1">
         <h5 className="text-xl font-bold text-gray-900">Total:</h5>
         <p className="text-xl font-bold text-gray-900">
-          {currency} {formatCurrency(totalAmount)}
+          <span className="text-base">{currency}</span> {formatCurrency(totalAmount)}
         </p>
       </div>
     </section>

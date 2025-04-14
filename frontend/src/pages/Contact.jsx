@@ -44,7 +44,8 @@ const Contact = () => {
             title2={"Us"}
             titleStyles={"scroll-section"}
           />
-            <p className=" scroll-section text-xl animate-fade-in-up text-slate-800">We're here to help! Reach out to us for any questions or concerns.</p>
+            <p className="scroll-section text-xl lg:px-60 xs:px-5 text-slate-800">At <strong>Aether Gears</strong>, we’re passionate about bringing you the latest in cutting-edge technology and premium gear. Whether you have a question about our products, need assistance with an order, or just want to share your feedback, we’re here to help!</p>
+            <p className="scroll-section text-xl lg:px-60 xs:px-5 text-slate-800 mt-5">Our dedicated support team is ready to provide you with the best experience possible. Reach out to us—we’d love to hear from you!</p>
           </div>
         </div>
 
@@ -70,6 +71,7 @@ const Contact = () => {
               </div>
               <h3 className="text-2xl font-semibold mb-2">Call Us</h3>
               <p className="text-gray-600 text-lg">+91 - 98765 43210</p>
+              <p>Feel free to call 24/7</p>
             </div>
             <div className="scroll-section bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-purple-100 p-4 rounded-full mb-4">
@@ -90,6 +92,7 @@ const Contact = () => {
               </div>
               <h3 className="text-2xl font-semibold mb-2">Email Us</h3>
               <p className="text-gray-600 text-lg">support@aethergears.com</p>
+              <p>Write your queries and complaints</p>
             </div>
             <div className="scroll-section bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 text-center">
               <div className="inline-block bg-pink-100 p-4 rounded-full mb-4">
@@ -116,6 +119,7 @@ const Contact = () => {
               </div>
               <h3 className="text-2xl font-semibold mb-2">Visit Us</h3>
               <p className="text-gray-600 text-lg">123 Main Street, Madurai, India.</p>
+              <p>Heartly welcome to our shop location.</p>
             </div>
           </div>
         </div>
@@ -166,7 +170,7 @@ const Contact = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-orange-300 to-amber-600 text-white py-3 px-4 rounded-lg hover:from-orange-400 hover:to-amber-700 transition-all duration-300"
+                className="w-full bg-gradient-to-r from-orange-300 to-amber-600 text-slate-800 hover:tracking-widest py-3 px-4 rounded-lg hover:from-orange-400 hover:to-amber-700 hover:text-white hover:font-extrabold uppercase transition-all ease-in-out duration-300"
               >
                 Send Message
               </button>

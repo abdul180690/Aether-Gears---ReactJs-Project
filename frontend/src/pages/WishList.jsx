@@ -21,35 +21,33 @@ const WishList = () => {
 
   const navigate = useNavigate();
 
-  // Effect to update the wishlist state if it changes
+  // update the wishlist state if it changes
   useEffect(() => {
-    // Only update if wishListItems is not empty
     if (wishListItems && Object.keys(wishListItems).length > 0) {
       const updatedWishList = Object.keys(wishListItems).map((itemId) => {
-        // Get product details from wishListItems
         const product = wishListItems[itemId];
-        return { ...product, _id: itemId }; // Include itemId if needed
+        return { ...product, _id: itemId }; 
       });
       setWishListData(updatedWishList);
     }
   }, [wishListItems, products]);
 
+  // Remove item from wishlist
   const handleRemoveFromWishList = (id) => {
-    // Call the remove function from the context to update the wishlist
     removeFromWishList(id);
   };
 
+  // Navigate to product page
   const handleNavigateToProduct = (id) => {
-    // Navigate to the product details page when clicking on a product
     navigate(`/product/${id}`);
   };
 
   return (
     <>
-      <div className="max-padd-container pb-20 bg-white min-h-screen">
+      <div className="max-padd-container pb-20  min-h-screen">
         <motion.div 
-          initial={{ opacity: 0, x: -500 }} // Initial state: hidden and small
-          animate={{ opacity: 1, x: 0 }} // Animate to full opacity and normal scale
+          initial={{ opacity: 0, x: -500 }} 
+          animate={{ opacity: 1, x: 0 }} 
           transition={{
             duration: 0.5,
           }}  
@@ -66,8 +64,8 @@ const WishList = () => {
         </motion.div>
 
         {/* Render Wishlist Items */}
-        <div className="mt-5">
-          <div className="flex-1 flex-wrap gap-5 ">
+        <div className="mt-5 ">
+          <div className="gap-3 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
             {wishListData.length > 0 ? (
               wishListData.map((item, i) => {
                 // Find the product data using the item._id
@@ -80,24 +78,24 @@ const WishList = () => {
                   <motion.div
                     className="flex-1 "
                     key={i}
-                    initial={{ opacity: 0, y: 500, scale: 0 }} // Initial state: hidden and small
-                    animate={{ opacity: 1, y: 0, scale: 1 }} // Animate to full opacity and normal scale
+                    initial={{ opacity: 0, y: 500, scale: 0 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }} 
                     transition={{
-                      delay: i * 0.1, // Delay based on index for cascading effect
+                      delay: i * 0.1, 
                       duration: 0.5,
                     }}
                   >
-                    <div className="flex mt-5 border border-slate-300 bg-primary overflow-hidden  p-5 rounded-xl shadow-lg duration-300 zoom-in-animation">
+                    <div className="flex mt-5 border border-slate-300 bg-white overflow-hidden  p-5 rounded-xl shadow-lg duration-300 zoom-in-animation">
                       <div className="flex items-center">
                         {/* Product Image */}
                         <div className="cursor-pointer flexCenter">
                           <img
                             src={productData.image[0]} // Assuming first image is the main one
                             alt="productImg"
-                            className="w-40 rounded relative  hover:scale-125 hover:-rotate-6 duration-300"
+                            className="w-40 rounded relative  hover:scale-110  duration-300"
                             onClick={() =>
                               handleNavigateToProduct(productData._id)
-                            } // Navigate on image click
+                            } 
                           />
                         </div>
                       </div>
@@ -164,7 +162,7 @@ const WishList = () => {
                                 onClick={() =>
                                   addToCart(productData._id, color)
                                 }
-                                className="flexCenter relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-[#FCC737]  rounded-[3px] py-1.5 px-5 text-black before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:hover:border-0 before:w-full before:h-full before:rounded-[3px] before:border-e-2 before:border-b-2 before:border-slate-800 before:-z-100 before:transition-all duration-300"
+                                className="flexCenter relative font-medium -top-1 -left-1 hover:top-0 hover-left-0 transition-all bg-[#FCC737]   py-1.5 px-5 text-black before:content-[''] before:absolute before:top-1 before:left-1 before:hover:top-0 before:hover:left-0 before:hover:border-0 before:w-full before:h-full  before:border-e-4 before:border-b-4 before:border-slate-800 before:-z-100 before:transition-all duration-300"
                               >
                                 <TbShoppingBagPlus className="me-3  text-2xl bg-black text-white p-1 rounded-md" />
                                 Add To Cart

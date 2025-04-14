@@ -17,6 +17,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
 
+  // Submit handler for the form
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     try {
@@ -52,6 +53,7 @@ const Login = () => {
     }
   };
 
+  // Redirect to home if the user logged in
   useEffect(() => {
     if (token) {
       navigate("/");
@@ -69,7 +71,7 @@ const Login = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }} // Transition duration for the form
+            transition={{ duration: 0.5 }} 
           >
             {/* Animated Title */}
             <motion.div
@@ -82,10 +84,10 @@ const Login = () => {
                 <span className="underlined">{currState}</span>
               </h3>
               {currState === "Sign Up" && (
-                <img src={register} alt="" className="w-12 h-12 rounded-md"/>
+                <img src={register} alt="" className="w-12 h-12 rounded-md shadow-lg"/>
               )}
               {currState === "Login" && (
-                <img src={login} alt="" className="w-12 h-12 rounded-md"/>
+                <img src={login} alt="" className="w-12 h-12 rounded-md shadow-lg"/>
               )}
               
             </motion.div>
@@ -106,7 +108,7 @@ const Login = () => {
                   id="name"
                   name="name"
                   placeholder="Name"
-                  className="rounded-lg mb-3 pl-3 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-slate-600"
+                  className="rounded-lg mb-3 pl-3 peer h-10 w-full border-b-2 border-gray-400 text-gray-900 placeholder-transparent focus:outline-none focus:border-slate-600 shadow-lg"
                 />
                 <label
                   htmlFor="name"
@@ -132,7 +134,7 @@ const Login = () => {
                 id="email"
                 name="email"
                 placeholder="Email Address"
-                className="rounded-lg mb-3 pl-3 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-slate-600"
+                className="rounded-lg mb-3 pl-3 peer h-10 w-full border-b-2 border-gray-400 text-gray-900 placeholder-transparent focus:outline-none focus:border-slate-600 shadow-lg"
               />
               <label
                 htmlFor="email"
@@ -157,7 +159,7 @@ const Login = () => {
                 id="password"
                 name="password"
                 placeholder="Password"
-                className="rounded-lg mb-3 pl-3 peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-slate-600"
+                className="rounded-lg mb-3 pl-3 peer h-10 w-full border-b-2 border-gray-400 text-gray-900 placeholder-transparent focus:outline-none focus:border-slate-600 shadow-lg"
               />
               <label
                 htmlFor="password"
@@ -182,7 +184,7 @@ const Login = () => {
             {/* Submit button */}
             <motion.button
               type="submit"
-              className="p-5 bg-slate-900 text-primary !py-[8px] !rounded-full tracking-widest hover:px-7 hover:tracking-[5px] hover:shadow-lg duration-300 "
+              className="p-5 bg-slate-900 text-primary !py-[8px] !rounded-full tracking-widest hover:px-7 hover:tracking-[15px] hover:drop-shadow-lg duration-300 linear"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}

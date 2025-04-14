@@ -10,22 +10,25 @@ const About = () => {
   return (
     <section className='max-padd-container py-16'>
       <div className='flex flex-col md:flex-row gap-5 gap-y-10'>
+        {/* Textimonial */}
         <div className='flex-[1] flexCenter flex-col'>
           <Title title1={'People '} title2={'Says'} titleStyles={' h3 !pb-2 text-slate-900'}/>
           <img src={testimonial} alt="" height={55} width={55} className='rounded-full' loading='lazy'/>
           <h4 className='h4 mt-6'>Richard Clark</h4>
           <p className='relative bottom-2'>CEO At TechStack</p>
           <FaQuoteLeft className='text-3xl'/>
-          <p className='max-w-(222px) mt-5 text-center'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quod quam necessitatibus illo.</p>
+          <p className='max-w-(222px) mt-5 text-center'>I am incredibly impressed with Aether Gears' wide range of tech products. From mobile phones to headphones, watches, speakers, and computer mouses, they have it all! The quality and innovation speak for themselves, making them my go-to tech store.</p>
         </div>
+        {/* Trending */}
         <div className='flex-[2] flex rounded-2xl relative shadow-lg'>
-          <img src={about} alt="" className='rounded-2xl' loading='lazy'/>
+          <img src={about} alt="" className='' loading='lazy'/>
           <div className='absolute h-full w-full bg-black/10 top-0 left-0'/>
           <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white/80 p-6 rounded-xl'>
             <h4 className='bold-18 text-center text-slate-900'>Top view in this <br />week</h4>
             <h2 className='h2 uppercase text-blue-950'>Trending</h2>
           </div>
         </div>
+        {/* Features */}
         <div className='flex-[1] flexCenter flex-col'>
           <Title title1={'About '} title2={'Us'} titleStyles={' h3 !pb-2 text-slate-900'} />
           <div className='flex flex-col items-start'>

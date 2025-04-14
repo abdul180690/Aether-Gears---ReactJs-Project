@@ -4,21 +4,21 @@ import { FaXTwitter, FaFacebook, FaInstagram } from "react-icons/fa6";
 const NewsLetter = () => {
   useEffect(() => {
           const handleScroll = () => {
-            const sections = document.querySelectorAll(".scroll-section"); // Select all sections with class 'scroll-section'
+            const sections = document.querySelectorAll(".scroll-section"); 
             const windowHeight = window.innerHeight;
       
             sections.forEach((section) => {
               const rect = section.getBoundingClientRect();
               if (rect.top < windowHeight * 0.9 && rect.bottom >= 0) {
-                section.classList.add("in-view"); // Add 'in-view' when the section is in view
+                section.classList.add("in-view"); 
               } else {
-                section.classList.remove("in-view"); // Remove 'in-view' when the section is out of view
+                section.classList.remove("in-view");
               }
             });
           };
       
           window.addEventListener("scroll", handleScroll);
-          handleScroll(); // Trigger scroll check on mount
+          handleScroll(); 
       
           return () => {
             window.removeEventListener("scroll", handleScroll);

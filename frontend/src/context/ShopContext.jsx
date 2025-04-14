@@ -11,7 +11,7 @@ const ShopContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [token, setToken] = useState(``);
   const [user, setUser] = useState("");
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:4000";
   const navigate = useNavigate();
   const currency = "₹";
   const delivery_charges = 100;
@@ -20,10 +20,12 @@ const ShopContextProvider = (props) => {
   // Add item to the cart with color option
   const addToCart = async (itemId, color) => {
     if (!token) {
-      toast.error("Please login to add items to your cart", { autoClose: 3000 });
+      toast.error("Please login to add items to your cart", {
+        autoClose: 3000,
+      });
       return;
     }
-    
+
     if (!color) {
       toast.error("Please select the color first", { autoClose: 3000 });
       return;
@@ -57,16 +59,18 @@ const ShopContextProvider = (props) => {
           { headers: { token } }
         );
       } catch (error) {
-         console.log(error);
-         toast.error(error.message);
+        console.log(error);
+        toast.error(error.message);
       }
     }
   };
 
-   // Add item to the wishlist
-   const addToWishList = async (itemId) => {
+  // Add item to the wishlist
+  const addToWishList = async (itemId) => {
     if (!token) {
-      toast.error("Please login to add items to your wishlist", { autoClose: 3000 });
+      toast.error("Please login to add items to your wishlist", {
+        autoClose: 3000,
+      });
       return;
     }
 
@@ -95,8 +99,6 @@ const ShopContextProvider = (props) => {
     }
   };
 
-  
-
   // Get the count of items in the cart
   const getCartCount = () => {
     let totalCount = 0;
@@ -123,10 +125,13 @@ const ShopContextProvider = (props) => {
     if (cartData[itemId] && cartData[itemId][color] > 0) {
       cartData[itemId][color] = quantity;
       setCartItems(cartData);
-      if(token){
+      if (token) {
         try {
-          await axios.post(backendUrl + "/api/cart/update", {itemId, color, quantity}, {headers: {token}})
-
+          await axios.post(
+            backendUrl + "/api/cart/update",
+            { itemId, color, quantity },
+            { headers: { token } }
+          );
         } catch (error) {
           console.log(error);
           toast.error(error.message);
@@ -135,14 +140,14 @@ const ShopContextProvider = (props) => {
     }
   };
 
-
   // Get the total cart amount
   const getCartAmount = () => {
     return Object.keys(cartItems).reduce((total, itemId) => {
       const itemInfo = products.find((product) => product._id === itemId);
       if (itemInfo) {
         const itemTotal = Object.keys(cartItems[itemId]).reduce(
-          (itemTotal, color) => itemTotal + itemInfo.price * cartItems[itemId][color],
+          (itemTotal, color) =>
+            itemTotal + itemInfo.price * cartItems[itemId][color],
           0
         );
         total += itemTotal;
@@ -156,9 +161,8 @@ const ShopContextProvider = (props) => {
     return wishListItems[itemId] ? true : false;
   };
 
-
-   // Remove item from the wishlist
-   const removeFromWishList = async (itemId) => {
+  // Remove item from the wishlist
+  const removeFromWishList = async (itemId) => {
     if (!wishListItems[itemId]) {
       toast.warn("Item not found in the wishlist", { autoClose: 3000 });
       return;
@@ -185,7 +189,6 @@ const ShopContextProvider = (props) => {
     }
   };
 
-
   const getProductData = async () => {
     try {
       const response = await axios.get(backendUrl + "/api/product/list");
@@ -199,24 +202,32 @@ const ShopContextProvider = (props) => {
       toast.error(error.message);
     }
   };
-  
+
   // Getting user Cart
-  const getUserCart = async (token)=> {
+  const getUserCart = async (token) => {
     try {
-      const response = await axios.post(backendUrl + '/api/cart/get', {}, {headers: {token}})
-      if(response.data.success){
-        setCartItems(response.data.cartData)
+      const response = await axios.post(
+        backendUrl + "/api/cart/get",
+        {},
+        { headers: { token } }
+      );
+      if (response.data.success) {
+        setCartItems(response.data.cartData);
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.message);      
+      toast.error(error.message);
     }
-  }
+  };
 
   // Getting user WishList
   const getUserWishList = async (token) => {
     try {
-      const response = await axios.post(backendUrl + '/api/wishlist/get', {}, {headers: {token}})
+      const response = await axios.post(
+        backendUrl + "/api/wishlist/get",
+        {},
+        { headers: { token } }
+      );
       if (response.data.success) {
         setWishListItems(response.data.wishListData);
       }
@@ -230,16 +241,36 @@ const ShopContextProvider = (props) => {
   const getUserProfile = async (token) => {
     try {
       const response = await axios.get(backendUrl + "/api/user/profile", {
-        headers: { token: localStorage.getItem("token") },
+        headers: { token },
       });
       if (response.data.success) {
-        setUser(response.data.user); 
+        setUser(response.data.user);
       } else {
         toast.error("Failed to fetch user profile.");
       }
     } catch (error) {
       console.log(error);
-      toast.error("Error fetching user profile.");
+    }
+  };
+
+  // Function to login user
+  const login = async (email, password) => {
+    const response = await fetch("/api/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      setToken(data.token);
+      localStorage.setItem("token", data.token);
+      await getUserProfile(data.token); // Fetch user profile after login
+    } else {
+      alert(data.message);
     }
   };
 
@@ -252,8 +283,9 @@ const ShopContextProvider = (props) => {
   useEffect(() => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
-      getUserCart(localStorage.getItem('token'));
-      getUserWishList(localStorage.getItem('token'));
+      getUserCart(localStorage.getItem("token"));
+      getUserWishList(localStorage.getItem("token"));
+      getUserProfile(localStorage.getItem("token")); // Fetch profile on page refresh
     }
     getProductData();
   }, [token]);

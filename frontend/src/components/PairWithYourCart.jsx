@@ -62,7 +62,7 @@ const PairWithYourCart = ({ products, onNavigate }) => {
     }
   };
 
-  // UseEffect hook to run the filtering logic when cart items or products change
+  // Filtering logic when cart items or products change
   useEffect(() => {
     getRelatedProducts();
   }, [cartItems, products]);
@@ -78,7 +78,7 @@ const PairWithYourCart = ({ products, onNavigate }) => {
         {relatedItems.map((product, index) => (
           <motion.div
             key={product._id}
-            className="relative border rounded-lg p-4 bg-white overflow-hidden shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
+            className="relative border border-slate-300 rounded-lg p-4  overflow-hidden shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2, duration: 0.5 }}
@@ -99,7 +99,7 @@ const PairWithYourCart = ({ products, onNavigate }) => {
 
             {/* Show color selection when hovered */}
             {hoveredIndex === index && (
-              <div className="absolute bottom-0 left-0 right-0 bg-slate-600 bg-opacity-50 backdrop-blur-sm py-2 rounded-t-xl">
+              <div className="absolute bottom-0 left-0 right-0 bg-slate-600 bg-opacity-50 backdrop-blur-sm py-2 rounded-t-xl duration-300">
                 <div className="flex flex-col items-center gap-1">
                   {/* Select Color Buttons */}
                   <div className="mt-4 xs:mt-1">

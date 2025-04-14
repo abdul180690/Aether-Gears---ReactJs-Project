@@ -5,15 +5,18 @@ const Notification = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [popupContent, setPopupContent] = useState("");
 
+  // Open Offer details Popup
   const handleOpenPopup = (content) => {
     setPopupContent(content); 
     setIsPopupOpen(true); 
   };
 
+  // Close Offer details Popup 
   const handleClosePopup = () => {
     setIsPopupOpen(false);
   };
 
+  // Copy Promo Code
   const handleCopyPromoCode = () => {
     navigator.clipboard.writeText('NEWYEAR20')
       .then(() => {
