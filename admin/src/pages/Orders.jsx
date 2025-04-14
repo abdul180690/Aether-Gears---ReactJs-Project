@@ -1,22 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { PiPackageDuotone } from "react-icons/pi";
-import { AiOutlineSearch } from "react-icons/ai";
-import { IoClose } from "react-icons/io5";
-import { MdPictureAsPdf, MdDeliveryDining } from "react-icons/md";
-import { BiSolidSelectMultiple } from "react-icons/bi";
 import { backend_url } from "../App";
 import { jsPDF } from "jspdf";
-import { Chart, ArcElement, Tooltip, Legend, PieController } from "chart.js"; // Import Chart.js components
 import * as XLSX from "xlsx";
-import { RiFileExcel2Fill } from "react-icons/ri";
-import { TbPackages } from "react-icons/tb";
-import { LuPackagePlus, LuPackageOpen, LuPackageCheck } from "react-icons/lu";
-import { FaShippingFast } from "react-icons/fa";
-
-
-Chart.register(ArcElement, Tooltip, Legend, PieController);
+import JsBarcode from "jsbarcode";
+import OrderStatusChart from "../components/OrderStatusChart";
+import StatusCountCard from "../components/StatusCountCard";
+import OrderItem from "../components/OrderItem";
+import OrderControls from "../components/OrderControls";
+import OrderFilters from "../components/OrderFilters";
 
 const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
@@ -26,7 +19,7 @@ const Orders = ({ token }) => {
   const [selectedOrders, setSelectedOrders] = useState([]);
   const [sortOption, setSortOption] = useState("New");
   const [prevOrders, setPrevOrders] = useState([]);
-  const [statusFilter, setStatusFilter] = useState("All"); // Default to "All"
+  const [statusFilter, setStatusFilter] = useState("All");
   const [statusCounts, setStatusCounts] = useState({
     "Order Placed": 0,
     Packing: 0,
@@ -34,10 +27,15 @@ const Orders = ({ token }) => {
     "Out for Delivery": 0,
     Delivered: 0,
   });
-  const chartRef = useRef(null); // Ref for the chart canvas
-  const chartInstanceRef = useRef(null); // Ref for the chart instance
 
-  // Fetch orders from API
+  const statusColors = {
+    "Order Placed": "#E52020",
+    Packing: "#DF6D14",
+    Shipped: "#854836",
+    "Out for Delivery": "#0079FF",
+    Delivered: "#3A7D44",
+  };
+
   const fetchAllOrders = async () => {
     if (!token) return;
     try {
@@ -49,8 +47,8 @@ const Orders = ({ token }) => {
       if (response.data.success) {
         const ordersData = response.data.orders.reverse();
         setOrders(ordersData);
-        setFilteredOrders(ordersData); // Set all orders initially
-        updateStatusCounts(ordersData); // Update status counts
+        setFilteredOrders(ordersData);
+        updateStatusCounts(ordersData);
         setPrevOrders(ordersData);
       } else {
         toast.error(response.data.message);
@@ -61,7 +59,6 @@ const Orders = ({ token }) => {
     }
   };
 
-  // Function to check for new orders
   const checkForNewOrders = async () => {
     if (!token) return;
 
@@ -73,8 +70,6 @@ const Orders = ({ token }) => {
       );
       if (response.data.success) {
         const ordersData = response.data.orders.reverse();
-
-        // Compare with previous orders to check if there are new orders
         const newOrders = ordersData.filter(
           (newOrder) =>
             !prevOrders.some((prevOrder) => prevOrder._id === newOrder._id)
@@ -87,7 +82,7 @@ const Orders = ({ token }) => {
           setOrders(ordersData);
           setFilteredOrders(ordersData);
           updateStatusCounts(ordersData);
-          setPrevOrders(ordersData); // Update previous orders
+          setPrevOrders(ordersData);
         } else {
           toast.info("No New Orders 😞 ");
         }
@@ -100,7 +95,6 @@ const Orders = ({ token }) => {
     }
   };
 
-  // Update the status counts based on current orders
   const updateStatusCounts = (ordersData) => {
     const counts = {
       "Order Placed": 0,
@@ -113,56 +107,8 @@ const Orders = ({ token }) => {
       counts[order.status] = (counts[order.status] || 0) + 1;
     });
     setStatusCounts(counts);
-    updatePieChart(counts);
   };
 
-  // Update the pie chart with new data
-  const updatePieChart = (counts) => {
-    if (!chartRef.current) return;
-
-    const ctx = chartRef.current.getContext("2d");
-
-    if (chartInstanceRef.current) {
-      chartInstanceRef.current.destroy(); // Destroy the old chart
-    }
-
-    chartInstanceRef.current = new Chart(ctx, {
-      type: "pie",
-      data: {
-        datasets: [
-          {
-            label: "Count",
-            data: Object.values(counts),
-            backgroundColor: [
-              "#E52020", // OrderPlaced
-              "#DF6D14", // Packing
-              "#854836", // Shipped
-              "#0079FF", // OutForDelivery
-              "#3A7D44", // Delivered
-            ],
-            hoverOffset: 10,
-            borderWidth: 1,
-            borderColor: "#FBFFE4",
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        aspectRatio: 1,
-        plugins: {
-          legend: {
-            position: "top",
-          },
-          tooltip: {
-            enabled: true,
-          },
-        },
-      },
-    });
-  };
-
-  // Handle search input change and filter orders
   const handleSearchChange = (event) => {
     const searchQuery = event.target.value.toLowerCase();
     setSearchTerm(searchQuery);
@@ -208,7 +154,6 @@ const Orders = ({ token }) => {
     }
   };
 
-  // Handle status filter change
   const handleStatusChange = (event) => {
     setStatusFilter(event.target.value);
     if (event.target.value === "All") {
@@ -221,16 +166,14 @@ const Orders = ({ token }) => {
     }
   };
 
-  // Handle "Select All" button
   const handleSelectAll = () => {
     if (selectedOrders.length === filteredOrders.length) {
-      setSelectedOrders([]); // Deselect all if all are selected
+      setSelectedOrders([]);
     } else {
-      setSelectedOrders(filteredOrders.map((order) => order._id)); // Select all currently filtered orders
+      setSelectedOrders(filteredOrders.map((order) => order._id));
     }
   };
 
-  // Handle checkbox selection
   const handleCheckboxChange = (orderId) => {
     setSelectedOrders((prevSelectedOrders) =>
       prevSelectedOrders.includes(orderId)
@@ -239,7 +182,6 @@ const Orders = ({ token }) => {
     );
   };
 
-  // Handle order sorting
   const handleSortChange = (event) => {
     const sortedOrders = [...filteredOrders];
     const option = event.target.value;
@@ -254,7 +196,6 @@ const Orders = ({ token }) => {
     setFilteredOrders(sortedOrders);
   };
 
-  // Handle order status change
   const statusHandler = async (event, orderId) => {
     try {
       const response = await axios.post(
@@ -271,7 +212,12 @@ const Orders = ({ token }) => {
     }
   };
 
-  // Export selected orders as PDF
+  const generateBarcodeDataUrl = (text) => {
+    const canvas = document.createElement("canvas");
+    JsBarcode(canvas, text, { format: "CODE128", width: 1, height: 40 });
+    return canvas.toDataURL("image/png");
+  };
+
   const exportOrdersAsPDF = () => {
     if (selectedOrders.length === 0) {
       toast.error("At least select 1 order");
@@ -279,97 +225,147 @@ const Orders = ({ token }) => {
     }
 
     const doc = new jsPDF("p", "mm", "a4");
-    doc.setFontSize(11);
     const pageWidth = 210;
     const pageHeight = 297;
     const marginTop = 10;
     const lineHeight = 6;
     const additionalSpacing = 4;
-    const columnWidth = pageWidth - 20;
+    const leftX = 10;
+    const rightX = 110;
+    const columnWidth = 90;
     let currentY = marginTop;
+    let currentPage = 1;
 
-    // Add "View" status at the top
-    const viewStatusText = ` ${statusFilter}`;
+    const addWatermark = (yOffset) => {
+      doc.saveGraphicsState();
+      doc.setFontSize(45);
+      doc.setTextColor(240);
+      doc.setFont("times", "bolditalic");
+      doc.text("Aether Gears", pageWidth / 2, yOffset + 70, {
+        angle: 45,
+        align: "center",
+      });
+      doc.restoreGraphicsState();
+    };
+
+    const addFooter = () => {
+      doc.setFontSize(9);
+      doc.setTextColor(100);
+      doc.text(`Page ${currentPage}`, pageWidth / 2, pageHeight - 5, {
+        align: "center",
+      });
+    };
+
+    doc.setFontSize(11);
     doc.setFont("helvetica", "bold");
+    const viewStatusText = ` ${statusFilter}`;
     const statusTextWidth = doc.getTextWidth(viewStatusText);
-    const statusTextX = (pageWidth - statusTextWidth) / 2; // Center the text
-    doc.text(viewStatusText, statusTextX, currentY);
-
-    // Underline the "View" status text
-    doc.setLineWidth(0.5);
+    doc.text(viewStatusText, (pageWidth - statusTextWidth) / 2, currentY);
     doc.line(
-      statusTextX,
+      (pageWidth - statusTextWidth) / 2,
       currentY + 1,
-      statusTextX + statusTextWidth,
+      (pageWidth + statusTextWidth) / 2,
       currentY + 1
     );
+    currentY += 10;
 
-    currentY += 10; // Add some space after the header
+    selectedOrders.forEach((orderId, idx) => {
+      const order = orders.find((o) => o._id === orderId);
+      if (!order) return;
 
-    selectedOrders.forEach((orderId) => {
-      const order = orders.find((order) => order._id === orderId);
-      if (order) {
-        const orderData = [
-          `Order Date: ${new Date(order.date).toLocaleString()}`,
-          `Order ID: ${order.orderId}`,
-          `Name: ${order.address.firstName} ${order.address.lastName}`,
-          `Address: ${order.address.street}, ${order.address.city}, ${order.address.state}, ${order.address.zipcode}`,
-          `Total Items: ${order.items.length}`,
-          "Items: ",
-          ...order.items.map(
-            (item) => `${item.name} x ${item.quantity} - "${item.color}"`
-          ),
-          `Phone: ${order.address.phone}`,
-          `Order Amount: Rs. ${order.amount}`,
-          `Payment Status: ${order.payment ? "Done" : "COD"}`,
-        ];
+      addWatermark(currentY);
 
-        let totalOrderHeight = 0;
-        let maxLineWidth = 0;
+      const barcodeDataUrl = generateBarcodeDataUrl(order.orderId);
+      const barcodeWidth = 60;
+      const barcodeHeight = 20;
+      const barcodeY = currentY;
+      const orderDate = new Date(order.date);
+      const formattedDate = `Order Date: ${String(orderDate.getDate()).padStart(
+        2,
+        "0"
+      )}/${String(orderDate.getMonth() + 1).padStart(
+        2,
+        "0"
+      )}/${orderDate.getFullYear()}`;
 
-        orderData.forEach((text) => {
-          const wrappedText = doc.splitTextToSize(text, columnWidth);
-          wrappedText.forEach((line) => {
-            const lineWidth = doc.getTextWidth(line);
-            maxLineWidth = Math.max(maxLineWidth, lineWidth);
-          });
-          totalOrderHeight +=
-            wrappedText.length * lineHeight +
-            (wrappedText.length - 1) * additionalSpacing;
+      doc.setFont("helvetica", "normal");
+      doc.text(formattedDate, leftX, currentY + 10);
+
+      doc.addImage(
+        barcodeDataUrl,
+        "PNG",
+        rightX + 20,
+        barcodeY,
+        barcodeWidth,
+        barcodeHeight
+      );
+      currentY += barcodeHeight + additionalSpacing;
+
+      const leftYStart = currentY;
+
+      let y = leftYStart;
+      doc.setFont("helvetica", "bold");
+      doc.text("Customer Info:", leftX, y);
+      y += lineHeight;
+      doc.setFont("helvetica", "normal");
+      doc.text(
+        `Name: ${order.address.firstName} ${order.address.lastName}`,
+        leftX,
+        y
+      );
+      y += lineHeight;
+      const addr = `Address: ${order.address.street}, ${order.address.city}, ${order.address.state}, ${order.address.zipcode}`;
+      const wrappedAddr = doc.splitTextToSize(addr, columnWidth);
+      wrappedAddr.forEach((line) => {
+        doc.text(line, leftX, y);
+        y += lineHeight;
+      });
+      doc.text(`Phone: ${order.address.phone}`, leftX, y);
+      y += lineHeight;
+
+      let yRight = leftYStart;
+      doc.setFont("helvetica", "bold");
+      doc.text(`Items: ${order.items.length}`, rightX, yRight);
+      yRight += lineHeight;
+      doc.setFont("helvetica", "normal");
+
+      order.items.forEach((item) => {
+        const text = `${item.name} x ${item.quantity} - "${item.color}"`;
+        const lines = doc.splitTextToSize(text, columnWidth);
+        lines.forEach((line) => {
+          doc.text(line, rightX, yRight);
+          yRight += lineHeight;
         });
+      });
 
-        if (currentY + totalOrderHeight > pageHeight - 10) {
+      currentY = Math.max(y, yRight) + additionalSpacing;
+
+      doc.setFont("helvetica", "bold");
+      doc.text("Payment Details:", leftX, currentY);
+      currentY += lineHeight;
+      doc.setFont("helvetica", "normal");
+      doc.text(`Order Amount: Rs. ${order.amount}`, leftX, currentY);
+      currentY += lineHeight;
+      doc.text(
+        `Payment Status: ${order.payment ? "Done" : "COD"}`,
+        leftX,
+        currentY
+      );
+      currentY += lineHeight;
+
+      doc.setLineWidth(0.2);
+      doc.line(10, currentY, pageWidth - 10, currentY);
+      currentY += 2;
+
+      if (
+        currentY + 60 > pageHeight - 10 ||
+        idx === selectedOrders.length - 1
+      ) {
+        addFooter();
+        if (idx !== selectedOrders.length - 1) {
           doc.addPage();
           currentY = marginTop;
-        }
-
-        orderData.forEach((text) => {
-          const wrappedText = doc.splitTextToSize(text, columnWidth);
-          wrappedText.forEach((line, lineIndex) => {
-            if (
-              line.includes("Order Amount") ||
-              line.includes("Payment Status")
-            ) {
-              doc.setFont("helvetica", "bold");
-            } else {
-              doc.setFont("helvetica", "normal");
-            }
-            doc.text(line, 10, currentY, { maxWidth: columnWidth });
-            currentY += lineHeight;
-
-            if (lineIndex < wrappedText.length - 1) {
-              currentY += additionalSpacing;
-            }
-          });
-        });
-
-        const lineLength = maxLineWidth + 10;
-        doc.line(10, currentY, 10 + lineLength, currentY);
-        currentY += 8;
-
-        if (currentY + lineHeight > pageHeight - 10) {
-          doc.addPage();
-          currentY = marginTop;
+          currentPage++;
         }
       }
     });
@@ -377,7 +373,6 @@ const Orders = ({ token }) => {
     doc.save("selected_orders.pdf");
   };
 
-  // Handle clear search input
   const clearHandler = () => {
     setSearchTerm("");
     setFilteredOrders(orders);
@@ -403,13 +398,13 @@ const Orders = ({ token }) => {
           "Total Items": order.items.length,
           "Order Amount": `Rs. ${order.amount}`,
           "Payment Status": order.payment ? "Done" : "COD",
-          Status: order.status,
-          Items: order.items
+          "Order Status": order.status,
+          "Order Items": order.items
             .map((item) => `${item.name} x ${item.quantity} - ${item.color}`)
             .join(", "),
         };
       })
-      .filter(Boolean); // Remove null values
+      .filter(Boolean);
 
     const ws = XLSX.utils.json_to_sheet(selectedData);
     const wb = XLSX.utils.book_new();
@@ -418,23 +413,22 @@ const Orders = ({ token }) => {
     XLSX.writeFile(wb, "selected_orders.xlsx");
   };
 
+  const formatCurrency = (amount) => {
+    return amount.toLocaleString("en-IN", {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2,
+    });
+  };
+
   useEffect(() => {
     if (token) {
       fetchAllOrders();
     }
   }, [token]);
 
-  useEffect(() => {
-    // Create the chart only if we have valid statusCounts and chartRef is available
-    if (statusCounts && chartRef.current) {
-      updatePieChart(statusCounts);
-    }
-  }, [statusCounts]);
-
   return (
     <div className="px-4 sm:px-8 my-5">
-      {/* Button to check for new orders */}
-      <div className="mb-5">
+      <div className="mb-5 flex justify-end">
         <button
           onClick={checkForNewOrders}
           className="py-1 px-2 bg-blue-700 text-white rounded-md text-sm hover:bg-blue-500 duration-300"
@@ -442,236 +436,49 @@ const Orders = ({ token }) => {
           Check New orders
         </button>
       </div>
-      {/* Count Section */}
-      <div className="mb-10 p-5 rounded-xl shadow-lg border-b-8 border-black/70 bg-[#FFDFEF] flexCenter xs:flex-wrap gap-x-3 px-5  ">
-        <div className="mb-2 ">
+      <div className="mb-10 p-5 rounded-xl shadow-lg border-b-8 border-black/70 bg-[#FFDFEF] flexCenter xs:flex-wrap gap-x-3 px-5">
+        <div className="mb-2">
           <h5 className="h5 text-center text-black">Orders Status</h5>
-          <canvas
-            ref={chartRef}
-            id="pieChart"
-            width={150}
-            height={150}
-            className="drop-shadow-xl"
-          ></canvas>
+          <OrderStatusChart statusCounts={statusCounts} />
         </div>
-        <div className="">
-          {/* Total Order Counts  */}
-          <h2 className="h4 mb-5 text-center flexCenter"><TbPackages className="mr-2"/>Total Orders: {orders.length}</h2>
-          {/* Status Counts  */}
-          <div className="flex gap-5 justify-center px-3">
-            <div className="border-e  border-e-black  pe-5  text-center">
-              <p className="text-[#E52020] mb-5 font-semibold text-[13px]">
-                New Orders
-                <LuPackagePlus className="mx-auto text-2xl"/>
-              </p>
-              <span className="font-bold text-white px-5 py-2 bg-[#E52020] rounded-full shadow-lg">
-                {statusCounts["Order Placed"]}
-              </span>
-            </div>
-            <div className="border-e border-e-black pe-5 text-center">
-              <p className="text-[#DF6D14] mb-5 font-semibold text-[13px]">
-                Under Packing
-                <LuPackageOpen className="mx-auto text-2xl"/>
-              </p>
-              <span className="font-bold text-white px-5 py-2 bg-[#DF6D14] rounded-full shadow-lg">
-                {statusCounts.Packing}
-              </span>
-            </div>
-            <div className="border-e border-e-black pe-5 text-center">
-              <p className="text-[#854836] mb-5 font-semibold text-[13px]">
-                Shipped Orders
-                <FaShippingFast className="mx-auto text-2xl"/>
-              </p>
-              <span className="font-bold text-white px-5 py-2 bg-[#854836] rounded-full shadow-lg">
-                {statusCounts.Shipped}
-              </span>
-            </div>
-            <div className="border-e border-e-black pe-5 text-center">
-              <p className="text-[#0079FF] mb-5 font-semibold text-[13px]">
-                Out for Delivery
-                <MdDeliveryDining className="mx-auto text-2xl"/>
-              </p>
-              <span className="font-bold text-white px-5 py-2 bg-[#0079FF] rounded-full shadow-lg">
-                {statusCounts["Out for Delivery"]}
-              </span>
-            </div>
-            <div className=" text-center">
-              <p className="text-[#3A7D44] mb-5 font-semibold text-[13px]">
-                Delivered Orders
-                <LuPackageCheck className="mx-auto text-2xl"/>
-              </p>
-              <span className="font-bold text-white px-5 py-2 bg-[#3A7D44] rounded-full shadow-lg">
-                {statusCounts.Delivered}
-              </span>
-            </div>
-          </div>
-        </div>
+        <StatusCountCard
+          statusCounts={statusCounts}
+          totalOrders={orders.length}
+        />
       </div>
 
-      <div className="flexBetween gap-3 mb-5 lg:flex-nowrap xs:flex-wrap">
-        {/* Select Status Dropdown */}
-        <div className="flexCenter mb-1">
-          <p className="text-black pe-3">View </p>
-          <select
-            onChange={handleStatusChange}
-            value={statusFilter}
-            className="p-2  rounded-md  border  border-slate-400 text-sm"
-          >
-            <option value="All">All Orders</option>
-            <option value="Order Placed">Order Placed</option>
-            <option value="Packing">Packing</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Out for Delivery">Out for Delivery</option>
-            <option value="Delivered">Delivered</option>
-          </select>
-        </div>
-        {/* Search Input */}
-        <div className="relative w-[300px]  mb-1">
-          <AiOutlineSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 sm:text-xl text-lg" />
-          <input
-            type="text"
-            placeholder="Search here..."
-            className="p-2 pl-10 shadow-md rounded-lg w-full "
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-          <IoClose
-            onClick={clearHandler}
-            className="absolute right-2 top-1/4 text-xl cursor-pointer text-gray-400 hover:text-gray-700 duration-300"
-          />
-        </div>
+      <OrderFilters
+        statusFilter={statusFilter}
+        handleStatusChange={handleStatusChange}
+        searchTerm={searchTerm}
+        handleSearchChange={handleSearchChange}
+        clearHandler={clearHandler}
+        sortOption={sortOption}
+        handleSortChange={handleSortChange}
+      />
 
-        <div className="mb-1 flexCenter">
-          <p className="text-black me-3">Sort by </p>
-          <select
-            value={sortOption}
-            onChange={handleSortChange}
-            className="p-2 rounded-md  border border-slate-400 text-sm"
-          >
-            <option value="New" className="py-5">
-              New
-            </option>
-            <option value="Oldest" className="py-5">
-              Oldest
-            </option>
-          </select>
-        </div>
-      </div>
+      <OrderControls
+        handleSelectAll={handleSelectAll}
+        filteredOrders={filteredOrders}
+        exportOrdersAsPDF={exportOrdersAsPDF}
+        exportOrdersAsXLSX={exportOrdersAsXLSX}
+      />
 
-      <div className="flex gap-3 my-3">
-        <button
-          onClick={handleSelectAll}
-          disabled={filteredOrders.length === 0}
-          title="Deselect before change the view"
-          className="flexCenter px-2 py-2 xs:mb-1 text-[12px] rounded text-white bg-blue-700  hover:bg-blue-500 duration-300"
-        >
-          <BiSolidSelectMultiple className="me-1 text-lg" />
-          Select All
-        </button>
-        <button
-          onClick={exportOrdersAsPDF}
-          className=" mb-1 flexCenter bg-red-700 text-white text-[12px] p-1 px-2 rounded hover:bg-red-500 duration-300"
-          title="Select orders and then click"
-        >
-          Export as <MdPictureAsPdf className="ml-2 text-lg" />
-        </button>
-        <button
-          onClick={exportOrdersAsXLSX}
-          className="mb-1 flexCenter py-1 px-2 bg-green-600 text-white rounded text-[12px] hover:bg-green-500 duration-300 ml-2"
-        >
-          Export as <RiFileExcel2Fill className="ml-2 text-xl" />
-        </button>
-      </div>
       {noResults && (
         <div className="text-center text-red-500 pb-5">No orders found.</div>
       )}
 
-      {/* Order List */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 h-[75vh] pb-10 overflow-y-auto border-t-2 rounded-t-lg border-t-gray-400 pt-1">
         {filteredOrders.map((order) => (
-          <div
+          <OrderItem
             key={order._id}
-            className={`grid grid-cols-1 sm:grid-cols-[0.5fr_2fr_1fr] lg:grid-cols-[0.5fr_2.5fr_1fr_1fr] gap-4 items-start p-3 text-gray-700 rounded-lg shadow-lg ${
-              order.status === "Delivered" ? "bg-gray-300/50" : "bg-white"
-            }`}
-          >
-            <div className="flex ">
-              <input
-                type="checkbox"
-                onChange={() => handleCheckboxChange(order._id)}
-                checked={selectedOrders.includes(order._id)}
-                disabled={order.status === "Delivered"}
-                className="me-4"
-              />
-              <PiPackageDuotone className="lg:text-6xl text-secondary " />
-            </div>
-            <div className="">
-              <div className="medium-14">
-                Order Date: {new Date(order.date).toLocaleString()}
-              </div>
-              <div className="medium-14">
-                Order ID:{" "}
-                <p className="text-[13px] bg-gray-700 bg-opacity-50 text-white inline mx-1">
-                  {order.orderId}
-                </p>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="medium-14">Items: </div>
-                <div className="flex flex-col relative top-0.5">
-                  {order.items.map((item, index) => {
-                    return (
-                      <p key={index}>
-                        {item.name} x {item.quantity}{" "}
-                        <span>"{item.color}"</span>
-                      </p>
-                    );
-                  })}
-                </div>
-              </div>
-              <p className="medium-14">
-                <span className="text-tertiary">Name: </span>
-                {order.address.firstName + " " + order.address.lastName}
-              </p>
-              <p className="medium-14">
-                <span className="text-tertiary">Address: </span>
-                <span>{order.address.street + ", "}</span>
-                <span>{order.address.city + ", "}</span>
-                <span>{order.address.state + ", "}</span>
-                <span>{order.address.zipcode}</span>
-              </p>
-            </div>
-
-            <div>
-              <p className="text-sm">Total: {order.items.length}</p>
-              <p className="medium-14">
-                <span className="text-tertiary">Phone: </span>
-                {order.address.phone}
-              </p>
-              <p className="medium-14">
-                <span className="text-tertiary">Total Amount: </span>
-                Rs. {order.amount}
-              </p>
-              <p className="medium-14">
-                <span className="text-tertiary">Payment Status: </span>
-                {order.payment ? "Paid" : "COD"}
-              </p>
-            </div>
-            <div className="flexEnd">
-              <select
-                onChange={(event) => statusHandler(event, order._id)}
-                value={order.status}
-                className="w-full text-xs font-semibold p-1 ring-1 ring-slate-900/5 rounded max-w-36 bg-primary"
-                disabled={order.status === "Delivered"}
-              >
-                <option value="Order Placed">Order Placed</option>
-                <option value="Packing">Packing</option>
-                <option value="Shipped">Shipped</option>
-                <option value="Out for Delivery">Out for Delivery</option>
-                <option value="Delivered">Delivered</option>
-              </select>
-            </div>
-          </div>
+            order={order}
+            selectedOrders={selectedOrders}
+            handleCheckboxChange={handleCheckboxChange}
+            statusHandler={statusHandler}
+            statusColors={statusColors}
+            formatCurrency={formatCurrency}
+          />
         ))}
       </div>
     </div>
