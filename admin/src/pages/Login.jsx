@@ -27,7 +27,7 @@ const Login = ({ setToken }) => {
   };
 
   return (
-    <div className="absolute top-0 left-0 h-full w-full z-50 bg-white">
+    <div className="absolute top-0 left-0 h-full w-full z-50 bg-orange-500 flexCenter">
       <div className="flex h-full w-full">
         <div className="w-1/2 hidden sm:block">
           <img src={login} alt="" className="object-cover h-full w-full" />
@@ -37,25 +37,20 @@ const Login = ({ setToken }) => {
             onSubmit={onSubmitHandler}
             className="flex flex-col items-center w-[90%] sm:max-w-md m-auto gap-y-5 text-gray-800"
           >
+            <h2 className="h1 text-white drop-shadow-lg">Aether Gears</h2>
             <div className="w-full mb-4">
-              <h3 className="bold-36">Login</h3>
+              <h3 className="bold-36">Admin Login</h3>
             </div>
             <div className="w-full ">
-              <label htmlFor="email" className="medium-15">
-                Email
-              </label>
               <input
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
                 type="email"
                 placeholder="Email"
-                className="w-full px-3 py-1.5 ring-1 ring-slate-900/10 rounded bg-primary mt-1"
+                className=" w-full px-3 py-1.5 ring-1 ring-slate-900/10 rounded bg-primary mt-1"
               />
             </div>
             <div className="w-full">
-              <label htmlFor="password" className="medium-15">
-                Password
-              </label>
               <input
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
@@ -64,7 +59,10 @@ const Login = ({ setToken }) => {
                 className="w-full px-3 py-1.5 ring-1 ring-slate-900/10 rounded bg-primary mt-1"
               />
             </div>
-            <button type="submit" className="btn-dark w-full mt-5 !py-[9px]">
+            <button
+              type="submit"
+              className="btn-dark w-full mt-5 !py-[9px] hover:tracking-[10px] duration-300"
+            >
               Login
             </button>
           </form>
