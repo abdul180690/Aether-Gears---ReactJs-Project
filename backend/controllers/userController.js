@@ -19,7 +19,7 @@ const loginUser = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password)
         if(isMatch){
             const token = createToken(user._id)
-            res.json({success:true, token, name: user.name})
+            res.json({success:true, token, name: user.name, email: user.email})
         }
         else {
             res.json({success: false, message: "Invalid Credentials"})
@@ -88,4 +88,25 @@ const adminLogin = async (req, res) => {
     }
 }
 
-export {loginUser, registerUser, adminLogin}
+const getUserProfile = async (req, res) => {
+    try {
+      const token = req.headers.token;
+      if (!token) {
+        return res.json({ success: false, message: "Token not provided" });
+      }
+  
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await userModel.findById(decoded.id).select("-password");
+  
+      if (!user) {
+        return res.json({ success: false, message: "User not found" });
+      }
+  
+      res.json({ success: true, user: { name: user.name, email: user.email } });
+    } catch (error) {
+      console.log(error);
+      res.json({ success: false, message: error.message });
+    }
+  };
+
+export {loginUser, registerUser, adminLogin, getUserProfile};
