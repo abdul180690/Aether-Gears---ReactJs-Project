@@ -118,8 +118,6 @@ const App = () => {
             <Route path="/returns-refunds" element={<ReturnsAndRefunds />} />
             <Route path="/faqs" element={<FAQs />} />
             <Route path="/shipping-delivery" element={<ShippingAndDelivery />} />
-            
-
           </Routes>
         </CSSTransition>
       </TransitionGroup>
