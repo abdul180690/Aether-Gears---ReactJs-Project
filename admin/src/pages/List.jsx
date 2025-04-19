@@ -149,6 +149,7 @@ const List = ({ token }) => {
     }
   }, [selectedImage]);
 
+  // Format currency function
   const formatCurrency = (amount) => {
     return amount.toLocaleString("en-IN", {
       maximumFractionDigits: 2,
@@ -231,6 +232,7 @@ const List = ({ token }) => {
               "Name",
               "Description",
               "Category",
+              "Old Price",
               "Price",
               "Popular",
               "Colors",
@@ -241,6 +243,7 @@ const List = ({ token }) => {
               item.name,
               `"${item.description.replace(/"/g, '""')}"`, // Escape double quotes
               item.category,
+              item.oldPrice || "-",
               item.price,
               item.popular ? "Yes" : "No",
               `"${item.colors.join(", ").replace(/"/g, '""')}"`, // Join and wrap
@@ -277,6 +280,7 @@ const List = ({ token }) => {
               <th className="px-4 py-3 text-center">Description</th>
               <th className="px-4 py-3 text-center">Category</th>
               <th className="px-4 py-3 text-center">Available Colors</th>
+              <th className="px-4 py-3 text-center">Old Price</th>
               <th className="px-4 py-3 text-center">Price</th>
               <th className="px-4 py-3 text-center">Popular</th>
               <th className="px-4 py-3 text-center">Actions</th>
@@ -359,7 +363,7 @@ const List = ({ token }) => {
                         {item.colors.map((color, index) => (
                           <ImDroplet
                             key={index}
-                            className="text-2xl "
+                            className="text-2xl -rotate-12"
                             style={{ color: color }}
                             title={color}
                           />
@@ -370,7 +374,15 @@ const List = ({ token }) => {
                     )}
                   </div>
                 </td>
-
+                <td className="py-2 px-4 border border-black text-nowrap text-right font-semibold">
+                  {item.oldPrice ? (
+                    <span className="text-red-600 line-through">
+                      Rs. {formatCurrency(item.oldPrice)}
+                    </span>
+                  ) : (
+                    <span className="text-gray-400">-</span>
+                  )}
+                </td>
                 <td className="py-2 px-4 border border-black text-nowrap text-right font-semibold">
                   Rs. {formatCurrency(item.price)}
                 </td>
@@ -431,6 +443,23 @@ const List = ({ token }) => {
                   value={editProduct.category}
                   onChange={(e) =>
                     setEditProduct({ ...editProduct, category: e.target.value })
+                  }
+                />
+              </div>
+              <div className="grid grid-cols-1 gap-1">
+                <label htmlFor="" className="mr-1">
+                  Old Price
+                </label>
+                <input
+                  className="border-2 border-gray-300 focus:border-gray-600 focus:outline-none p-2 rounded"
+                  placeholder="Old Price"
+                  type="number"
+                  value={editProduct.oldPrice || ""}
+                  onChange={(e) =>
+                    setEditProduct({
+                      ...editProduct,
+                      oldPrice: e.target.value ? Number(e.target.value) : null,
+                    })
                   }
                 />
               </div>

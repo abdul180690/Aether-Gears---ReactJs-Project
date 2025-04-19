@@ -23,7 +23,40 @@ const OrderItem = ({
           disabled={order.status === "Delivered"}
           className="me-4"
         />
-        <PiPackageDuotone className="lg:text-6xl text-secondary " />
+        {order.items.length > 0 ? (
+          <div className="relative w-16 h-16">
+            {/* First image (front) */}
+            <img
+              src={order.items[0].image[0]}
+              alt={order.items[0].name}
+              className="absolute top-0 left-0 w-14 h-14 object-cover rounded-lg border-2 border-white shadow-md z-20 hover:z-20 hover:scale-105 transition-all"
+            />
+            {/* Second image (slightly behind) */}
+            {order.items.length > 1 && (
+              <img
+                src={order.items[1].image[0]}
+                alt={order.items[1].name}
+                className="absolute top-2 left-2 w-14 h-14 object-cover rounded-lg border-2 border-white shadow-md z-10 hover:z-20 hover:scale-105 transition-all"
+              />
+            )}
+            {/* Third image (further behind) */}
+            {order.items.length > 2 && (
+              <img
+                src={order.items[2].image[0]}
+                alt={order.items[2].name}
+                className="absolute top-4 left-4 w-14 h-14 object-cover rounded-lg border-2 border-white shadow-md z-0 hover:z-20 hover:scale-105 transition-all"
+              />
+            )}
+            {/* Badge for additional items */}
+            {order.items.length > 3 && (
+              <span className="absolute -bottom-1 -right-1 bg-gray-700 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center z-30">
+                +{order.items.length - 3}
+              </span>
+            )}
+          </div>
+        ) : (
+          <PiPackageDuotone className="lg:text-6xl text-secondary" />
+        )}
       </div>
       <div className="">
         <div className="medium-14">
@@ -35,7 +68,6 @@ const OrderItem = ({
             {order.orderId}
           </p>
         </div>
-        
 
         <div className="flex items-start gap-3">
           <div className="medium-14">Items: </div>
@@ -44,9 +76,10 @@ const OrderItem = ({
               return (
                 <p key={index}>
                   {item.name} x {item.quantity} <span>"{item.color}"</span>
-                  <span className="font-bold inline-block">(ID: {item._id})</span>
+                  <span className="font-bold inline-block">
+                    (ID: {item._id})
+                  </span>
                 </p>
-                
               );
             })}
           </div>
@@ -106,10 +139,7 @@ const OrderItem = ({
           <option value="Shipped" className="bg-[#854836] text-white">
             Shipped
           </option>
-          <option
-            value="Out for Delivery"
-            className="bg-[#0079FF] text-white"
-          >
+          <option value="Out for Delivery" className="bg-[#0079FF] text-white">
             Out for Delivery
           </option>
           <option value="Delivered" className="bg-[#3A7D44] text-white">
