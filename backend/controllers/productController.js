@@ -4,7 +4,7 @@ import productModel from "../models/productModel.js";
 // controller function for adding product
 const addProduct = async (req, res) => {
     try {
-        const {name, description, price, category, colors, popular} = req.body
+        const {name, description, price, oldPrice, category, colors, popular} = req.body
 
         // extracting images if provided
         const image1 = req.files?.image1?.[0];
@@ -32,6 +32,7 @@ const addProduct = async (req, res) => {
             name, 
             description,
             price,
+            oldPrice: oldPrice || null,
             category,
             popular: popular == 'true' ? true : false,
             colors: colors ? JSON.parse(colors) : [], //defaul to empty array if colors not provided
@@ -100,6 +101,7 @@ const addBulkProducts = async (req, res) => {
         name: prod.name,
         description: prod.description,
         price: prod.price,
+        oldPrice: prod.oldPrice || null,
         category: prod.category,
         popular: prod.popular || false,
         colors: prod.colors || [],
@@ -124,6 +126,7 @@ const addBulkProducts = async (req, res) => {
         name,
         description,
         price,
+        oldPrice,
         category,
         colors,
         image,
@@ -136,6 +139,7 @@ const addBulkProducts = async (req, res) => {
           name,
           description,
           price,
+          oldPrice,
           category,
           colors,
           image,
