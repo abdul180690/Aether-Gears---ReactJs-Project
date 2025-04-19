@@ -16,7 +16,8 @@ const Add = ({ token }) => {
   });
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("100");
+  const [oldPrice, setOldPrice] = useState("");
+  const [price, setPrice] = useState("");
   const [category, setCategory] = useState("Headphones");
   const [popular, setPopular] = useState(false);
   const [colors, setColors] = useState([]);
@@ -25,11 +26,13 @@ const Add = ({ token }) => {
   // Image Upload Handler
   const handleImageChange = (e, key) => {
     const file = e.target.files[0];
-    if (file && !file.type.startsWith("image/")) {
+    if (!file) return;
+    
+    if (!file.type.startsWith("image/")) {
       toast.error("Please upload a valid image file.");
       return;
     }
-    if (file && file.size > 5 * 1024 * 1024) {
+    if (file.size > 5 * 1024 * 1024) {
       toast.error("Image size should be less than 5MB.");
       return;
     }
@@ -41,17 +44,29 @@ const Add = ({ token }) => {
     async (e) => {
       e.preventDefault();
 
-      if (!name || !description || !price || !category) {
+      // Basic validation
+      if (!name || !description || !price || !oldPrice || !category) {
         toast.error("Please fill in all fields.");
         return;
       }
 
-      if (
-        !images.image1 &&
-        !images.image2 &&
-        !images.image3 &&
-        !images.image4
-      ) {
+      if (parseFloat(price) <= 0 || parseFloat(oldPrice) <= 0) {
+        toast.error("Prices must be greater than 0.");
+        return;
+      }
+
+      if (parseFloat(price) > parseFloat(oldPrice)) {
+        toast.error("Discounted price should be less than original price.");
+        return;
+      }
+
+      if (colors.length === 0) {
+        toast.error("Please select at least one color.");
+        return;
+      }
+
+      const uploadedImages = Object.values(images).filter(img => img !== null);
+      if (uploadedImages.length === 0) {
         toast.error("Please upload at least one product image.");
         return;
       }
@@ -61,9 +76,10 @@ const Add = ({ token }) => {
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
+        formData.append("oldPrice", oldPrice);
         formData.append("price", price);
         formData.append("category", category);
-        formData.append("popular", JSON.stringify(popular));
+        formData.append("popular", popular);
         formData.append("colors", JSON.stringify(colors));
 
         Object.keys(images).forEach((key) => {
@@ -78,43 +94,54 @@ const Add = ({ token }) => {
 
         if (response.data.success) {
           toast.success(response.data.message);
+          // Reset form
           setName("");
           setDescription("");
+          setOldPrice("");
           setPrice("");
           setImages({ image1: null, image2: null, image3: null, image4: null });
           setColors([]);
+          setPopular(false);
         } else {
           toast.error(response.data.message);
         }
       } catch (error) {
-        if (error.response) {
-          toast.error(error.response.data.message || "Server error occurred.");
-        } else if (error.request) {
-          toast.error(
-            "No response from the server. Please check your connection."
-          );
-        } else {
-          toast.error("An unexpected error occurred.");
-        }
+        const errorMessage = error.response?.data?.message || 
+                           error.request ? "No response from server" : 
+                           "An unexpected error occurred";
+        toast.error(errorMessage);
       } finally {
         setLoading(false);
       }
     },
-    [name, description, price, category, popular, colors, images, token]
+    [name, description, price, oldPrice, category, popular, colors, images, token]
   );
 
   // Image Upload Component
   const ImageUpload = ({ imgKey, images, handleImageChange }) => (
-    <label htmlFor={imgKey}>
+    <label htmlFor={imgKey} className="relative">
       <img
         src={images[imgKey] ? URL.createObjectURL(images[imgKey]) : upload_icon}
         alt=""
         className="w-16 h-16 aspect-square object-cover ring-1 ring-slate-900/5 rounded-lg cursor-pointer"
       />
+      {images[imgKey] && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setImages(prev => ({ ...prev, [imgKey]: null }));
+          }}
+          className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+        >
+          ×
+        </button>
+      )}
       <input
         onChange={(e) => handleImageChange(e, imgKey)}
         type="file"
         id={imgKey}
+        accept="image/*"
         hidden
       />
     </label>
@@ -141,6 +168,7 @@ const Add = ({ token }) => {
             type="text"
             placeholder="Write here..."
             className="px-3 py-1.5 ring-1 ring-slate-900/10 rounded bg-white mt-1 w-full max-w-lg"
+            required
           />
         </div>
 
@@ -153,6 +181,7 @@ const Add = ({ token }) => {
             rows={5}
             placeholder="Write here..."
             className="px-3 py-1.5 ring-1 ring-slate-900/10 rounded bg-white mt-1 w-full max-w-lg"
+            required
           />
         </div>
 
@@ -164,6 +193,7 @@ const Add = ({ token }) => {
               onChange={(e) => setCategory(e.target.value)}
               value={category}
               className="max-w-40 px-3 py-2 text-gray-30 ring-1 ring-slate-900/5 bg-white rounded"
+              required
             >
               <option value="Headphones">Headphones</option>
               <option value="Cameras">Cameras</option>
@@ -175,14 +205,29 @@ const Add = ({ token }) => {
           </div>
 
           <div>
-            <h5 className="h5">Product Price</h5>
+            <h5 className="h5">Original Price</h5>
             <input
-              id="productPrice"
+              id="oldPrice"
+              onChange={(e) => setOldPrice(e.target.value)}
+              value={oldPrice}
+              type="number"
+              min="1"
+              placeholder="100"
+              className="px-3 py-2 bg-white max-w-24 ring-1 ring-slate-900/5"
+              required
+            />
+          </div>
+          <div>
+            <h5 className="h5">Discounted Price</h5>
+            <input
+              id="price"
               onChange={(e) => setPrice(e.target.value)}
               value={price}
               type="number"
+              min="1"
               placeholder="100"
               className="px-3 py-2 bg-white max-w-24 ring-1 ring-slate-900/5"
+              required
             />
           </div>
         </div>
@@ -191,11 +236,11 @@ const Add = ({ token }) => {
           <h5 className="h5">
             Available Product Colors{" "}
             <span className="text-xs text-gray-400">
-              (Choose atleast one or multiple colors)
+              (Choose at least one or multiple colors)
             </span>
           </h5>
           <div className="flex gap-2 my-4">
-            {["Black", "Red", "White", "Blue"].map((color, i) => (
+            {["Black", "Red", "White", "Blue", "Silver", "Orange", "Yellow"].map((color, i) => (
               <div
                 key={i}
                 onClick={() =>
@@ -222,10 +267,11 @@ const Add = ({ token }) => {
             ))}
           </div>
         </div>
+
         <h5 className="h5">
-          Product Image {" "}
+          Product Images{" "}
           <span className="text-xs text-gray-400">
-            (Upload atleast one or multiple Images)
+            (Upload at least one or multiple images)
           </span>
         </h5>
         <div className="flex gap-3 pt-2">
