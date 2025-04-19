@@ -10,6 +10,7 @@ const BulkProductUploader = ({ token, backend_url }) => {
   const [bulkProducts, setBulkProducts] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  // Handle CSV Upload
   const handleCSVUpload = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -31,18 +32,21 @@ const BulkProductUploader = ({ token, backend_url }) => {
     });
   };
 
+  // Update product field
   const updateField = (index, field, value) => {
     const updated = [...bulkProducts];
     updated[index][field] = value;
     setBulkProducts(updated);
   };
 
+  // Remove product row
   const removeRow = (index) => {
     const updated = [...bulkProducts];
     updated.splice(index, 1);
     setBulkProducts(updated);
   };
 
+  // Upload bulk products
   const uploadBulkProducts = async () => {
     if (bulkProducts.length === 0) return toast.error("No products to upload.");
 
@@ -82,6 +86,7 @@ const BulkProductUploader = ({ token, backend_url }) => {
       "name",
       "description",
       "category",
+      "oldPrice",
       "price",
       "popular",
       "colors",
@@ -93,7 +98,8 @@ const BulkProductUploader = ({ token, backend_url }) => {
         "Galaxy Buds",
         "High-quality wireless earbuds with noise cancellation",
         "Headphones",
-        4999,
+        5999,  // oldPrice
+        4999,  // price
         true,
         "Black,White",
         "https://image1.jpg,https://image2.jpg",
@@ -102,7 +108,8 @@ const BulkProductUploader = ({ token, backend_url }) => {
         "Canon EOS",
         "Professional DSLR camera for photography",
         "Cameras",
-        59999,
+        69999, // oldPrice
+        59999, // price
         false,
         "Black",
         "https://camera1.jpg",
@@ -111,7 +118,8 @@ const BulkProductUploader = ({ token, backend_url }) => {
         "Aether Smartwatch",
         "Smartwatch with fitness tracking and AMOLED display",
         "Watches",
-        7999,
+        8999,  // oldPrice
+        7999,  // price
         true,
         "Black,Silver",
         "https://watch1.jpg,https://watch2.jpg",
@@ -191,6 +199,7 @@ const BulkProductUploader = ({ token, backend_url }) => {
                 <tr className="text-center bg-slate-700 text-white">
                   <th className="border-2 border-gray-300 p-2">Name </th>
                   <th className="border-2 border-gray-300 p-2">Description</th>
+                  <th className="border-2 border-gray-300 p-2">Old Price</th>
                   <th className="border-2 border-gray-300 p-2">Price</th>
                   <th className="border-2 border-gray-300 p-2">Category</th>
                   <th className="border-2 border-gray-300 p-2">Colors</th>
@@ -216,7 +225,17 @@ const BulkProductUploader = ({ token, backend_url }) => {
                         className="w-full px-1 border rounded text-wrap"
                         value={product.description || ""}
                         onChange={(e) =>
-                          updateField(index, "name", e.target.value)
+                          updateField(index, "description", e.target.value)
+                        }
+                      />
+                    </td>
+                    <td className="border-2 border-gray-300 p-1">
+                      <input
+                        type="number"
+                        className="w-full px-1 border rounded"
+                        value={product.oldPrice || ""}
+                        onChange={(e) =>
+                          updateField(index, "oldPrice", e.target.value)
                         }
                       />
                     </td>
@@ -254,10 +273,10 @@ const BulkProductUploader = ({ token, backend_url }) => {
                     </td>
                     <td className="border-2 border-gray-300 p-1">
                       <input
-                        className="w-full px-1 border rounded"
-                        value={product.popular || ""}
+                        type="checkbox"
+                        checked={product.popular || false}
                         onChange={(e) =>
-                          updateField(index, "popular", e.target.value)
+                          updateField(index, "popular", e.target.checked)
                         }
                       />
                     </td>
