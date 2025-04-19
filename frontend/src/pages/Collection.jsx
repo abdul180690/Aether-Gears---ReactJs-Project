@@ -12,7 +12,7 @@ const Collection = () => {
   const [sortType, setSortType] = useState("relevant");
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10;
+  const itemsPerPage = 16;
   const [open, setOpen] = useState(false);
 
   // Function to toggle filter
@@ -166,7 +166,7 @@ const Collection = () => {
 
           {/* Product List */}
           <div className="px-5 rounded-xl lg:mt-0 xs:mt-5">
-            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 gap-y-6">
+            <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 gap-y-6">
               {getPaginatedProducts().length > 0 ? (
                 getPaginatedProducts().map((product, index) => (
                   <div

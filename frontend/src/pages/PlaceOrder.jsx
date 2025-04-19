@@ -44,6 +44,27 @@ const PlaceOrder = () => {
       toast.error("You need to be logged in to place an order.");
       return;
     }
+
+    // Validate address fields
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "email",
+      "street",
+      "city",
+      "state",
+      "zipcode",
+      "phone",
+    ];
+    for (const field of requiredFields) {
+      if (!formData[field]) {
+        toast.error(
+          `Please fill in ${field.replace(/([A-Z])/g, " $1").toLowerCase()}`
+        );
+        return;
+      }
+    }
+
     try {
       let orderItems = [];
 
@@ -102,30 +123,60 @@ const PlaceOrder = () => {
           const { order } = razorResponse.data;
 
           const options = {
-            key: "rzp_test_oT9MugG3Tsih9T", // Replace with test key
+            key: "rzp_test_oT9MugG3Tsih9T",
             amount: totalAmount * 100,
             currency: "INR",
             name: "Aether Gears",
             description: "Test Transaction",
+            // Updated Razorpay handler in PlaceOrder.jsx
             handler: async function (response) {
-              const razorpayOrderData = {
-                ...commonOrderData,
-                paymentId: response.razorpay_payment_id,
-                paymentMethod: "razorpay",
-                payment: true,
-                paymentStatus: "paid",
-              };
-              const orderResult = await axios.post(
-                backendUrl + "/api/order/place",
-                razorpayOrderData,
-                { headers: { token } }
-              );
-              if (orderResult.data.success) {
-                setCartItems({});
-                localStorage.setItem("orderId", orderResult.data.orderId);
-                setOrderSuccess(true);
-              } else {
-                toast.error("Order placement failed.");
+              try {
+                const razorpayOrderData = {
+                  ...commonOrderData,
+                  paymentMethod: "razorpay",
+                  payment: true,
+                  paymentStatus: "paid",
+                  paymentId: response.razorpay_payment_id,
+                  razorpayOrderId: response.razorpay_order_id,
+                  razorpaySignature: response.razorpay_signature,
+                };
+
+                console.log("Sending order data:", razorpayOrderData); // Debug log
+
+                const orderResult = await axios.post(
+                  `${backendUrl}/api/order/place`,
+                  razorpayOrderData,
+                  { headers: { token } }
+                );
+
+                if (orderResult.data.success) {
+                  // Clear cart and show success
+                  setCartItems({});
+                  localStorage.setItem("orderId", orderResult.data.orderId);
+                  setOrderSuccess(true);
+
+                  // Verify payment with backend
+                  await axios.post(
+                    `${backendUrl}/api/order/verify-razorpay`,
+                    {
+                      orderId: orderResult.data.orderId,
+                      razorpay_payment_id: response.razorpay_payment_id,
+                      razorpay_order_id: response.razorpay_order_id,
+                      razorpay_signature: response.razorpay_signature,
+                      userId: commonOrderData.userId, // Make sure this is included
+                    },
+                    { headers: { token } }
+                  );
+                } else {
+                  toast.error(
+                    orderResult.data.message || "Order placement failed"
+                  );
+                }
+              } catch (error) {
+                console.error("Payment completion error:", error);
+                toast.error(
+                  error.response?.data?.message || "Payment verification failed"
+                );
               }
             },
             theme: {

@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { toast } from "react-toastify";
 import price_tag from "../assets/price_tag.png";
+import off_badge from "../assets/off_badge.png";
+
 
 const Item = ({ product }) => {
   const { addToWishList, removeFromWishList, addToCart, isInWishlist, token } =
@@ -66,9 +68,20 @@ const Item = ({ product }) => {
     });
   };
 
+  // Calculate discount percentage
+  const calculateDiscount = () => {
+    if (!product?.oldPrice || product.oldPrice <= product.price) return null;
+    const discount = Math.round(
+      ((product.oldPrice - product.price) / product.oldPrice) * 100
+    );
+    return discount > 0 ? discount : null;
+  };
+
+  const discountPercentage = calculateDiscount();
+
   return (
     <div
-      className="group w-[200px] h-[300px] perspective-1000 "
+      className="group xs:w-[220px] xs:h-[320px] md:w-[250px] md:h-[350px]  perspective-1000 "
       onMouseEnter={() => setIsFlipped(true)}
       onMouseLeave={() => setIsFlipped(false)}
     >
@@ -83,14 +96,31 @@ const Item = ({ product }) => {
           whileHover={{ rotateX: 0, rotateY: 0, scale: 1.02 }}
           transition={{ duration: 0.3 }}
           style={{
-            boxShadow: "8px 16px 24px rgba(0, 0, 0, 0.3)", 
+            boxShadow: "8px 16px 24px rgba(0, 0, 0, 0.3)",
           }}
           className="absolute w-full h-full bg-primary border border-slate-400/50 rounded-tl-3xl rounded-tr rounded-br-3xl rounded-bl overflow-hidden flex flex-col items-center justify-center backface-hidden"
         >
+          {/* Discount Badge*/}
+          {discountPercentage && (
+            <div className="absolute -rotate-12 bottom-8 left-1 z-10  font-bold  rounded-full  w-16 h-16 flex items-center justify-center "
+            style={{
+              backgroundImage: `url(${off_badge})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+            }}
+            >
+              <span className="-rotate-[26deg] text-[13px] font-extrabold bg-red-500 p-0.5 px-1 text-white">{discountPercentage}% 
+               <span className="text-[10px]"> OFF </span> 
+              </span>
+            </div>
+          )}
           <div className="absolute top-2 right-2  z-10 ">
             <TiHeartFullOutline
               className={` text-2xl  ${
-                isHighlighted ? "text-primary bg-red-600 p-1 rounded-full shadow-md shadow-black/50" : "hidden"
+                isHighlighted
+                  ? "text-primary bg-red-600 p-1 rounded-full shadow-md shadow-black/50"
+                  : "hidden"
               }`}
             />
           </div>
@@ -100,21 +130,37 @@ const Item = ({ product }) => {
                 key={index}
                 src={images[index]}
                 alt={`Product Image ${index + 1}`}
-                className="w-full h-full object-cover rounded-xl absolute"
+                className="w-full h-full object-cover absolute"
                 initial={{ opacity: 0, scale: 0.5, rotateY: 180 }}
                 animate={{ opacity: 1, scale: 1, rotateY: 0 }}
                 exit={{ opacity: 0, scale: 0.5, rotateY: -180 }}
                 transition={{ duration: 0.2 }}
               />
             </AnimatePresence>
-            <div className="absolute -bottom-2 right-2 w-[100px] h-[100px]">
+            <div className="absolute -bottom-2 right-2 w-[110px] h-[110px]">
               <img
                 src={price_tag}
                 alt="Price Tag"
                 className="w-full h-full rotate-[280deg] drop-shadow-lg"
               />
-              <h5 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-black -rotate-[32deg] ml-2 mt-0.5 ">
-                 <span className="text-nowrap text-[15px] font-extrabold "> <span className="text-[12px] font-bold">₹ </span>{formatCurrency(product?.price) || "N/A"}</span>
+              <h5 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-black -rotate-[32deg] ml-2 mt-0.5">
+                {product?.oldPrice ? (
+                  <>
+                    <span className="text-nowrap text-[16px] font-extrabold block">
+                      <span className="text-[10px] font-bold">₹ </span>
+                      {formatCurrency(product?.price) || "N/A"}
+                    </span>
+                    <span className="text-nowrap text-[12px] font-extrabold line-through text-gray-500">
+                      ₹ {formatCurrency(product.oldPrice)}
+                    </span>
+                    
+                  </>
+                ) : (
+                  <span className="text-nowrap text-[15px] font-extrabold ">
+                    <span className="text-[12px] font-bold">₹ </span>
+                    {formatCurrency(product?.price) || "N/A"}
+                  </span>
+                )}
               </h5>
             </div>
           </div>
@@ -127,7 +173,7 @@ const Item = ({ product }) => {
         <div
           className="absolute w-full h-full  text-white p-2 rounded-tr-3xl rounded-tl rounded-bl-3xl rounded-br flex flex-col justify-center transform rotate-y-180 backface-hidden"
           style={{
-            backgroundImage: `url(${images[0]})`,
+            backgroundImage: `url(${images[index]})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
@@ -139,8 +185,8 @@ const Item = ({ product }) => {
           <div className="absolute top-2 right-2 z-20">
             <TiHeartFullOutline
               onClick={handleWishlistClick}
-              className={`cursor-pointer text-amber-400 text-xl hover:scale-125 duration-300 transition-transform ${
-                isHighlighted ? "text-red-500 drop-shadow-lg" : ""
+              className={`cursor-pointer text-2xl hover:scale-125 duration-300 transition-transform ${
+                isHighlighted ? "text-white bg-red-500 p-1 rounded-full" : "text-amber-400 "
               } ${isPulsing ? "animate-ping" : ""}`}
             />
           </div>
@@ -148,17 +194,26 @@ const Item = ({ product }) => {
             to={`/product/${product?._id || "#"}`}
             className="absolute top-9 right-2 z-20"
           >
-            <FaEye className="cursor-pointer text-amber-400 text-xl hover:scale-125 duration-300 transition-transform " />
+            <FaEye className="cursor-pointer text-amber-400 text-2xl hover:scale-125 duration-300 transition-transform " />
           </Link>
           <div className="relative z-10 text-center">
             <h4 className="text-center font-semibold px-4">
               {product?.name || "Unnamed Product"}
             </h4>
-            <p className="text-sm line-clamp-3 text-gray-200 text-center mt-1 px-2">
+            <p className="text-sm line-clamp-4 text-gray-200 text-center mt-1 px-2">
               {product?.description || "No description available."}
             </p>
             <h5 className="text-center text-nowrap text-[16px] font-extrabold text-black bg-amber-300 inline-block rounded-md p-1 my-2">
-              ₹ {formatCurrency(product?.price) || "N/A"}/-
+              {product?.oldPrice ? (
+                <>
+                  <span className="line-through text-gray-500 text-[13px]  mr-2">
+                    ₹ {formatCurrency(product.oldPrice)}
+                  </span>
+                  ₹ {formatCurrency(product?.price) || "N/A"}/-
+                </>
+              ) : (
+                <>₹ {formatCurrency(product?.price) || "N/A"}/-</>
+              )}
             </h5>
           </div>
           
@@ -170,7 +225,7 @@ const Item = ({ product }) => {
                 <button
                   key={i}
                   onClick={() => setColor(item)}
-                  className={`h-7 w-7 rounded-tr-2xl  rounded-b-2xl border border-gray-400 shadow-md shadow-white/30 hover:ring-2 ring-white transition-all ${
+                  className={`h-7 w-7 rounded-tr-2xl  rounded-b-2xl border border-gray-400 shadow-md shadow-gray-200/50 hover:ring-2 ring-white transition-all ${
                     color === item ? "ring-2 ring-offset ring-primary" : ""
                   }`}
                   style={{ backgroundColor: item }}

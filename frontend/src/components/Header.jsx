@@ -39,11 +39,11 @@ const Header = () => {
             to={"/"}
             className="flex flex-1 px-3 items-center"
           >
-            <span className="me-2 rounded-2xl  bg-white p-1 ">
+            <span className="me-2 rounded-lg bg-white p-1">
               <img
                 src={logo}
                 alt="Logo"
-                className="lg:w-10 lg:h-10 xs:w-10 xs:h-10 shadow-lg shadow-black/40 rounded-full ring-1 ring-slate-950/30 "
+                className="lg:w-10 lg:h-10 xs:w-10 xs:h-10 ring-1 ring-slate-900 rounded-full  "
                 loading="lazy"
               />
             </span>

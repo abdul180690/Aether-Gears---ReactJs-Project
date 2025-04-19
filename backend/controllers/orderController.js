@@ -15,90 +15,63 @@ const razorpay = new Razorpay({
 });
 
 // conrtroller function for placing order using COD method
+// Enhanced placeOrder controller
 const placeOrder = async (req, res) => {
   try {
-    const { userId, items, amount, address } = req.body;
+    // Required fields validation
+    const requiredFields = ['userId', 'items', 'amount', 'address'];
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return res.status(400).json({
+          success: false,
+          message: `${field} is required`
+        });
+      }
+    }
 
-    const orderId = uuidv4();
+    // Validate items array
+    if (!Array.isArray(req.body.items)) {
+      return res.status(400).json({
+        success: false,
+        message: "Items must be an array"
+      });
+    }
 
     const orderData = {
-      orderId,
-      userId,
-      items,
-      amount,
-      address,
-      paymentMethod: "COD",
-      payment: false,
-      date: Date.now(),
+      orderId: uuidv4(),
+      userId: req.body.userId,
+      items: req.body.items,
+      amount: req.body.amount,
+      address: req.body.address,
+      paymentMethod: req.body.paymentMethod || "cod",
+      payment: req.body.payment || false,
+      paymentStatus: req.body.paymentStatus || "pending",
+      paymentId: req.body.paymentId || null,
+      date: Date.now()
     };
 
-    console.log("Order Data Before Saving:", orderData); // Debugging
+    console.log("Creating order with:", orderData);
 
     const newOrder = new orderModel(orderData);
     await newOrder.save();
 
-    await userModel.findByIdAndUpdate(userId, { cartData: {} });
+    // Clear user's cart only after successful order creation
+    await userModel.findByIdAndUpdate(req.body.userId, { cartData: {} });
 
-    res.json({ success: true, orderId, message: "OrderPlacedSuccessfully" });
+    res.json({
+      success: true,
+      orderId: newOrder.orderId,
+      message: "Order placed successfully"
+    });
+
   } catch (error) {
-    console.log(error);
-    res.json({ success: false, message: error.message });
+    console.error("Order creation error:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
   }
 };
-
-// conrtroller function for placing order using STRIPE method
-// const placeOrderStripe = async (req, res) => {
-//   try {
-//     const { userId, items, amount, address } = req.body;
-//     const {origin} = req.headers
-
-//     const orderData = {
-//       userId,
-//       items,
-//       amount,
-//       address,
-//       paymentMethod: "Stripe",
-//       payment: false,
-//       date: Date.now(),
-//     };
-
-//     const newOrder = new orderModel(orderData)
-//     await newOrder.save()
-
-//     const line_items = items.map((item)=> ({
-//       price_data: {
-//         currency: currency,
-//         product_data: {
-//           name: item.name
-//         },
-//         unit_amount: item.price * 100 * 87.85 // converting into inr currency
-//       },
-//       quantity: item.quantity
-//     }))
-//     line_items.push({
-//       price_data: {
-//         currency: currency,
-//         product_data: {
-//           name: "Delivery Charges"
-//         },
-//         unit_amount: deliveryCharges * 100 * 87.85
-//       },
-//       quantity : 1
-//     })
-
-//     const session = await stripe.checkout.sessions.create({
-//       success_url: `${origin}/verify?success=true&orderId=${newOrder._id}`,
-//       cancel_url: `${origin}/verify?success=false&orderId=${newOrder._id}`,
-//       line_items,
-//       mode: 'payment'
-//     })
-//     res.json({success:true, success_url:session.url})
-
-//   } catch (error) {
-//     console.log(error)
-//     res.json({success:false, message: error.mesage})
-//   }
-// };
 
 // controller function for placing order using RAZORPAY method
 const placeOrderRazorpay = async (req, res) => {
@@ -117,6 +90,9 @@ const placeOrderRazorpay = async (req, res) => {
       payment: false,
       date: Date.now(),
     };
+
+    console.log("Order Method:", paymentMethod); // Debugging
+    console.log("Order Data Before Saving:", orderData); // Debugging
 
     const newOrder = new orderModel(orderData);
     await newOrder.save();
@@ -143,54 +119,55 @@ const placeOrderRazorpay = async (req, res) => {
 // controller function for verifying razorpay payment
 const verifyRazorpay = async (req, res) => {
   try {
-    const {
-      razorpay_order_id,
-      razorpay_payment_id,
-      razorpay_signature,
-      orderId,
-      userId,
-    } = req.body;
+    const { orderId, razorpay_payment_id, razorpay_order_id, razorpay_signature, userId } = req.body;
 
+    if (!orderId || !razorpay_payment_id || !razorpay_order_id || !razorpay_signature) {
+      return res.status(400).json({
+        success: false,
+        message: "Missing payment verification data"
+      });
+    }
+
+    // Verify signature
     const generated_signature = crypto
       .createHmac("sha256", process.env.RAZORPAY_SECRET)
-      .update(razorpay_order_id + "|" + razorpay_payment_id)
+      .update(`${razorpay_order_id}|${razorpay_payment_id}`)
       .digest("hex");
 
-    if (generated_signature === razorpay_signature) {
-      await orderModel.findByIdAndUpdate(orderId, { payment: true });
-      await userModel.findByIdAndUpdate(userId, { cartData: {} });
-
-      res.json({ success: true, message: "Payment Verified" });
-    } else {
-      await orderModel.findByIdAndDelete(orderId);
-      res.json({ success: false, message: "Payment Verification Failed" });
+    if (generated_signature !== razorpay_signature) {
+      await orderModel.findOneAndDelete({ orderId });
+      return res.json({ 
+        success: false, 
+        message: "Payment verification failed - invalid signature" 
+      });
     }
+
+    // Update order status
+    await orderModel.findOneAndUpdate(
+      { orderId },
+      { 
+        payment: true,
+        paymentStatus: "paid",
+        paymentId: razorpay_payment_id
+      }
+    );
+
+    // Clear cart if not already done
+    await userModel.findByIdAndUpdate(userId, { cartData: {} });
+
+    res.json({ 
+      success: true, 
+      message: "Payment verified successfully" 
+    });
+
   } catch (error) {
-    console.log("Verify Razorpay Error:", error);
-    res.json({ success: false, message: error.message });
+    console.error("Verification error:", error);
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
   }
 };
-
-// controller function for verifying stripe (this is a temperory method for rest)
-// const verifyStripe = async (req, res) => {
-//   const {orderId, success, userId} = req.body
-
-//   try {
-//     if(success === 'true') {
-//       await orderModel.findByIdAndUpdate(orderId, {payment: true})
-//       await userModel.findByIdAndUpdate(userId, {cartData: {}})
-
-//       res.json({success: true})
-//     } else {
-//       await orderModel.findByIdAndDelete(orderId)
-//       res.json({success:false})
-//     }
-//   } catch (error) {
-//     console.log(error)
-//     res.json({success:false, message: error.message})
-
-//   }
-// }
 
 // controller function for getting all orders data for admin panel
 const allOrders = async (req, res) => {

@@ -42,16 +42,16 @@ const PopularProducts = () => {
             spaceBetween: 10,
           },
           1024: {
-            slidesPerView: 5,
+            slidesPerView: 4,
             spaceBetween: 10,
           },
           1440: {
-            slidesPerView: 5,
+            slidesPerView: 4,
             spaceBetween: 10,
           },
         }}
         modules={[Autoplay]}
-        className="h-[340px] "
+        className="h-[390px] "
       >
       {popularProducts.map((product) => (
         <SwiperSlide key={product._id} >
