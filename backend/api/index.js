@@ -22,4 +22,4 @@ app.use("/api/wishlist", wishListRouter);
 app.use("/api/order", orderRouter);
 app.get("/", (req, res) => res.send("API Working"));
 
-export default app;
+module.exports = app;
