@@ -11,11 +11,12 @@ import orderRouter from "../routes/orderRoute.js";
 
 const app = express();
 
-await connectDB();
-connectCloudinary();
-
-app.use(cors());
-app.use(express.json());
+(async () => {
+    await connectDB();
+    connectCloudinary();
+  
+    app.use(cors());
+    app.use(express.json());
 
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
@@ -24,7 +25,8 @@ app.use("/api/wishlist", wishListRouter);
 app.use("/api/order", orderRouter);
 
 app.get("/", (req, res) => {
-  res.send("API is working!");
-});
+    res.send("API is working!");
+  });
+})();
 
 export default app;
