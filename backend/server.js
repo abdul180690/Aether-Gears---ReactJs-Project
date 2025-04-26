@@ -30,4 +30,19 @@ app.get('/', (req, res) => {
     res.send('API Working')
 })
 
+// Health check endpoint for Render
+app.get('/health', (req, res) => {
+    res.status(200).json({ status: 'healthy' });
+  });
+
 app.listen(port, ()=> console.log("Server is running on PORT : "+ port))
+
+const corsOptions = {
+    origin: [
+      process.env.FRONTEND_URL, 
+      process.env.ADMIN_URL,
+      'http://localhost:4000' // for local testing
+    ],
+    credentials: true
+  }
+  app.use(cors(corsOptions));
