@@ -280,8 +280,8 @@ const List = ({ token }) => {
               <th className="px-4 py-3 text-center">Description</th>
               <th className="px-4 py-3 text-center">Category</th>
               <th className="px-4 py-3 text-center">Available Colors</th>
-              <th className="px-4 py-3 text-center">Old Price</th>
-              <th className="px-4 py-3 text-center">Price</th>
+              <th className="px-4 py-3 text-center">MRP Price</th>
+              <th className="px-4 py-3 text-center">AG Price</th>
               <th className="px-4 py-3 text-center">Popular</th>
               <th className="px-4 py-3 text-center">Actions</th>
             </tr>
