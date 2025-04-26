@@ -137,7 +137,7 @@ const Item = ({ product }) => {
                 transition={{ duration: 0.2 }}
               />
             </AnimatePresence>
-            <div className="absolute -bottom-2 right-2 w-[110px] h-[110px]">
+            <div className="absolute -bottom-4 right-2 w-[150px] h-[150px]">
               <img
                 src={price_tag}
                 alt="Price Tag"
@@ -146,13 +146,17 @@ const Item = ({ product }) => {
               <h5 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  text-black -rotate-[32deg] ml-2 mt-0.5">
                 {product?.oldPrice ? (
                   <>
-                    <span className="text-nowrap text-[16px] font-extrabold block">
-                      <span className="text-[10px] font-bold">₹ </span>
-                      {formatCurrency(product?.price) || "N/A"}
-                    </span>
-                    <span className="text-nowrap text-[12px] font-extrabold line-through text-gray-500">
-                      ₹ {formatCurrency(product.oldPrice)}
-                    </span>
+                    <div className="text-center">                      
+                      <span className="text-[8px]"></span>
+                      <span className="text-nowrap text-[14px]  font-extrabold block">
+                        <span className="text-[10px] font-bold">AG Price : ₹ </span>
+                        {formatCurrency(product?.price) || "N/A"}
+                      </span>
+                      <span className="text-[10px]">MRP : </span>
+                      <span className="text-nowrap text-[12px]  font-extrabold line-through text-gray-600">
+                        ₹ {formatCurrency(product.oldPrice)}
+                      </span>
+                    </div>
                     
                   </>
                 ) : (
