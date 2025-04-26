@@ -9,25 +9,22 @@ import cartRouter from "../routes/cartRoute.js";
 import wishListRouter from "../routes/wishListRoute.js";
 import orderRouter from "../routes/orderRoute.js";
 
-// Initialize DB and Cloudinary (only once)
+const app = express();
+
 await connectDB();
 connectCloudinary();
 
-// App Config
-const app = express();
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
-// Routes
-app.use('/api/user', userRouter);
-app.use('/api/product', productRouter);
-app.use('/api/cart', cartRouter);
-app.use('/api/wishlist', wishListRouter);
-app.use('/api/order', orderRouter);
+app.use("/api/user", userRouter);
+app.use("/api/product", productRouter);
+app.use("/api/cart", cartRouter);
+app.use("/api/wishlist", wishListRouter);
+app.use("/api/order", orderRouter);
 
-app.get('/', (req, res) => {
-  res.send('API Working from Vercel');
+app.get("/", (req, res) => {
+  res.send("API is working!");
 });
 
-// Export for Vercel
 export default app;
